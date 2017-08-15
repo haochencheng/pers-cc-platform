@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>pers-cc-demo</groupId>
+		<artifactId>pers-cc-demo</artifactId>
+		<version>1.0-SNAPSHOT</version>
+	</parent>
+	<artifactId>pers-cc-blog-web</artifactId>
+	<packaging>war</packaging>
+	<name>pers-cc-blog-web Maven Webapp</name>
+	<url>http://maven.apache.org</url>
+
+	<properties>
+	</properties>
+
+	<dependencies>
+		<!-- 工具类 -->
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>pers-cc-common-utils</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		
+		<!-- 依赖blog-service -->
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>pers-cc-blog-service</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		
+	</dependencies>
+	<build>
+		<finalName>pers-cc-blog-web</finalName>
+		<!-- java编译插件 -->
+		<plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-compiler-plugin</artifactId>
+			<configuration>
+				<source>1.8</source>
+				<target>1.8</target>
+				<encoding>UTF-8</encoding>
+				<url>http://localhost:8080/</url>
+				<path>/</path>
+			</configuration>
+		</plugin>
+	</build>
+</project>

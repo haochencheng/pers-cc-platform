@@ -1,0 +1,160 @@
+ .syntaxhighlighter
+{
+	width: 100% !important;
+	margin: .3em 0 .3em 0 !important;
+	position: relative !important;
+	overflow: auto !important;
+	background-color: #f5f5f5 !important;
+	border: 1px solid #ccc !important;
+	border-radius: 4px !important;
+	border-collapse: separate !important
+} 
+
+/* Highlighed line number */
+.syntaxhighlighter .line.highlighted .number
+{
+	background-color: #3A3A00;
+	color: #fff;
+}
+
+/* Highlighed line */
+.syntaxhighlighter .line.highlighted .content
+{
+	background-color: #3A3A00 !important;
+}
+
+/* Gutter line numbers */
+.syntaxhighlighter .line .number
+{
+	color: #C3C3C3;
+}
+
+/* Add border to the lines */
+.syntaxhighlighter .line .content
+{
+	border-left: 3px solid #3185B9;
+	color: #B9BDB6;
+}
+
+.syntaxhighlighter.printing .line .content 
+{
+	border: 0;
+}
+
+/* First line */
+.syntaxhighlighter .line.alt1 .content
+{
+}
+
+/* Second line */
+/*   .syntaxhighlighter .line.alt2 .content
+{
+	background-color: #000000;
+}  */ 
+
+.syntaxhighlighter .line .content .block
+{
+	border: none !important
+}
+
+.syntaxhighlighter .ruler
+{
+	color: silver;
+	border-left: 3px solid #3185B9;
+}
+
+.syntaxhighlighter.nogutter .ruler
+{
+	border: 0;
+}
+
+/*  .syntaxhighlighter .toolbar
+{
+	background-color: #000000;
+	border: #000000 solid 1px;
+} */
+ 
+.syntaxhighlighter .toolbar a
+{
+	color: white !important
+}
+
+.syntaxhighlighter .toolbar a:hover
+{
+	color: black !important
+}
+
+/************************************
+ * Actual syntax highlighter colors.
+ ************************************/
+.syntaxhighlighter .plain, .syntaxhighlighter .plain a {
+    color: black!important;
+}
+
+.syntaxhighlighter .comments,
+.syntaxhighlighter .comments a
+{ 
+	color: #008200 !important
+}
+
+.syntaxhighlighter .string, .syntaxhighlighter .string a {
+    color: blue !important
+}
+
+.syntaxhighlighter .keyword {
+    font-weight: bold!important;
+}
+
+.syntaxhighlighter .preprocessor 
+{ 
+	color: #435A5F; 
+}
+
+.syntaxhighlighter .variable 
+{ 
+	color: #898989; 
+}
+
+.syntaxhighlighter .keyword {
+	color: #ff7800 !important
+}
+
+.syntaxhighlighter .value
+{ 
+	color: #a70 !important
+}
+
+.syntaxhighlighter .functions
+{ 
+	color: #ff1493 !important
+}
+
+.syntaxhighlighter .constants
+{ 
+	color: #06c !important
+}
+
+.syntaxhighlighter .script
+{ 
+	font-weight: bold !important;
+	color: #ff7800 !important;
+	background-color: none !important
+}
+
+.syntaxhighlighter .color1,
+.syntaxhighlighter .color1 a
+{ 
+	color: gray !important
+}
+
+.syntaxhighlighter .color2,
+.syntaxhighlighter .color2 a
+{ 
+	color: #ff1493 !important
+}
+
+.syntaxhighlighter .color3,
+.syntaxhighlighter .color3 a
+{ 
+	color: red !important
+}
