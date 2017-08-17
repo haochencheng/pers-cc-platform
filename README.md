@@ -7,5 +7,7 @@ cc个人框架
 pers-cc-blog-web
 pers-cc-blog-service
 
+loginUrl localhost:8080/cc/
+
 改造 java开源博客系统 
 http://blog.java1234.com/index.html
