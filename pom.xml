@@ -11,8 +11,6 @@
 		<version>1.5.2.RELEASE</version>
 	</parent>
 
-
-
 	<properties>
 		<spring-boot-version>1.5.2.RELEASE</spring-boot-version>
 		<common-util-version>0.0.1-SNAPSHOT</common-util-version>
@@ -40,6 +38,12 @@
 			<artifactId>spring-boot-starter-data-redis</artifactId>
 		</dependency>
 		
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		
+		
 		<!-- springboot解析jsp -->
 		<dependency>
 			<groupId>org.apache.tomcat.embed</groupId>
@@ -48,6 +52,11 @@
 		</dependency>
 		
 		<dependency>
+	      <groupId>org.springframework.boot</groupId>
+	      <artifactId>spring-boot-starter-thymeleaf</artifactId>
+	    </dependency>
+
+		<dependency>
 		    <groupId>org.mybatis.spring.boot</groupId>
 		    <artifactId>mybatis-spring-boot-starter</artifactId>
 		    <version>1.3.0</version>
@@ -55,6 +64,21 @@
 		<dependency>
 		    <groupId>org.springframework.boot</groupId>
 		    <artifactId>spring-boot-starter-data-rest</artifactId>
+		</dependency>
+			
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
+		
+		<dependency>
+		      <groupId>net.sourceforge.nekohtml</groupId>
+		      <artifactId>nekohtml</artifactId>
+		</dependency>
+
+		<dependency>
+		    <groupId>org.hibernate</groupId>
+		    <artifactId>hibernate-core</artifactId>
 		</dependency>
 		
 		<!-- httpclient -->
@@ -182,6 +206,18 @@
 		    <artifactId>log4j</artifactId>
 		    <version>1.2.17</version>
 		</dependency>
+		
+		<dependency>
+		    <groupId>org.codehaus.jackson</groupId>
+		    <artifactId>jackson-mapper-asl</artifactId>
+		    <version>1.9.13</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+		</dependency>
+		
 
 	</dependencies>
 	<build>
@@ -211,5 +247,7 @@
 		<module>pers-cc-blog-service</module>
 		<module>per-cc-common-utils</module>
 		<module>pers-cc-blog-web</module>
+		<module>pers-monitor-platform-service</module>
+		<module>pers-monitor-platform-web</module>
 	</modules>
 </project>

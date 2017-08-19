@@ -10,7 +10,7 @@
 	</parent>
 	<artifactId>pers-cc-blog-web</artifactId>
 	<packaging>war</packaging>
-	<name>pers-cc-blog-web Maven Webapp</name>
+	<name>pers-cc-blog-web</name>
 	<url>http://maven.apache.org</url>
 
 	<properties>
