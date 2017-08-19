@@ -1,0 +1,14 @@
+#springboot:			
+http://www.infoq.com/cn/articles/microframeworks1-spring-boot
+http://www.ityouknow.com/spring-boot
+
+#springdata-Jpa
+http://www.ityouknow.com/springboot/2016/08/20/springboot(%E4%BA%94)-spring-data-jpa%E7%9A%84%E4%BD%BF%E7%94%A8.html
+
+#thymeleaf 
+http://www.cnblogs.com/ityouknow/p/5833560.html
+http://www.thymeleaf.org/doc/tutorials/3.0/thymeleafspring.html
+
+#layui 
+http://www.layui.com/doc/modules/form.html#onsubmit
+http://www.layui.com/doc/element/form.html
