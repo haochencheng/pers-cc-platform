@@ -1,23 +1,44 @@
 package pers.monitor.platform.model;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+/**
+ * @Title:
+ * @Description:
+ * @Author: cc
+ * @Since:2017年8月19日
+ * @Version:1.0.0
+ */
 @Entity
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private long id; // 主键
 
     @Column(nullable = false)
-    private String userName;
+    private String userName; // 用户名
 
     @Column(nullable = false)
-    private String password;
+    private String password; // 密码
+
+    private String phone; // 电话,短信提醒服务
+
+    private String sex; // 性别
+
+    private String roleId; // 角色外键
+
+    private String email; // 邮箱地址,邮箱提醒服务
+
+    private Date userCreateTime; // 用户注册时间
+
+    private Date userModifyTime; // 用户修改时间
 
     public long getId() {
         return this.id;
@@ -41,6 +62,54 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getPhone() {
+        return this.phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getSex() {
+        return this.sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
+    public String getRoleId() {
+        return this.roleId;
+    }
+
+    public void setRoleId(String roleId) {
+        this.roleId = roleId;
+    }
+
+    public String getEmail() {
+        return this.email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Date getUserCreateTime() {
+        return this.userCreateTime;
+    }
+
+    public void setUserCreateTime(Date userCreateTime) {
+        this.userCreateTime = userCreateTime;
+    }
+
+    public Date getUserModifyTime() {
+        return this.userModifyTime;
+    }
+
+    public void setUserModifyTime(Date userModifyTime) {
+        this.userModifyTime = userModifyTime;
     }
 
 }

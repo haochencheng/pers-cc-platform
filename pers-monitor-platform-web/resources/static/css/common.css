@@ -1,0 +1,18 @@
+.index {
+	background: #414141;
+	
+}
+
+.login-box{
+	width: 360px;/*元素的宽度*/ 
+	height:200px;/*元素的高度*/ 
+	position: absolute; 
+	left: 45%;/*配合margin-left的负值实现水平居中*/ 
+	margin-left: -68px;/*值的大小等于元素宽度的一半*/ 
+	top:30%;/*配合margin-top的负值实现垂直居中*/ 
+}
+
+.index .layui-form .layui-form-pane {
+	
+	margin:0px auto;
+}
