@@ -4,13 +4,11 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import pers.monitor.platform.model.User;
 import pers.monitor.platform.service.UserService;
 
-@RestController
 @Controller
 public class UserController {
 
@@ -33,9 +31,9 @@ public class UserController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/api/users")
-    public User getAll() {
-        return userServuce.getUserById(1);
+    @RequestMapping(value = "/register.html")
+    public String register() {
+        return "register";
     }
 
 }

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <title>首页</title>
+  <title>监控平台-欢迎登陆</title>
   <meta charset="utf-8" />
   <meta name="renderer" content="webkit" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -40,19 +40,17 @@
                             
                             <a href="javascript:void(0)" onclick="window.location=';return false;" clstag="pageclick|keycount|201607144|6" class="pdl"><b class="QQ-icon">
                             	<span><img alt="QQ" th:src="@{image/QQ-weixin.png} " style="position:absolute;clip:rect(0px 20px 20px 0px);margin-left: 10px;" /></span>
-                            </b><span style="margin-left: 38px;">QQ</span></a>
-                                                        <span class="line">|</span>
-                            <a href="javascript:void(0)" onclick="window.location=';return false;" clstag="pageclick|keycount|201607144|7" class="pdl"><b class="weixin-icon"></b><span>微信</span></a>
-                       		<span style="margin-left: 188px;"><a href="" clstag="pageclick|keycount|201607144|8" target="_blank"><b></b>立即注册</a></span>
+                            </b><span style="margin-left: 38px;color: #FBEBF5">QQ</span></a>
+                                                        <span class="line" style="margin-left: 10px;">|</span>
+                            <a href="javascript:void(0)" onclick="window.location=';return false;" clstag="pageclick|keycount|201607144|7" class="pdl"><b class="weixin-icon">
+                            	<span><img alt="QQ" th:src="@{image/QQ-weixin.png} " style="position:absolute;clip:rect(0px 40px 20px 20px);margin-left: -10px;" /></span>
+                            </b><span style="margin-left: 35px;color: #FBEBF5">微信</span></a>
+                       		<span style="margin-left: 104px;"><a href="register.html"  target="_blank" style="color: #FBEBF5"><b></b>立即注册</a></span>
                          </li>
                     </ul>
                 </div>
-			 
-			 
 		</form>
 </div>
-
-
 <script type="text/javascript" th:src="@{layui/layui.js}" />
 <script type="text/javascript" th:src="@{js/jquery.min.js}" />
 <script>
