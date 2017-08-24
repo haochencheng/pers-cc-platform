@@ -1,7 +1,7 @@
 # pers-cc-springboot-demo	
 pers-cc-demo cc个人框架         
 
-#############博客模块(pers-cc-blog)#########
+#############博客模块(pers-cc-blog)#########          
 pers-cc-blog-web            
 pers-cc-blog-service          
 
@@ -20,7 +20,7 @@ druid 连接池
 
 
 
-####web监控平台(pees-monitor-platform)#######
+####web监控平台(pees-monitor-platform)#######          
 springboot          
 springdataJpa 持久层          
 shiro 安全框架 	         
