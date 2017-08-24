@@ -1,11 +1,10 @@
 package pers.monitor.platform.controller.rabbitmq;
 
-import java.util.Date;
-
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import pers.monitor.platform.config.RabbitMqConfig;
+
+import java.util.Date;
 
 //@Component
 public class HelloSender {

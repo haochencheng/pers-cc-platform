@@ -1,7 +1,6 @@
 package pers.cc.blog.repository;
 
 import org.apache.ibatis.annotations.Mapper;
-
 import pers.cc.blog.model.Blogger;
 
 /**

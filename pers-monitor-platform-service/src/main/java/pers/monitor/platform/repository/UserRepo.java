@@ -1,10 +1,9 @@
 package pers.monitor.platform.repository;
 
-import java.io.Serializable;
-
 import org.springframework.data.repository.CrudRepository;
-
 import pers.monitor.platform.model.User;
+
+import java.io.Serializable;
 
 public interface UserRepo extends CrudRepository<User, Serializable> {
 

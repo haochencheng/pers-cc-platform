@@ -1,16 +1,12 @@
 package pers.cc.blog.controller;
 
-import java.util.List;
-
-import javax.servlet.ServletContext;
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
-
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Controller;
-
+import pers.cc.blog.config.SpringConfig;
 import pers.cc.blog.model.BlogType;
 import pers.cc.blog.model.Blogger;
 import pers.cc.blog.model.Link;
@@ -18,10 +14,17 @@ import pers.cc.blog.service.BlogTypeService;
 import pers.cc.blog.service.BloggerService;
 import pers.cc.blog.service.LinkService;
 
+import javax.servlet.ServletContext;
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
+import java.util.List;
+
 @Controller
+@AutoConfigureAfter(SpringConfig.class)
 public class InitComponent
         implements ServletContextListener, ApplicationContextAware {
 
+    @Autowired
     private static ApplicationContext applicationContext;
 
     /*

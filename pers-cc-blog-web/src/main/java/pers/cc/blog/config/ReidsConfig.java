@@ -1,7 +1,8 @@
 package pers.cc.blog.config;
 
-import java.lang.reflect.Method;
-
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.PropertyAccessor;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
 import org.springframework.cache.annotation.EnableCaching;
@@ -14,9 +15,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.PropertyAccessor;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import java.lang.reflect.Method;
 
 @Configuration
 @EnableCaching
@@ -39,9 +38,16 @@ public class ReidsConfig extends CachingConfigurerSupport {
     @Bean
     public KeyGenerator keyGenerator() {
         return new KeyGenerator() {
+            private Object target;
+            private Method method;
+            private Object[] params;
+
             @Override
             public Object generate(Object target, Method method,
                     Object... params) {
+                this.target = target;
+                this.method = method;
+                this.params = params;
                 StringBuilder sb = new StringBuilder();
                 sb.append(target.getClass().getName());
                 sb.append(method.getName());

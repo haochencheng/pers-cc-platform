@@ -14,37 +14,44 @@
 	<url>http://maven.apache.org</url>
 
 	<properties>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <start-class>pers.cc.blog.Main</start-class>
 	</properties>
 
 	<dependencies>
-		<!-- 工具类 -->
-		<dependency>
-			<groupId>${project.groupId}</groupId>
-			<artifactId>pers-cc-common-utils</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-		
-		<!-- 依赖blog-service -->
-		<dependency>
-			<groupId>${project.groupId}</groupId>
-			<artifactId>pers-cc-blog-service</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-		
+
+        <!-- 依赖blog-service -->
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>pers-cc-blog-service</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
 	</dependencies>
 	<build>
 		<finalName>pers-cc-blog-web</finalName>
-		<!-- java编译插件 -->
-		<plugin>
-			<groupId>org.apache.maven.plugins</groupId>
-			<artifactId>maven-compiler-plugin</artifactId>
-			<configuration>
-				<source>1.8</source>
-				<target>1.8</target>
-				<encoding>UTF-8</encoding>
-				<url>http://localhost:8080/</url>
-				<path>/</path>
-			</configuration>
-		</plugin>
+		 <resources>
+            <resource>
+                <directory>src/main/resources/</directory>
+                <filtering>false</filtering>
+                <includes>
+                    <include>**/*.properties</include>
+                    <include>**/*.xml</include>
+                    <include>**/*.txt</include>
+                    <include>**/*.ico</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/java/</directory>
+                <filtering>false</filtering>
+                <includes>
+                    <include>**/*.xml</include>
+                </includes>
+            </resource>
+        </resources>
+        <plugins>
+           
+        </plugins>
 	</build>
 </project>

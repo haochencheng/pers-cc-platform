@@ -1,23 +1,21 @@
 package pers.cc.blog.controller.cc;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletResponse;
-
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
 import pers.cc.blog.model.BlogType;
 import pers.cc.blog.model.PageBean;
 import pers.cc.blog.service.BlogService;
 import pers.cc.blog.service.BlogTypeService;
 import pers.cc.common.utils.ResponseUtil;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/cc/blogType")

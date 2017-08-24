@@ -16,24 +16,31 @@
   </properties>
   <dependencies>
   	
-  	<!-- 工具类 -->
+  	<!-- 工具类
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>pers-cc-common-utils</artifactId>
 			<version>${project.version}</version>
-		</dependency>
+		</dependency>-->
   
 	    <dependency>
 	    	<groupId>pers-cc-demo</groupId>
 	    	<artifactId>pers-monitor-platform-service</artifactId>
 	    	<version>${project.version}</version>
 	    </dependency>
+
+          <!--thymeleaf模板支持-->
+          <dependency>
+              <groupId>org.springframework.boot</groupId>
+              <artifactId>spring-boot-starter-thymeleaf</artifactId>
+          </dependency>
+
   </dependencies>
   
   <build>
 		<finalName>pers-monitor-platform-web</finalName>
 		<!-- java编译插件 -->
-		<plugin>
+		<!--<plugin>
 			<groupId>org.apache.maven.plugins</groupId>
 			<artifactId>maven-compiler-plugin</artifactId>
 			<configuration>
@@ -43,7 +50,7 @@
 				<url>http://localhost:8080/</url>
 				<path>/</path>
 			</configuration>
-		</plugin>
+		</plugin>-->
 	</build>
   
 </project>

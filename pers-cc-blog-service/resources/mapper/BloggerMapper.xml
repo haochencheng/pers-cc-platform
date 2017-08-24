@@ -6,6 +6,7 @@
   
  <mapper namespace="pers.cc.blog.repository.BloggerRepo">
     
+    
     <resultMap type="Blogger" id="BloggerResult">
         <result property="id" column="id"/>
         <result property="userName" column="userName"/>

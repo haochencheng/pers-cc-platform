@@ -1,14 +1,6 @@
-<script type="text/javascript" src="${pageContext.request.contextPath}/static/ueditor/third-party/SyntaxHighlighter/shCore.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/static/ueditor/third-party/SyntaxHighlighter/shBrushJava.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/static/ueditor/third-party/SyntaxHighlighter/shBrushJScript.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/static/ueditor/third-party/SyntaxHighlighter/shBrushCss.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/static/ueditor/third-party/SyntaxHighlighter/shBrushXml.js"></script> 
-<link href="${pageContext.request.contextPath}/static/ueditor/third-party/SyntaxHighlighter/shThemeFadeToGrey.css" rel="stylesheet" type="text/css" />
 
 <script type="text/javascript">
-    SyntaxHighlighter.defaults['toolbar'] = false;  
-	SyntaxHighlighter.all();
-    
+  
     function showOtherComment(){
     	$(".otherComment").show();
     }

@@ -1,11 +1,10 @@
 package pers.cc.blog.repository;
 
+import org.apache.ibatis.annotations.Mapper;
+import pers.cc.blog.model.Link;
+
 import java.util.List;
 import java.util.Map;
-
-import org.apache.ibatis.annotations.Mapper;
-
-import pers.cc.blog.model.Link;
 
 /**
  * 友情链接Dap接口

@@ -1,13 +1,12 @@
 package pers.monitor.platform.controller;
 
-import javax.annotation.Resource;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-
 import pers.monitor.platform.model.User;
 import pers.monitor.platform.service.UserService;
+
+import javax.annotation.Resource;
 
 @Controller
 public class UserController {

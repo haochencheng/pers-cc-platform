@@ -1,7 +1,5 @@
 package pers.cc.blog.config;
 
-import java.util.concurrent.TimeUnit;
-
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
@@ -11,12 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.Scope;
 
-@Configuration
-@PropertySource(value = "classpath:httpclient.properties")
+import java.util.concurrent.TimeUnit;
+
+//@Configuration
+//@PropertySource(value = "classpath:httpclient.properties")
 public class HttpClientConfig {
 
     @Value(value = "${http.maxTotal}")
@@ -46,7 +44,8 @@ public class HttpClientConfig {
     @Bean
     @ConditionalOnMissingBean
     public PoolingHttpClientConnectionManager poolingHttpClientConnectionManager() {
-        PoolingHttpClientConnectionManager poolingHttpClientConnectionManager = new PoolingHttpClientConnectionManager();
+        PoolingHttpClientConnectionManager poolingHttpClientConnectionManager;
+        poolingHttpClientConnectionManager = new PoolingHttpClientConnectionManager();
         // 最大连接数
         poolingHttpClientConnectionManager.setMaxTotal(httpMaxTotal);
         // 最大并发数

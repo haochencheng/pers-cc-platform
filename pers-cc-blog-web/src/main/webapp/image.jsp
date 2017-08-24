@@ -1,6 +1,6 @@
 <%@ page contentType="image/jpeg"
-	import="java.awt.*,
-java.awt.image.*,java.util.*,javax.imageio.*" pageEncoding="utf-8"%>
+	import="javax.imageio.ImageIO,
+java.awt.*,java.awt.image.BufferedImage,java.util.Random" pageEncoding="utf-8"%>
 <%!
 Color getRandColor(int fc,int bc)
 {

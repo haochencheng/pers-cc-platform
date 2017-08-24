@@ -1,23 +1,21 @@
 package pers.cc.blog.controller.cc;
 
-import java.io.File;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import net.sf.json.JSONObject;
 import org.apache.shiro.SecurityUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-
-import net.sf.json.JSONObject;
 import pers.cc.blog.model.Blogger;
 import pers.cc.blog.service.BloggerService;
 import pers.cc.common.utils.CryptographyUtil;
 import pers.cc.common.utils.DateUtil;
 import pers.cc.common.utils.ResponseUtil;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 
 /**
  * 管理员博主Controller
@@ -29,7 +27,7 @@ import pers.cc.common.utils.ResponseUtil;
 @RequestMapping("/cc/blogger")
 public class BloggerCcController {
 
-    @Autowired
+    @Resource
     private BloggerService bloggerService;
 
     /**

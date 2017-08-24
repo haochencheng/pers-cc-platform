@@ -4,13 +4,14 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="zh-CN">
 <head>
+<link rel="Shortcut Icon" type="image/x-icon" href="${pageContext.request.contextPath }/static/images/favicon.ico" />
+<link  rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/ueditor/third-party/SyntaxHighlighter/shCoreDefault.css"/> 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/static/bootstrap3/css/bootstrap.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/static/bootstrap3/css/bootstrap-theme.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/blog.css">
 <script src="${pageContext.request.contextPath}/static/bootstrap3/js/jquery-1.11.2.min.js"></script>
 <script src="${pageContext.request.contextPath}/static/bootstrap3/js/bootstrap.min.js"></script>
-<link rel="Shortcut Icon" type="image/x-icon" href="${pageContext.request.contextPath }/static/images/favicon.ico" />
 <title>${pageTitle }</title>
 <style type="text/css">
 	body {
@@ -19,15 +20,15 @@
 }
 </style>
 </head>
-<body>
-<div class="container">
+<body style="background:#3f3d3d">
+<div class="container" >
   <jsp:include page="${pageContext.request.contextPath }/foreground/common/head.jsp"/>	
   <jsp:include page="${pageContext.request.contextPath }/foreground/common/menu.jsp"/>	
 	<div class="row">
-	  <div class="col-md-9">
+	  <div class="col-md-9" style="background-color:#3f3d3d">
 	  	 <jsp:include page="${mainPage }"/>	
 	  </div>
-	  <div class="col-md-3">
+	  <div class="col-md-3" style="background:#3f3d3d">
 			<div class="data_list">
 				<div class="data_list_title">
 					<img src="${pageContext.request.contextPath }/static/images/user_icon.png"/>
@@ -83,5 +84,23 @@
   	</div>
   	<jsp:include page="${pageContext.request.contextPath }/foreground/common/foot.jsp"/>	
 </div>
+
+ <!--SyntaxHighlighter的基本脚本-->  
+    <script type="text/javascript" src="${pageContext.request.contextPath}/static/ueditor/third-party/SyntaxHighlighter/shCore.js"></script>  
+  	<script type="text/javascript">
+  		 SyntaxHighlighter.all();
+	</script>
+  	
+    <!--SyntaxHighlighter的对各个编程语言解析的脚本-->  
+    <script type="text/javascript" src="${pageContext.request.contextPath}/static/ueditor/third-party/SyntaxHighlighter/shBrushBash.js"></script>  
+    <script type="text/javascript" src="${pageContext.request.contextPath}/static/ueditor/third-party/SyntaxHighlighter/shBrushCss.js"></script>  
+    <script type="text/javascript" src="${pageContext.request.contextPath}/static/ueditor/third-party/SyntaxHighlighter/shBrushJava.js"></script> 
+    <script type="text/javascript" src="${pageContext.request.contextPath}/static/ueditor/third-party/SyntaxHighlighter/shBrushJavaFX.js"></script> 
+    <script type="text/javascript" src="${pageContext.request.contextPath}/static/ueditor/third-party/SyntaxHighlighter/shBrushJScript.js"></script> 
+    <script type="text/javascript" src="${pageContext.request.contextPath}/static/ueditor/third-party/SyntaxHighlighter/shBrushPowerShell.js"></script> 
+    <script type="text/javascript" src="${pageContext.request.contextPath}/static/ueditor/third-party/SyntaxHighlighter/shBrushPython.js"></script> 
+    <script type="text/javascript" src="${pageContext.request.contextPath}/static/ueditor/third-party/SyntaxHighlighter/shBrushSql.js"></script> 
+    <script type="text/javascript" src="${pageContext.request.contextPath}/static/ueditor/third-party/SyntaxHighlighter/shBrushXml.js"></script> 
+
 </body>
 </html>

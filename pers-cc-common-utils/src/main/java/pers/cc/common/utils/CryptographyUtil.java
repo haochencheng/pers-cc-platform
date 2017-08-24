@@ -20,8 +20,8 @@ public class CryptographyUtil {
         return new Md5Hash(str, salt).toString();
     }
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         System.out.println(CryptographyUtil.md5("admin", "cc"));
-    }
+    }*/
 
 }

@@ -1,12 +1,11 @@
 package pers.monitor.platform.service.impl;
 
-import javax.annotation.Resource;
-
 import org.springframework.stereotype.Service;
-
 import pers.monitor.platform.model.User;
 import pers.monitor.platform.repository.UserRepo;
 import pers.monitor.platform.service.UserService;
+
+import javax.annotation.Resource;
 
 @Service("userService")
 public class UserServiceImpl implements UserService {

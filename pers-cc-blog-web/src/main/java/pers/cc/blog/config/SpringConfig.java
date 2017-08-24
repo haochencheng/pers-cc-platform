@@ -1,9 +1,16 @@
 package pers.cc.blog.config;
 
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -11,44 +18,85 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
 import com.alibaba.druid.pool.DruidDataSource;
+import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceBuilder;
+import com.alibaba.druid.support.http.StatViewServlet;
+import com.alibaba.druid.support.http.WebStatFilter;
 
 @Configuration
 // @PropertySources({ // 多配置文件
-// @PropertySource(value = "classpath:jdbc.properties", ignoreResourceNotFound =
+// @PropertySource(value = "classpath:spring.datasource.properties",
+// ignoreResourceNotFound =
 // true),
 // @PropertySource(value = "httpclient.properties", ignoreResourceNotFound =
 // true) })
-@PropertySource(value = "classpath:jdbc.properties", ignoreResourceNotFound = true)
-@MapperScan("pers.cc.blog.repository") // mybatis自动扫描repository
+@PropertySource(value = "classpath:application.properties", ignoreResourceNotFound = true)
 @ComponentScan(value = "pers.cc.blog") // 自动扫描包
+@MapperScan("pers.cc.blog.repository") // mybatis自动扫描repository
 @SpringBootApplication
 public class SpringConfig extends SpringBootServletInitializer {
 
-    @Value("${jdbc.driverClassName}")
+    @Value("${spring.datasource.druid.driver-class-name}")
     private String driverClassName;
-    @Value("${jdbc.jdbcUrl}")
+    @Value("${spring.datasource.url}")
     private String jdbcUrl;
-    @Value("${jdbc.jdbcUserName}")
+    @Value("${spring.datasource.username}")
     private String jdbcUserName;
-    @Value("${jdbc.jdbcPaassword}")
-    private String jdbcPaassword;
+    @Value("${spring.datasource.password}")
+    private String jdbcPassword;
 
-    @Bean(destroyMethod = "close")
-    public DruidDataSource druidDatasource() {
-        DruidDataSource druidDatasource = new DruidDataSource();
-        // 数据库驱动
-        druidDatasource.setDriverClassName(driverClassName);
-        // 数据库连接地址
-        druidDatasource.setUrl(jdbcUrl);
-        // 数据库用户名
-        druidDatasource.setUsername(jdbcUserName);
-        // 数据库密码
-        druidDatasource.setPassword(jdbcPaassword);
-        // 数据库中未使用的连接最大存活时间 ,单位是分 , 默认值 60 ,如果要永远存货这只为0
-        druidDatasource.setMaxActive(100);
-        // 每个分区最小的连接数
-        druidDatasource.setMinIdle(3);
-        return druidDatasource;
+    @Value(value = "${spring.datasource.initialSize}")
+    private String initialSize;
+
+    @Value(value = "${spring.datasource.minIdle}")
+    private String minIdle;
+
+    @Value(value = "${spring.datasource.maxActive}")
+    private String maxActive;
+
+    @Value(value = "${spring.datasource.maxWait}")
+    private String maxWait;
+
+    /**
+     * 注册DruidServlet
+     *
+     * @return
+     */
+    @Bean
+    public ServletRegistrationBean druidServletRegistrationBean() {
+        ServletRegistrationBean servletRegistrationBean = new ServletRegistrationBean();
+        servletRegistrationBean.setServlet(new StatViewServlet());
+        servletRegistrationBean.addUrlMappings("/druid/*");
+        return servletRegistrationBean;
+    }
+
+    /**
+     * 注册DruidFilter拦截
+     *
+     * @return
+     */
+    @Bean
+    public FilterRegistrationBean druidFilterRegistrationBean() {
+        FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean();
+        filterRegistrationBean.setFilter(new WebStatFilter());
+        Map<String, String> initParams = new HashMap<String, String>();
+        // 设置忽略请求
+        initParams.put("exclusions",
+                "*.js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,/druid/*");
+        filterRegistrationBean.setInitParameters(initParams);
+        filterRegistrationBean.addUrlPatterns("/*");
+        return filterRegistrationBean;
+    }
+
+    /**
+     * 配置DataSource
+     * 
+     * @return
+     * @throws SQLException
+     */
+    @Bean
+    @ConfigurationProperties("spring.datasource.druid.one")
+    public DruidDataSource dataSourceOne() {
+        return DruidDataSourceBuilder.create().build();
     }
 
     @Override

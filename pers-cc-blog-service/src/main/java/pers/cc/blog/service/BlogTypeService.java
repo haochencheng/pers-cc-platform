@@ -1,9 +1,9 @@
 package pers.cc.blog.service;
 
+import pers.cc.blog.model.BlogType;
+
 import java.util.List;
 import java.util.Map;
-
-import pers.cc.blog.model.BlogType;
 
 /**
  * 博客类型Service接口

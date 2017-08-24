@@ -3,6 +3,8 @@ package pers.cc.blog.config;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import javax.annotation.Resource;
+
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
@@ -19,6 +21,9 @@ public class ShiroConfig {
 
     private final Logger logger = LoggerFactory.getLogger(ShiroConfig.class);
 
+    @Resource
+    MyRealm myShiroRealm;
+
     /**
      * Shiro的Web过滤器Factory 命名:shiroFilter<br />
      * * * @param securityManager * @return
@@ -26,8 +31,7 @@ public class ShiroConfig {
     @Bean(name = "shiroFilter")
     public ShiroFilterFactoryBean shiroFilterFactoryBean(
             SecurityManager securityManager) {
-        logger.info("注入Shiro的Web过滤器-->shiroFilter",
-                ShiroFilterFactoryBean.class);
+        logger.info("注入Shiro的Web过滤器-->shiroFilter");
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         // Shiro的核心安全接口,这个属性是必须的
         shiroFilterFactoryBean.setSecurityManager(securityManager);
@@ -57,16 +61,17 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/foreground/**", "anon");
         filterChainDefinitionMap.put("/static/**", "anon");
         filterChainDefinitionMap.put("/cc/**", "authc");
+        filterChainDefinitionMap.put("/druid/**", "authc");
         shiroFilterFactoryBean
                 .setFilterChainDefinitionMap(filterChainDefinitionMap);
         return shiroFilterFactoryBean;
     }
 
-    @Bean
-    public MyRealm myShiroRealm() {
-        MyRealm myRealm = new MyRealm();
-        return myRealm;
-    }
+    // @Bean
+    // public MyRealm myShiroRealm() {
+    // MyRealm myRealm = new MyRealm();
+    // return myRealm;
+    // }
 
     /**
      * 不指定名字的话，自动创建一个方法名第一个字母小写的bean * @Bean(name = "securityManager") * @return
@@ -75,7 +80,7 @@ public class ShiroConfig {
     @ConditionalOnMissingBean(value = SecurityManager.class)
     public SecurityManager securityManager() {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
-        securityManager.setRealm(myShiroRealm());
+        securityManager.setRealm(myShiroRealm);
         return securityManager;
     }
 

@@ -1,20 +1,19 @@
 package pers.cc.blog.controller;
 
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
+import net.sf.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import net.sf.json.JSONObject;
 import pers.cc.blog.model.Blog;
 import pers.cc.blog.model.Comment;
 import pers.cc.blog.service.BlogService;
 import pers.cc.blog.service.CommentService;
 import pers.cc.common.utils.ResponseUtil;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * 评论Controller层

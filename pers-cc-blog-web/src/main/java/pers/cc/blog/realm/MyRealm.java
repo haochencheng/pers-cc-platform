@@ -1,7 +1,5 @@
 package pers.cc.blog.realm;
 
-import javax.annotation.Resource;
-
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
@@ -13,9 +11,11 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+import org.springframework.stereotype.Component;
 import pers.cc.blog.model.Blogger;
 import pers.cc.blog.service.BloggerService;
+
+import javax.annotation.Resource;
 
 /**
  * 自定义Realm
@@ -23,12 +23,13 @@ import pers.cc.blog.service.BloggerService;
  * @author Administrator
  *
  */
+@Component
 public class MyRealm extends AuthorizingRealm {
 
     Logger logger = LoggerFactory.getLogger(MyRealm.class);
 
     @Resource
-    private BloggerService bloggerService;
+    BloggerService bloggerService;
 
     /*
      * (non-Javadoc) 为当前的登录的用户授予角色和权限
@@ -59,14 +60,15 @@ public class MyRealm extends AuthorizingRealm {
             AuthenticationToken token) throws AuthenticationException {
         logger.info("MyRealm.doGetAuthenticationInfo()");
         String userName = (String) token.getPrincipal();
+        // BloggerService bloggerService = (BloggerService) applicationContext
+        // .getBean("bloggerService");
         Blogger blogger = bloggerService.getByUserName(userName);
         if (blogger != null) {
             logger.info("---------->>bloggerInfo" + blogger.toString());
             SecurityUtils.getSubject().getSession().setAttribute("currentUser",
                     blogger);
-            AuthenticationInfo authcInfo = new SimpleAuthenticationInfo(
-                    blogger.getUserName(), blogger.getPassword(), "xxx");
-            return authcInfo;
+            return new SimpleAuthenticationInfo(blogger.getUserName(),
+                    blogger.getPassword(), "xxx");
         }
         return null;
     }
