@@ -6,16 +6,12 @@ html, body {
 .data_list{
 	border: 1px solid #E5E5E5;
 	padding: 10px;
-	/* background-color: #FDFDFD; */
-	background-color:#3f3d3d;
+	background-color: #FDFDFD;
 	margin-top: 0px;
 	margin-bottom: 10px;
 	
 }
 
-p {
-	color:#fcfeff;
-}
 
 .data_list .data_list_title{
 	font-size: 15px;

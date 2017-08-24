@@ -20,15 +20,15 @@
 }
 </style>
 </head>
-<body style="background:#3f3d3d">
+<body >
 <div class="container" >
   <jsp:include page="${pageContext.request.contextPath }/foreground/common/head.jsp"/>	
   <jsp:include page="${pageContext.request.contextPath }/foreground/common/menu.jsp"/>	
 	<div class="row">
-	  <div class="col-md-9" style="background-color:#3f3d3d">
+	  <div class="col-md-9" >
 	  	 <jsp:include page="${mainPage }"/>	
 	  </div>
-	  <div class="col-md-3" style="background:#3f3d3d">
+	  <div class="col-md-3" >
 			<div class="data_list">
 				<div class="data_list_title">
 					<img src="${pageContext.request.contextPath }/static/images/user_icon.png"/>
