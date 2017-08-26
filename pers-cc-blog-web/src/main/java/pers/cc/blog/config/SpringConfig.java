@@ -1,11 +1,9 @@
 package pers.cc.blog.config;
 
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.mybatis.spring.annotation.MapperScan;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -31,27 +29,6 @@ import com.alibaba.druid.support.http.WebStatFilter;
 @MapperScan("pers.cc.blog.repository") // mybatis自动扫描repository
 @SpringBootApplication
 public class SpringConfig extends SpringBootServletInitializer {
-
-    @Value("${spring.datasource.druid.driver-class-name}")
-    private String driverClassName;
-    @Value("${spring.datasource.url}")
-    private String jdbcUrl;
-    @Value("${spring.datasource.username}")
-    private String jdbcUserName;
-    @Value("${spring.datasource.password}")
-    private String jdbcPassword;
-
-    @Value(value = "${spring.datasource.initialSize}")
-    private String initialSize;
-
-    @Value(value = "${spring.datasource.minIdle}")
-    private String minIdle;
-
-    @Value(value = "${spring.datasource.maxActive}")
-    private String maxActive;
-
-    @Value(value = "${spring.datasource.maxWait}")
-    private String maxWait;
 
     /**
      * 注册DruidServlet
@@ -83,19 +60,6 @@ public class SpringConfig extends SpringBootServletInitializer {
         filterRegistrationBean.addUrlPatterns("/*");
         return filterRegistrationBean;
     }
-
-    /**
-     * 配置DataSource
-     * 
-     * @return
-     * @throws SQLException
-     *//*
-       * @Bean
-       * 
-       * @ConfigurationProperties("spring.datasource.druid.one") public
-       * DruidDataSource dataSourceOne() { return
-       * DruidDataSourceBuilder.create().build(); }
-       */
 
     @Override
     protected SpringApplicationBuilder configure(

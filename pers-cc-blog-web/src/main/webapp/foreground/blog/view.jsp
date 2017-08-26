@@ -124,3 +124,20 @@
 		</form>
 	</div>
 </div>
+
+ <!--SyntaxHighlighter的基本脚本-->  
+    <script type="text/javascript" src="${pageContext.request.contextPath}/static/ueditor/third-party/SyntaxHighlighter/shCore.js"></script>  
+  	<script type="text/javascript">
+  		 SyntaxHighlighter.all();
+	</script>
+  	
+    <!--SyntaxHighlighter的对各个编程语言解析的脚本-->  
+    <script type="text/javascript" src="${pageContext.request.contextPath}/static/ueditor/third-party/SyntaxHighlighter/shBrushBash.js"></script>  
+    <script type="text/javascript" src="${pageContext.request.contextPath}/static/ueditor/third-party/SyntaxHighlighter/shBrushCss.js"></script>  
+    <script type="text/javascript" src="${pageContext.request.contextPath}/static/ueditor/third-party/SyntaxHighlighter/shBrushJava.js"></script> 
+    <script type="text/javascript" src="${pageContext.request.contextPath}/static/ueditor/third-party/SyntaxHighlighter/shBrushJavaFX.js"></script> 
+    <script type="text/javascript" src="${pageContext.request.contextPath}/static/ueditor/third-party/SyntaxHighlighter/shBrushJScript.js"></script> 
+    <script type="text/javascript" src="${pageContext.request.contextPath}/static/ueditor/third-party/SyntaxHighlighter/shBrushPowerShell.js"></script> 
+    <script type="text/javascript" src="${pageContext.request.contextPath}/static/ueditor/third-party/SyntaxHighlighter/shBrushPython.js"></script> 
+    <script type="text/javascript" src="${pageContext.request.contextPath}/static/ueditor/third-party/SyntaxHighlighter/shBrushSql.js"></script> 
+    <script type="text/javascript" src="${pageContext.request.contextPath}/static/ueditor/third-party/SyntaxHighlighter/shBrushXml.js"></script> 

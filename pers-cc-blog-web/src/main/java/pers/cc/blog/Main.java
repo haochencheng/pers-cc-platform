@@ -1,16 +1,14 @@
 package pers.cc.blog;
 
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import pers.cc.blog.config.SpringConfig;
 
-//
+//extends SpringBootServletInitializer 
 @Controller
-public class Main extends SpringBootServletInitializer {
+public class Main {
     // @Controller
     // public class Main{
 
@@ -23,10 +21,10 @@ public class Main extends SpringBootServletInitializer {
         return "forward:/a.jsp";
     }
 
-    @Override
-    protected SpringApplicationBuilder configure(
-            SpringApplicationBuilder builder) {
-        // 注意这里要指向原先用main方法执行的Application启动类
-        return builder.sources(SpringConfig.class);
-    }
+    // @Override
+    // protected SpringApplicationBuilder configure(
+    // SpringApplicationBuilder builder) {
+    // // 注意这里要指向原先用main方法执行的Application启动类
+    // return builder.sources(SpringConfig.class);
+    // }
 }
