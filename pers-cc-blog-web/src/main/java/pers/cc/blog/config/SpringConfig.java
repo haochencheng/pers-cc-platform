@@ -8,7 +8,6 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
@@ -17,8 +16,6 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
-import com.alibaba.druid.pool.DruidDataSource;
-import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceBuilder;
 import com.alibaba.druid.support.http.StatViewServlet;
 import com.alibaba.druid.support.http.WebStatFilter;
 
@@ -92,12 +89,13 @@ public class SpringConfig extends SpringBootServletInitializer {
      * 
      * @return
      * @throws SQLException
-     */
-    @Bean
-    @ConfigurationProperties("spring.datasource.druid.one")
-    public DruidDataSource dataSourceOne() {
-        return DruidDataSourceBuilder.create().build();
-    }
+     *//*
+       * @Bean
+       * 
+       * @ConfigurationProperties("spring.datasource.druid.one") public
+       * DruidDataSource dataSourceOne() { return
+       * DruidDataSourceBuilder.create().build(); }
+       */
 
     @Override
     protected SpringApplicationBuilder configure(

@@ -15,7 +15,7 @@
     
     <select id="list" parameterType="Map" resultMap="LinkResult">
          select * from t_link order by orderNo 
-         <if test="start!=null and size!=null">
+         <if test="start !=null and size !=null">
     		limit #{start},#{size}
     	</if>
     </select>

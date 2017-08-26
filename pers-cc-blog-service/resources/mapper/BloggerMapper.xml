@@ -22,8 +22,8 @@
          select * from t_blogger where userName=#{userName} 
     </select>
     
-    <select id="find" resultMap="BloggerResult">
-    	 select * from t_blogger where id = 1
+    <select id="find" parameterType="Integer" resultMap="BloggerResult">
+    	 select * from t_blogger where id=#{id}
     </select>
     
     <update id="update" parameterType="Blogger">

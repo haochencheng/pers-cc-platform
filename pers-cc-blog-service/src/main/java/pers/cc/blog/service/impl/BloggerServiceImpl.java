@@ -2,6 +2,7 @@ package pers.cc.blog.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import pers.cc.blog.model.Blogger;
@@ -17,6 +18,8 @@ import pers.cc.blog.service.BloggerService;
 @Service("bloggerService")
 public class BloggerServiceImpl implements BloggerService {
 
+    public static final String BLOGGER = "blogger_";
+
     @Autowired
     private BloggerRepo bloggerRepo;
 
@@ -27,13 +30,15 @@ public class BloggerServiceImpl implements BloggerService {
      * @return
      */
     @Override
+    @Cacheable(value = "blogger", key = "#root.target.BLOGGER+#userName", unless = "#result eq null")
     public Blogger getByUserName(String userName) {
         return bloggerRepo.getByUserName(userName);
     }
 
     @Override
-    public Blogger find() {
-        return bloggerRepo.find();
+    @Cacheable(value = "blogger", key = "#root.target.BLOGGER+#id.toString()", unless = "#result eq null")
+    public Blogger find(Integer id) {
+        return bloggerRepo.find(id);
     }
 
     /**
@@ -42,7 +47,7 @@ public class BloggerServiceImpl implements BloggerService {
      * @return
      */
     @Override
-    @CachePut(value = "blogger", key = "#root.targetClass+#id", condition = "#result eq 1")
+    @CachePut(value = "blogger", key = "#root.target.BLOGGER+#blogger.id.toString()", condition = "#result eq 1")
     public Integer update(Blogger blogger) {
         return bloggerRepo.update(blogger);
     }

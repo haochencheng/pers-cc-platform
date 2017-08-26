@@ -1,21 +1,23 @@
 package pers.cc.blog.controller.cc;
 
-import net.sf.json.JSONObject;
+import java.io.File;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.shiro.SecurityUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+
+import net.sf.json.JSONObject;
 import pers.cc.blog.model.Blogger;
 import pers.cc.blog.service.BloggerService;
 import pers.cc.common.utils.CryptographyUtil;
 import pers.cc.common.utils.DateUtil;
 import pers.cc.common.utils.ResponseUtil;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.File;
 
 /**
  * 管理员博主Controller
@@ -39,7 +41,7 @@ public class BloggerCcController {
      */
     @RequestMapping("/find.html")
     public String find(HttpServletResponse response) throws Exception {
-        Blogger blogger = bloggerService.find();
+        Blogger blogger = bloggerService.find(1);
         JSONObject jsonObject = JSONObject.fromObject(blogger.toString());
         ResponseUtil.write(response, jsonObject);
         return null;

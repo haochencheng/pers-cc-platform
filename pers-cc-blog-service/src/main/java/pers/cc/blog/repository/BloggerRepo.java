@@ -1,6 +1,7 @@
 package pers.cc.blog.repository;
 
 import org.apache.ibatis.annotations.Mapper;
+
 import pers.cc.blog.model.Blogger;
 
 /**
@@ -23,9 +24,10 @@ public interface BloggerRepo {
     /**
      * 查询博主信息
      * 
+     * @param id
      * @return
      */
-    public Blogger find();
+    public Blogger find(Integer id);
 
     /**
      * 更新博主信息

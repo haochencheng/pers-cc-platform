@@ -21,9 +21,10 @@ public interface BloggerService {
     /**
      * 查询博主信息
      * 
+     * @param id
      * @return
      */
-    public Blogger find();
+    public Blogger find(Integer id);
 
     /**
      * 更新博主信息

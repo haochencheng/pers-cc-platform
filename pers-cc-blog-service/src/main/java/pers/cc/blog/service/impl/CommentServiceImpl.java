@@ -1,15 +1,17 @@
 package pers.cc.blog.service.impl;
 
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+
 import pers.cc.blog.model.Comment;
 import pers.cc.blog.repository.CommentRepo;
 import pers.cc.blog.service.CommentService;
-
-import javax.annotation.Resource;
-import java.util.List;
-import java.util.Map;
 
 /**
  * 评论Service实现类
@@ -26,6 +28,7 @@ public class CommentServiceImpl implements CommentService {
     private CommentRepo commentRepo;
 
     @Override
+    @CachePut(value = "comment", key = "#root.target.COMMENT+#map.get('blogId')", unless = "#result eq null")
     public List<Comment> list(Map<String, Object> map) {
         return commentRepo.list(map);
     }
@@ -42,13 +45,13 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    @Cacheable(value = "comment", key = "#root.target.COMMENT+#id.toString()", unless = "#result eq null")
+    @CachePut(value = "comment", key = "#root.target.COMMENT+#comment.id.toString()", unless = "#result eq null")
     public Comment update(Comment comment) {
         return commentRepo.update(comment) == 1 ? comment : null;
     }
 
     @Override
-    @Cacheable(value = "comment", key = "#root.target.COMMENT+#id.toString()", condition = "#result eq 1")
+    @CacheEvict(value = "comment", key = "#root.target.COMMENT+#id.toString()", condition = "#result eq 1")
     public Integer delete(Integer id) {
         return commentRepo.delete(id);
     }
