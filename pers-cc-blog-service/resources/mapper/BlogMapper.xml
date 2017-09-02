@@ -97,7 +97,7 @@
     </select>
     
     <insert id="add" useGeneratedKeys="true" keyProperty="id" parameterType="Blog" >
-    	insert into t_blog values(#{id},#{title},#{summary},now(),6,0,#{content},#{blogType.id},#{keyWord})
+    	insert into t_blog values(#{id},#{title},#{summary},#{releaseDate},#{clickHit},#{replyHit},#{content},#{blogType.id},#{keyWord})
     </insert>
     
     

@@ -1,5 +1,7 @@
 package pers.platform.blog.controller;
 
+import java.util.Date;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,6 +16,7 @@ import pers.platform.blog.model.Blog;
 import pers.platform.blog.model.Comment;
 import pers.platform.blog.service.BlogService;
 import pers.platform.blog.service.CommentService;
+import pers.platform.common.service.IdService;
 import pers.platfrom.common.utils.ResponseUtil;
 
 /**
@@ -31,6 +34,9 @@ public class CommentController {
 
     @Resource
     private BlogService blogService;
+
+    @Resource
+    private IdService idservice;
 
     /**
      * 添加或者修改评论
@@ -58,6 +64,8 @@ public class CommentController {
             String userIp = request.getRemoteAddr(); // 获取用户Ip
             comment.setUserIp(userIp);
             if (comment.getId() == null) {
+                comment.setId(idservice.getId());
+                comment.setCommentDate(new Date());
                 resultTotal = commentService.add(comment) != null ? 1 : 0;
                 Blog blog = blogService.findById(comment.getBlog().getId());
                 blog.setReplyHit(blog.getReplyHit() + 1);

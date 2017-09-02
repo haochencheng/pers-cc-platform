@@ -41,7 +41,7 @@ public class BlogCcController {
     public ModelAndView modifyBlog(String id, HttpServletResponse response) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("id", id);
-        modelAndView.setViewName("/cc/modifyBlog");
+        modelAndView.setViewName("/cc/blog");
         return modelAndView;
     }
 
@@ -51,6 +51,9 @@ public class BlogCcController {
         int resultTotal = 0;
         if (blog.getId() == null) {
             blog.setId(idService.getId());
+            blog.setClickHit(1);
+            blog.setReleaseDate(new Date());
+            blog.setReplyHit(0);
             resultTotal = blogService.add(blog) != null ? 1 : 0;
             blogIndex.addIndex(blog);
         } else {

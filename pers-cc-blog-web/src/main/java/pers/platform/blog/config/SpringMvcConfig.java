@@ -17,8 +17,8 @@ public class SpringMvcConfig extends WebMvcConfigurerAdapter {
      */
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/cc/writeBlog.html")
-                .setViewName("/cc/writeBlog");
+        registry.addViewController("/cc/main.html").setViewName("/cc/main");
+        registry.addViewController("/cc/blog.html").setViewName("/cc/blog");
         registry.addViewController("/cc/commentReview.html")
                 .setViewName("/cc/commentReview");
         registry.addViewController("/cc/blogManage.html")

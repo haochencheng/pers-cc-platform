@@ -29,7 +29,7 @@
     </select>
     
     <insert id="add" parameterType="Comment">
-		insert into t_comment values(#{id},#{userIp},#{blog.id},#{content},now(),0);
+		insert into t_comment values(#{id},#{userIp},#{blog.id},#{content},#{commentDate},#{state});
 	</insert>
    
     <select id="getTotal" parameterType="Map" resultType="Long">

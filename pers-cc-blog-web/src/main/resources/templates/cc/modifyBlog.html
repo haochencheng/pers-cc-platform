@@ -67,7 +67,7 @@
     			onsuccess:function(result){
     				var result=eval('('+result.responseText+')');
     				$('#title').val(result.title);
-    				$('#keyWord').val(result.title);
+    				$('#keyWord').val(result.keyWord);
     				$('#blogTypeId').combobox('select',result.blogType.id);
     				UE.getEditor('editor').setContent(result.content);
     			}

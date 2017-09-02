@@ -32,7 +32,7 @@ public class BloggerController {
         Subject subject = SecurityUtils.getSubject();
         if (subject.isAuthenticated()) {
             if (request.getSession().getAttribute("currentUser") != null) {
-                return "/cc/main";
+                return "redirect:/cc/main.html";
             }
         }
         String userName = blogger.getUserName();
@@ -52,7 +52,7 @@ public class BloggerController {
                 CryptographyUtil.md5(password, "cc"), false);
         try {
             subject.login(token); // 登录验证
-            return "/cc/main";
+            return "redirect:/cc/main.html";
         } catch (Exception e) {
             e.printStackTrace();
             request.setAttribute("blogger", blogger);
