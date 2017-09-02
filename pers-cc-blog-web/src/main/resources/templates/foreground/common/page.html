@@ -1,0 +1,25 @@
+<nav style="text-align: center;">
+	<ul class="pagination pagination-sm" >
+		<!-- 上一页 -->
+		<li class="page-item" data-th-classappend="*{first} ? 'disabled' : ''">
+			<a href="javascript:void(0);" class="page-link" data-th-attr="pageIndex=${page.currentPage} - 1" aria-label="Previous">
+				<span aria-hidden="true">«</span>
+			</a>
+		</li>
+		
+		<!-- 迭代生成页码 -->
+		<li class="page-item" data-th-each="i : ${#numbers.sequence(page.currentPage, 5)}" 
+			data-th-classappend="${(page.currentPage) eq i} ? 'active' : ''" >
+			<a class="page-link" data-th-attr="pageIndex=${i} - 1" href="javascript:void(0);">
+	             <span data-th-text="${i}"></span>
+	        </a>
+		</li>
+		
+		<!-- 下一页 -->
+		<li class="page-item" data-th-classappend="*{last} ? 'disabled' : ''">
+			<a href="javascript:void(0);" class="page-link" data-th-attr="pageIndex=${page.currentPage} + 1" aria-label="Next">
+				<span aria-hidden="true">»</span>
+			</a>
+		</li>
+	</ul>
+</nav>

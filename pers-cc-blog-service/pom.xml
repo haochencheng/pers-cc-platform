@@ -3,13 +3,13 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>pers-cc-demo</groupId>
-    <artifactId>pers-cc-demo</artifactId>
+    <groupId>pers-cc-platform</groupId>
+    <artifactId>pers-cc-platform</artifactId>
     <version>1.0-SNAPSHOT</version>
   </parent>
     <packaging>jar</packaging>
-  <artifactId>pers-cc-blog-service</artifactId>
-  <name>pers-cc-blog-service</name>
+  <artifactId>pers-platform-blog-service</artifactId>
+  <name>pers-platform-blog-service</name>
   <url>http://maven.apache.org</url>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -19,7 +19,7 @@
       <!-- 工具类 -->
       <dependency>
           <groupId>${project.groupId}</groupId>
-          <artifactId>pers-cc-common-utils</artifactId>
+          <artifactId>pers-platform-common-utils</artifactId>
           <version>${project.version}</version>
       </dependency>
       <!--mybatis支持-->
@@ -28,7 +28,77 @@
           <artifactId>mybatis-spring-boot-starter</artifactId>
           <version>1.3.0</version>
       </dependency>
+   	
+   	  	<!-- 添加lucene支持 -->
+		<dependency>
+			<groupId>org.apache.lucene</groupId>
+			<artifactId>lucene-analyzers-common</artifactId>
+			<version>${lucene.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.lucene</groupId>
+			<artifactId>lucene-core</artifactId>
+			<version>${lucene.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.lucene</groupId>
+			<artifactId>lucene-queryparser</artifactId>
+			<version>${lucene.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.lucene</groupId>
+			<artifactId>lucene-backward-codecs</artifactId>
+			<version>${lucene.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.lucene</groupId>
+			<artifactId>lucene-analyzers-smartcn</artifactId>
+			<version>${lucene.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.lucene</groupId>
+			<artifactId>lucene-highlighter</artifactId>
+			<version>${lucene.version}</version>
+		</dependency>
+
+		<!-- 添加百度编辑器ueditor支持 -->
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>1.3.1</version>
+		</dependency>
+		
+			<!-- 添加Jsoup支持 -->
+		<dependency>
+			<groupId>org.jsoup</groupId>
+			<artifactId>jsoup</artifactId>
+			<version>1.9.2</version>
+		</dependency>
+		<dependency>
+			<groupId>net.sf.json-lib</groupId>
+			<artifactId>json-lib</artifactId>
+			<version>2.4</version>
+		</dependency>
+		
+		<!-- apache commons 公共包 -->
+		<dependency>
+		    <groupId>commons-codec</groupId>
+		    <artifactId>commons-codec</artifactId>
+		</dependency>
+		
+		<dependency>
+		    <groupId>commons-fileupload</groupId>
+		    <artifactId>commons-fileupload</artifactId>
+		    <version>1.3.3</version>
+		</dependency>
+   	
    
+		   		
   </dependencies>
 
     <build>

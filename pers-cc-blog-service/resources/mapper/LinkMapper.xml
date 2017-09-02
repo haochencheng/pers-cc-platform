@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
   
- <mapper namespace="pers.cc.blog.repository.LinkRepo">
+ <mapper namespace="pers.platform.blog.repository.LinkRepo">
     
     <resultMap type="Link" id="LinkResult">
         <result property="id" column="id"/>
@@ -41,11 +41,11 @@
     </update>
     
      <insert id="add" parameterType="BlogType" >
-    	insert into t_link values(null,#{linkName},#{linkUrl},#{orderNo})
+    	insert into t_link values(#{id},#{linkName},#{linkUrl},#{orderNo})
     </insert>
     
     
-    <delete id="delete" parameterType="Integer" >
+    <delete id="delete" parameterType="String" >
     	delete from t_link where id=#{id}
     </delete>
     
