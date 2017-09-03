@@ -10,4 +10,5 @@ CKEDITOR.editorConfig = function( config ) {
 	config.language = 'zh-cn';
 	config.height = 430;
 	config.width = '90%';
+	config.filebrowserUploadUrl="/cc/blog/ckeditorUpload";
 };

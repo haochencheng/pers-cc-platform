@@ -76,6 +76,7 @@
         	 });
          }	
     });   
+ 	
 	function Paste(e){  
 	  var items = e.data.$.clipboardData.items;  
 	    
@@ -90,7 +91,21 @@
 			//readAsDataURL是一个异步过程，这里提供回调方法  
 	          fileReader.onloadend = function () {  
 	              var d = this.result.substr( this.result.indexOf(',')+1);  
-	              //往ckeditor中插入图片,base64编码过的  
+	              
+	              //上传到服务器
+	              	//通过ajax请求数据
+		        	 $.ajax({
+		                    type   : 'POST',
+		                    async  : false,	//同步加载
+		                    url    : '/cc/blog/uploadPastImage.html',
+		                    data   : {'image':d},
+		                    success: function (result) {
+		                    	CKEDITOR.instances.editor.insertHtml(result);
+		                    }
+		        	 });
+	              
+	              console.log(d);
+	              //往ckeditor中插入图片,base64编码过的  	
 	              CKEDITOR.instances.editor.insertHtml("<img src='data:image/jpeg;base64,"+d+"' />");   
 	          };  
 	          fileReader.readAsDataURL(item.getAsFile());  
@@ -118,7 +133,11 @@ function submitData(){
 	}else if(content==null || content==''){
 		alert("请填写内容！");
 	}else{
-		$.post("/cc/blog/save.html",{'title':title,'blogType.id':blogTypeId,
+		/* 判断是否有图片 */
+		
+		
+		
+		/* $.post("/cc/blog/save.html",{'title':title,'blogType.id':blogTypeId,
 			'contentNoTag':contentNoTag,
 			'content':content,'summary':summary,'keyWord':keyWord},function(result){
 			if(result.success){
@@ -127,7 +146,7 @@ function submitData(){
 			}else{
 				alert("博客发布失败！");
 			}
-		},"json"); 
+		},"json");  */
 	}
 }
 

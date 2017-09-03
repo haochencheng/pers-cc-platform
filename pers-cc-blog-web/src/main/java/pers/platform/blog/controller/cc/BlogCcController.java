@@ -1,17 +1,25 @@
 package pers.platform.blog.controller.cc;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.yaml.snakeyaml.external.biz.base64Coder.Base64Coder;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -21,6 +29,7 @@ import pers.platform.blog.model.Blog;
 import pers.platform.blog.model.PageBean;
 import pers.platform.blog.service.BlogService;
 import pers.platform.common.service.IdService;
+import pers.platfrom.common.utils.DateUtil;
 import pers.platfrom.common.utils.ResponseUtil;
 import pers.platfrom.common.utils.StringUtil;
 
@@ -36,6 +45,97 @@ public class BlogCcController {
 
     @Resource
     private BlogIndex blogIndex;
+
+    /**
+     * 上传粘贴的图片
+     * 
+     * @param request
+     * @param image
+     * @return
+     * @throws Exception
+     * @Description:
+     */
+    @RequestMapping("/uploadPastImage")
+    public String uploadPastImage(HttpServletRequest request, String image)
+            throws Exception {
+        // 定义图片存储路径 按月份储存 如 20170903
+        String fileDirName = DateUtil.getCurrentDateStr().substring(0, 6);
+        String imageFilePath = request.getServletContext()
+                .getRealPath("/static/userImages/") + fileDirName;
+        System.out.println(imageFilePath);
+        File filePath = new File(imageFilePath);
+        // 不存在则创建
+        if (!filePath.exists()) {
+            filePath.mkdir();
+        }
+        String newFileName = DateUtil.getCurrentDateStr() + ".jpg";
+        // 将base64转为jpg
+        convertBase64DataToImage(image, imageFilePath + "/" + newFileName);
+        return "/static/userImages/" + fileDirName + "/" + newFileName;
+    }
+
+    /**
+     * 将base64 图片 储存在 服务器
+     * 
+     * @param base64ImgData
+     * @param filePath
+     * @throws IOException
+     * @Description:
+     */
+    public static void convertBase64DataToImage(String base64ImgData,
+            String filePath) throws IOException {
+        // Base64解码
+        byte[] b = Base64Coder.decode(base64ImgData);
+        for (int i = 0; i < b.length; ++i) {
+            if (b[i] < 0) {// 调整异常数据
+                b[i] += 256;
+            }
+        }
+        OutputStream out = new FileOutputStream(filePath);
+        out.write(b);
+        out.flush();
+        out.close();
+    }
+
+    /**
+     * ckeditor 上传图片
+     * 
+     * @param request
+     * @param file
+     * @param CKEditorFuncNum
+     * @return
+     * @throws Exception
+     * @Description:
+     */
+    @RequestMapping("/ckeditorUpload")
+    public String upLoadImage(HttpServletRequest request,
+            @RequestParam("upload") MultipartFile file, String CKEditorFuncNum)
+            throws Exception {
+        // 定义图片存储路径 按月份储存 如 20170903
+        String fileDirName = DateUtil.getCurrentDateStr().substring(0, 6);
+        String imageFilePath = request.getServletContext()
+                .getRealPath("/static/userImages/") + fileDirName;
+        System.out.println(imageFilePath);
+        File filePath = new File(imageFilePath);
+        // 不存在则创建
+        if (!filePath.exists()) {
+            filePath.mkdir();
+        }
+        // 获取文件名
+        String fileName = file.getOriginalFilename();
+        // 获取文件的后缀名
+        String suffixName = fileName.substring(fileName.lastIndexOf("."));
+        String newFileName = DateUtil.getCurrentDateStr() + suffixName;
+        FileUtils.copyInputStreamToFile(file.getInputStream(),
+                new File(imageFilePath + "/" + newFileName));
+        StringBuffer sb = new StringBuffer();
+        sb.append("<script type=\"text/javascript\">");
+        sb.append("window.parent.CKEDITOR.tools.callFunction(" + CKEditorFuncNum
+                + ",'" + "/static/userImages/" + fileDirName + "/" + newFileName
+                + "','')");
+        sb.append("</script>");
+        return sb.toString();
+    }
 
     @RequestMapping("/modifyBlog.html")
     public ModelAndView modifyBlog(String id, HttpServletResponse response) {
