@@ -1,9 +1,6 @@
 package pers.platform.blog.controller.cc;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -19,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-import org.yaml.snakeyaml.external.biz.base64Coder.Base64Coder;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -29,6 +25,7 @@ import pers.platform.blog.model.Blog;
 import pers.platform.blog.model.PageBean;
 import pers.platform.blog.service.BlogService;
 import pers.platform.common.service.IdService;
+import pers.platfrom.common.utils.Base64Util;
 import pers.platfrom.common.utils.DateUtil;
 import pers.platfrom.common.utils.ResponseUtil;
 import pers.platfrom.common.utils.StringUtil;
@@ -62,39 +59,15 @@ public class BlogCcController {
         String fileDirName = DateUtil.getCurrentDateStr().substring(0, 6);
         String imageFilePath = request.getServletContext()
                 .getRealPath("/static/userImages/") + fileDirName;
-        System.out.println(imageFilePath);
         File filePath = new File(imageFilePath);
         // 不存在则创建
         if (!filePath.exists()) {
             filePath.mkdir();
         }
         String newFileName = DateUtil.getCurrentDateStr() + ".jpg";
-        // 将base64转为jpg
-        convertBase64DataToImage(image, imageFilePath + "/" + newFileName);
+        // 将base64转为jpg .replace("webapp", "resources") 放到resources中前段图片无法显示
+        Base64Util.convert64StrToImg(image, imageFilePath + "/" + newFileName);
         return "/static/userImages/" + fileDirName + "/" + newFileName;
-    }
-
-    /**
-     * 将base64 图片 储存在 服务器
-     * 
-     * @param base64ImgData
-     * @param filePath
-     * @throws IOException
-     * @Description:
-     */
-    public static void convertBase64DataToImage(String base64ImgData,
-            String filePath) throws IOException {
-        // Base64解码
-        byte[] b = Base64Coder.decode(base64ImgData);
-        for (int i = 0; i < b.length; ++i) {
-            if (b[i] < 0) {// 调整异常数据
-                b[i] += 256;
-            }
-        }
-        OutputStream out = new FileOutputStream(filePath);
-        out.write(b);
-        out.flush();
-        out.close();
     }
 
     /**
@@ -115,7 +88,6 @@ public class BlogCcController {
         String fileDirName = DateUtil.getCurrentDateStr().substring(0, 6);
         String imageFilePath = request.getServletContext()
                 .getRealPath("/static/userImages/") + fileDirName;
-        System.out.println(imageFilePath);
         File filePath = new File(imageFilePath);
         // 不存在则创建
         if (!filePath.exists()) {

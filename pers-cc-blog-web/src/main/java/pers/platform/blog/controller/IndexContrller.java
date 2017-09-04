@@ -77,7 +77,8 @@ public class IndexContrller {
             Elements jpgs = doc.select("img[src$=.jpg]");
             for (int i = 0; i < jpgs.size(); i++) {
                 Element jpg = jpgs.get(i);
-                imageList.add(jpg.toString().replace("/static/", ""));
+                // imageList.add(jpg.toString().replace("/static", ""));
+                imageList.add(jpg.toString());
                 if (i == 2) {
                     break;
                 }
