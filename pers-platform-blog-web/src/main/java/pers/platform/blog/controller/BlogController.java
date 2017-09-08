@@ -1,23 +1,25 @@
 package pers.platform.blog.controller;
 
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
 import pers.platform.blog.lucene.BlogIndex;
 import pers.platform.blog.model.Blog;
 import pers.platform.blog.model.PageBean;
 import pers.platform.blog.service.BlogService;
 import pers.platform.blog.service.CommentService;
 import pers.platfrom.common.utils.StringUtil;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * 博主Controller层
@@ -64,6 +66,11 @@ public class BlogController {
         map.put("blogId", blog.getId());
         map.put("state", 1);
         mAndView.addObject("commentList", commentService.list(map));
+        String page = getUpandDownPageCode(
+                blogService.getLastBlog(blog.getReleaseDate()),
+                blogService.getNextBlog(blog.getReleaseDate()),
+                request.getServletContext().getContextPath());
+        System.out.println(page);
         mAndView.addObject("pageCode",
                 getUpandDownPageCode(
                         blogService.getLastBlog(blog.getReleaseDate()),

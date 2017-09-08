@@ -20,7 +20,7 @@ public class BlogServiceTest {
 
     @Test
     public void test() {
-        Blog blog = blogService.findById("8");
+        Blog blog = blogService.findById("315");
         Blog blog2 = blogService.getNextBlog(blog.getReleaseDate());
         System.out.println(blog2.getId());
     }

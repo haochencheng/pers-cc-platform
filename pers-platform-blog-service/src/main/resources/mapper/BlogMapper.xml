@@ -10,7 +10,7 @@
         <result property="id" column="id"/>
         <result property="title" column="title"/>
         <result property="summary" column="summary"/>
-        <result property="releaseDate" column="releaseDate"/>
+        <result property="releaseDate" column="releaseDate" />
         <result property="clickHit" column="clickHit"/>
         <result property="replyHit" column="replyHit"/>
         <result property="content" column="content"/>
@@ -89,11 +89,11 @@
     </update>
     
     <select id="getLastBlog" parameterType="Date" resultMap="BlogResult">
-    	select * from t_blog where  <![CDATA[  #{releaseDate} <= releaseDate ]]> order by releaseDate desc limit 1;
+    	select * from t_blog t where <![CDATA[ #{releaseDate,jdbcType=TIMESTAMP} > t.releaseDate ]]> order by releaseDate desc limit 1
     </select>
     
     <select id="getNextBlog" parameterType="Date" resultMap="BlogResult">
-    	select * from t_blog where  <![CDATA[  #{releaseDate} >= releaseDate ]]> order by releaseDate desc limit 1;
+    	select * from t_blog  t where <![CDATA[ t.releaseDate > #{releaseDate,jdbcType=TIMESTAMP} ]]> order by releaseDate asc limit 1
     </select>
     
     <insert id="add" useGeneratedKeys="true" keyProperty="id" parameterType="Blog" >
