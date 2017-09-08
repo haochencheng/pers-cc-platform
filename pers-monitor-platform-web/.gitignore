@@ -1,9 +1,0 @@
-/target/
-/.project
-.settings
-/.classpath
-*.iml
-*.idea
-.idea
-pers-cc-demo.iml
-/*.iml
