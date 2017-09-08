@@ -46,6 +46,9 @@
                     <include>**/*.xml</include>
                     <include>**/*.txt</include>
                     <include>**/*.ico</include>
+                    <include>**/*.html</include>
+                    <include>templates/*</include>
+                    <include>static/*</include>
                 </includes>
             </resource>
             <resource>
