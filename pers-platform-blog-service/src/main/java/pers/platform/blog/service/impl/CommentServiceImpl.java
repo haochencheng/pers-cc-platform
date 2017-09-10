@@ -28,7 +28,7 @@ public class CommentServiceImpl implements CommentService {
     private CommentRepo commentRepo;
 
     @Override
-    @CachePut(value = "comment", key = "#root.target.COMMENT+#map.get('blogId')", unless = "(#result eq null)&&(#result.size()==0)")
+    @CachePut(value = "comment", key = "#root.target.COMMENT+#map.get('blogId')", unless = "(#result eq null)")
     public List<Comment> list(Map<String, Object> map) {
         return commentRepo.list(map);
     }

@@ -87,11 +87,15 @@
 	      if (items[i].kind == 'file' && items[i].type == 'image/png') {  
 			//FileReader可以参考<p>API  
 	          var fileReader = new FileReader();  
-	            
-			//readAsDataURL是一个异步过程，这里提供回调方法  
+	          var thImageUrl;
+	          var replaceText;
+	          fileReader.readAsDataURL(item.getAsFile());  
+	          //readAsDataURL是一个异步过程，这里提供回调方法  
 	          fileReader.onloadend = function () {  
 				  var imgTemp=this.result;
 	              var d = imgTemp.substr( this.result.indexOf(',')+1);  
+	              //往ckeditor中插入图片,base64编码过的  	
+	              //CKEDITOR.instances.editor.insertHtml("<img src='data:image/jpeg;base64,"+d+"' />");
 	              //上传到服务器
 	              	//通过ajax请求数据
 		        	 $.ajax({
@@ -100,15 +104,18 @@
 		                    url    : '/cc/blog/uploadPastImage.html',
 		                    data   : {'image':d},
 		                    success: function (imageUrl) {
-		                    var thImageUrl="<img src=\""+imageUrl+"\" ></img> ";
-	                    	//往ckeditor中插入图片,base64编码过的  	
-		      	          setTimeout(CKEDITOR.instances.editor.insertHtml(thImageUrl), 3000 );
+		                    thImageUrl="<img src=\""+imageUrl+"\" ></img> ";
+		                    CKEDITOR.instances.editor.insertHtml(thImageUrl);
+	                    /* 	//替换图片路径	
+		      	            var text=CKEDITOR.instances.editor.getData();   
+	                    	//匹配图片（g表示匹配所有结果i表示区分大小写）
+	                    	var imgReg = /<img.*?(?:>|\/>)/gi;
+	                    	var arr = text.match(imgReg);
+	                    	console.log('正则匹配'+arr);
+	                    	replaceText=text.replace(arr,thImageUrl); */
 	                    }
 		        	 });
-		        	 //往ckeditor中插入图片,base64编码过的  	
-     	             // CKEDITOR.instances.editor.insertHtml("<img src='data:image/jpeg;base64,"+d+"' />"); 
 	          };  
-	          fileReader.readAsDataURL(item.getAsFile());  
 	          break;   
 	      }  
 	    }  

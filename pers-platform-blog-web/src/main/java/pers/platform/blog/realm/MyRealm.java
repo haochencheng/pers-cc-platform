@@ -13,6 +13,7 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import pers.platform.blog.model.Blogger;
@@ -30,6 +31,7 @@ public class MyRealm extends AuthorizingRealm {
     Logger logger = LoggerFactory.getLogger(MyRealm.class);
 
     @Resource
+    @Lazy
     BloggerService bloggerService;
 
     /*

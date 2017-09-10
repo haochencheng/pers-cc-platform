@@ -55,6 +55,9 @@ public class BlogCcController {
     @RequestMapping("/uploadPastImage")
     public String uploadPastImage(HttpServletRequest request, String image)
             throws Exception {
+        if (StringUtil.isEmpty(image)) {
+            return null;
+        }
         // 定义图片存储路径 按月份储存 如 20170903
         String fileDirName = DateUtil.getCurrentDateStr().substring(0, 6);
         String imageFilePath = request.getServletContext()
