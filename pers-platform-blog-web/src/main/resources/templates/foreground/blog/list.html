@@ -6,17 +6,17 @@
 		<ul>
 			<div th:each="blog:${blogList }">
 				<li style="margin-bottom: 30px"><span class="date"><a
-						th:href="'/blog/articles/'+@{${blog.id}}+'.html'">
+						th:href="'/blog/articles/'+@{${blog.id}}+'.html'" target="_blank">
 								  <span th:text="${#calendars.format(blog.releaseDate,'yyyy年MM月dd日')}"></span>
 								</a></span>
 					<span class="title"><a
 						th:href="'/blog/articles/'+@{${blog.id}}+'.html'" th:text="${blog.title }"></a></span> 
-					<a th:href="'/blog/articles/'+@{${blog.id}}+'.html'">
+					<a th:href="'/blog/articles/'+@{${blog.id}}+'.html'" target="_blank">
 						<span
 					class="summary"><span style="font-weight: bold">摘要：</span><span th:text="${blog.summary }"></span>...</span>
 					<span class="img">
 					<span th:each="image: ${blog.imageList }" >
-							<a th:href="'/blog/articles/'+@{${blog.id}}+'.html'">
+							<a th:href="'/blog/articles/'+@{${blog.id}}+'.html'" target="_blank">
 								<span th:utext="${image}" ></span> 
 							</a>
 				  		&nbsp;&nbsp;

@@ -1,14 +1,25 @@
 package pers.platform.blog.controller.cc;
 
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
-import net.sf.json.JsonConfig;
+import java.io.File;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.io.FileUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+import net.sf.json.JsonConfig;
 import pers.platform.blog.lucene.BlogIndex;
 import pers.platform.blog.model.Blog;
 import pers.platform.blog.model.PageBean;
@@ -18,15 +29,6 @@ import pers.platfrom.common.utils.Base64Util;
 import pers.platfrom.common.utils.DateUtil;
 import pers.platfrom.common.utils.ResponseUtil;
 import pers.platfrom.common.utils.StringUtil;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.File;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/cc/blog")
@@ -64,8 +66,10 @@ public class BlogCcController {
         }
         String newFileName = DateUtil.getCurrentDateStr() + ".jpg";
         // 将base64转为jpg .replace("webapp", "resources") 放到resources中前段图片无法显示
-        Base64Util.convert64StrToImg(image, imageFilePath + "/" + newFileName);
-        return "/static/userImages/" + fileDirName + "/" + newFileName;
+        Base64Util.convert64StrToImg(image,
+                imageFilePath.replace("webapp", "resources") + "/"
+                        + newFileName);
+        return "/userImages/" + fileDirName + "/" + newFileName;
     }
 
     /**
@@ -85,7 +89,8 @@ public class BlogCcController {
         // 定义图片存储路径 按月份储存 如 20170903
         String fileDirName = DateUtil.getCurrentDateStr().substring(0, 6);
         String imageFilePath = request.getServletContext()
-                .getRealPath("/static/userImages/") + fileDirName;
+                .getRealPath("/static/userImages/")
+                .replace("webapp", "resources") + fileDirName;
         File filePath = new File(imageFilePath);
         // 不存在则创建
         if (!filePath.exists()) {
@@ -101,7 +106,7 @@ public class BlogCcController {
         StringBuffer sb = new StringBuffer();
         sb.append("<script type=\"text/javascript\">");
         sb.append("window.parent.CKEDITOR.tools.callFunction(" + CKEditorFuncNum
-                + ",'" + "/static/userImages/" + fileDirName + "/" + newFileName
+                + ",'" + "/userImages/" + fileDirName + "/" + newFileName
                 + "','')");
         sb.append("</script>");
         return sb.toString();
@@ -119,13 +124,15 @@ public class BlogCcController {
     public String save(Blog blog, HttpServletResponse response)
             throws Exception {
         int resultTotal = 0;
-        if (blog.getId() == null) {
+        String message;
+        if (StringUtil.isEmpty(blog.getId())) {
             blog.setId(idService.getId());
             blog.setClickHit(1);
             blog.setReleaseDate(new Date());
             blog.setReplyHit(0);
             resultTotal = blogService.add(blog) != null ? 1 : 0;
             blogIndex.addIndex(blog);
+            message = "博客发布成功!";
         } else {
             // 先查询,发生改变的 设置 然后更新.
             Blog oldBlog = blogService.findById(blog.getId());
@@ -136,10 +143,12 @@ public class BlogCcController {
             oldBlog.setKeyWord(blog.getKeyWord());
             resultTotal = blogService.update(oldBlog) != null ? 1 : 0;
             blogIndex.updateIndex(blog);
+            message = "博客修改成功!";
         }
         JSONObject result = new JSONObject();
         if (resultTotal > 0) {
             result.put("success", true);
+            result.put("message", message);
         } else {
             result.put("success", false);
         }

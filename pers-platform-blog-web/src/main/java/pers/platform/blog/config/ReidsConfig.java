@@ -2,14 +2,12 @@ package pers.platform.blog.config;
 
 import java.lang.reflect.Method;
 
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.interceptor.KeyGenerator;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
@@ -21,18 +19,13 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-@Configuration
 @EnableCaching
-@PropertySource(value = "classpath:redis.properties")
+@ConfigurationProperties(value = "classpath:redis.properties", prefix = "spring.redis")
 public class ReidsConfig extends CachingConfigurerSupport {
 
-    @Value("${spring.redis.host}")
     private String host;
-    @Value("${spring.redis.port}")
     private int port;
-    @Value("${spring.redis.password}")
     private String password;
-    @Value("${spring.redis.timeout}")
     private int timeout;
 
     @Bean
@@ -40,7 +33,7 @@ public class ReidsConfig extends CachingConfigurerSupport {
             RedisTemplate<String, String> redisTemplate) {
         RedisCacheManager rcm = new RedisCacheManager(redisTemplate);
         // 默认过期时间 s
-        rcm.setDefaultExpiration(3000);
+        // rcm.setDefaultExpiration(3000);
         return rcm;
     }
 
@@ -101,6 +94,38 @@ public class ReidsConfig extends CachingConfigurerSupport {
         template.setValueSerializer(jackson2JsonRedisSerializer);
         template.afterPropertiesSet();
         return template;
+    }
+
+    public String getHost() {
+        return this.host;
+    }
+
+    public void setHost(String host) {
+        this.host = host;
+    }
+
+    public int getPort() {
+        return this.port;
+    }
+
+    public void setPort(int port) {
+        this.port = port;
+    }
+
+    public String getPassword() {
+        return this.password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public int getTimeout() {
+        return this.timeout;
+    }
+
+    public void setTimeout(int timeout) {
+        this.timeout = timeout;
     }
 
 }

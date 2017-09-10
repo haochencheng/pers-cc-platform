@@ -1,6 +1,7 @@
 package pers.platform.blog.config;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
@@ -32,6 +33,11 @@ public class SpringMvcConfig extends WebMvcConfigurerAdapter {
         registry.addViewController("/cc/linkManage.html")
                 .setViewName("/cc/linkManage");
         super.addViewControllers(registry);
+    }
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        super.addResourceHandlers(registry);
     }
 
 }

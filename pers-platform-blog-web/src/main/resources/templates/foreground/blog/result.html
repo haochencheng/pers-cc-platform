@@ -9,11 +9,13 @@
 				</div>
 				<div th:if="${blogList.size()!=0 }">
 					<ul th:each="blog:${blogList }">
-						<li style="margin-bottom: 20px">
-			  				<span class="title"><a href="@{/blog/articles/${blog.id }.html}" target="_blank" ><span th:utext="${blog.title}"></span></a></span>
-			  				<span class="summary" style="margin-top: -5px;" th:utext="'摘要:'+${blog.content }+'...'"/>
-			  				<span class="link"><a href="@{/blog/articles/${blog.id }.html}">http://localhost:8080/blog/articles/<span th:text="${blog.id }"></span>.html</a>&nbsp;&nbsp;&nbsp;&nbsp;发布日期：<span th:text="${blog.releaseDateStr }"></span></span>
-			    		</li>
+						<a th:href="@{'/blog/articles/'+${blog.id }+'.html'}" target="_blank" >
+							<li style="margin-bottom: 20px">
+				  				<span class="title"><span th:utext="${blog.title}"></span></span>
+				  				<span class="summary" style="margin-top: -5px;" th:utext="'摘要:'+${blog.content }+'...'"/>
+				  				<span class="link"><a th:href="@{'/blog/articles/'+${blog.id }+'.html'}">http://blogcc.cc/blog/articles/<span th:text="${blog.id }"></span>.html</a>&nbsp;&nbsp;&nbsp;&nbsp;发布日期：<span th:text="${blog.releaseDateStr }"></span></span>
+				    		</li>
+			    		</a>
 				   </ul>
 			   </div>
 		   </ul>

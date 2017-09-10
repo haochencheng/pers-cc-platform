@@ -12,6 +12,7 @@
 			<tr>
 				<td width="80px">博客标题：</td>
 				<td>
+					<input name="id" id="id" hidden="true" />
 					<input type="text" id="title" name="title" style="width: 400px"/>
 				</td>
 			</tr>
@@ -55,7 +56,6 @@
 <script th:inline="javascript">
 /*<![CDATA[  */
 	CKEDITOR.replace( 'editor' );
-	console.log();
  	CKEDITOR.instances["editor"].on("instanceReady", function () {    
           this.document.on("paste", Paste);   
           //更新博客,加载数据
@@ -68,6 +68,7 @@
                     data   : {'id':[[${id}]]},
                     success: function (result) {
                     	var result=eval('('+result+')');	//将json字符串转化为json对象
+                    	$('#id').val(result.id);
           				$('#title').val(result.title);
           				$('#keyWord').val(result.keyWord);
           				$('#blogTypeId').combobox('select',result.blogType.id);
@@ -84,7 +85,6 @@
 	      var item = e.data.$.clipboardData.items[i];  
 	        
 	      if (items[i].kind == 'file' && items[i].type == 'image/png') {  
-	            console.log(item);
 			//FileReader可以参考<p>API  
 	          var fileReader = new FileReader();  
 	            
@@ -100,10 +100,10 @@
 		                    url    : '/cc/blog/uploadPastImage.html',
 		                    data   : {'image':d},
 		                    success: function (imageUrl) {
-		                    	console.log(imageUrl);
-		                    	 //往ckeditor中插入图片,base64编码过的  	
-		      	              CKEDITOR.instances.editor.insertHtml("<img src="+imageUrl+" />");   
-		                    }
+		                    var thImageUrl="<img src=\""+imageUrl+"\" ></img> ";
+	                    	//往ckeditor中插入图片,base64编码过的  	
+		      	          setTimeout(CKEDITOR.instances.editor.insertHtml(thImageUrl), 3000 );
+	                    }
 		        	 });
 		        	 //往ckeditor中插入图片,base64编码过的  	
      	             // CKEDITOR.instances.editor.insertHtml("<img src='data:image/jpeg;base64,"+d+"' />"); 
@@ -117,14 +117,13 @@
 </script>
 <script type="text/javascript">
 function submitData(){
+	var id=$('#id').val();	
 	var title=$("#title").val();
 	var blogTypeId=$("#blogTypeId").combobox("getValue");
 	var ckeditor=CKEDITOR.instances.editor;
 	var content=ckeditor.getData();
 	var contentNoTag=ckeditor.document.getBody().getText();
 	var summary=contentNoTag.substr(0,155);
-	console.log('文本内容'+content);
-	console.log('摘要'+summary);
 	var keyWord=$("#keyWord").val();
 	if(title==null || title==''){
 		alert("请输入标题！");
@@ -133,14 +132,14 @@ function submitData(){
 	}else if(content==null || content==''){
 		alert("请填写内容！");
 	}else{
-		 $.post("/cc/blog/save.html",{'title':title,'blogType.id':blogTypeId,
+		 $.post("/cc/blog/save.html",{'id':id,'title':title,'blogType.id':blogTypeId,
 			'contentNoTag':contentNoTag,
 			'content':content,'summary':summary,'keyWord':keyWord},function(result){
 			if(result.success){
-				alert("博客发布成功！");
+				alert(result.message);
 				resultValue();
 			}else{
-				alert("博客发布失败！");
+				alert("操作失败!");
 			}
 		},"json");  
 	}

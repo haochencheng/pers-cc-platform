@@ -6,6 +6,7 @@ import java.util.Map;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
@@ -24,9 +25,10 @@ import com.alibaba.druid.support.http.WebStatFilter;
 // true),
 // @PropertySource(value = "httpclient.properties", ignoreResourceNotFound =
 // true) })
-@PropertySource(value = "classpath:application.properties", ignoreResourceNotFound = true)
+@PropertySource(value = "classpath:application.properties", ignoreResourceNotFound = false)
 @ComponentScan(value = { "pers.platform.blog", "pers.platform.common.service" }) // 自动扫描包
 @MapperScan("pers.platform.blog.repository") // mybatis自动扫描repository
+@EnableConfigurationProperties({ DruidDBConfig.class })
 @SpringBootApplication
 public class SpringConfig extends SpringBootServletInitializer {
 
@@ -55,7 +57,7 @@ public class SpringConfig extends SpringBootServletInitializer {
         Map<String, String> initParams = new HashMap<String, String>();
         // 设置忽略请求
         initParams.put("exclusions",
-                "*.js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,/druid/*,/ueditor/*");
+                "*.js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,/druid/*,/static/*");
         filterRegistrationBean.setInitParameters(initParams);
         filterRegistrationBean.addUrlPatterns("/*");
         return filterRegistrationBean;

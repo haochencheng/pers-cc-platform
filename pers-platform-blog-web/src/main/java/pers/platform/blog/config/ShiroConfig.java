@@ -1,5 +1,8 @@
 package pers.platform.blog.config;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
@@ -11,26 +14,23 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.filter.DelegatingFilterProxy;
-import pers.platform.blog.realm.MyRealm;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
+import pers.platform.blog.realm.MyRealm;
 
 @Configuration
 public class ShiroConfig {
 
     private final Logger logger = LoggerFactory.getLogger(ShiroConfig.class);
 
-     @Bean
-     public FilterRegistrationBean delegatingFilterProxy() {
-     FilterRegistrationBean filterRegistrationBean = new
-     FilterRegistrationBean();
-     DelegatingFilterProxy proxy = new DelegatingFilterProxy();
-     proxy.setTargetFilterLifecycle(true);
-     proxy.setTargetBeanName("shiroFilter");
-     filterRegistrationBean.setFilter(proxy);
-     return filterRegistrationBean;
-     }
+    @Bean
+    public FilterRegistrationBean delegatingFilterProxy() {
+        FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean();
+        DelegatingFilterProxy proxy = new DelegatingFilterProxy();
+        proxy.setTargetFilterLifecycle(true);
+        proxy.setTargetBeanName("shiroFilter");
+        filterRegistrationBean.setFilter(proxy);
+        return filterRegistrationBean;
+    }
 
     /**
      * Shiro的Web过滤器Factory 命名:shiroFilter<br />
@@ -68,8 +68,8 @@ public class ShiroConfig {
         // <!-- authc:所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问-->
         filterChainDefinitionMap.put("/foreground/**", "anon");
         filterChainDefinitionMap.put("/static/**", "anon");
-        filterChainDefinitionMap.put("/ueditor/**", "anon");
-        filterChainDefinitionMap.put("/cc/**", "anon");
+        filterChainDefinitionMap.put("/static/userImages", "anon");
+        filterChainDefinitionMap.put("/cc/**", "authc");
         filterChainDefinitionMap.put("/druid/**", "authc");
         shiroFilterFactoryBean
                 .setFilterChainDefinitionMap(filterChainDefinitionMap);

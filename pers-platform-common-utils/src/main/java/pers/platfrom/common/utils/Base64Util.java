@@ -1,6 +1,7 @@
 package pers.platfrom.common.utils;
 
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.OutputStream;
 
 import org.apache.commons.codec.binary.Base64;
@@ -17,6 +18,7 @@ public class Base64Util {
             String imgFilePath) {// 对字节数组字符串进行Base64解码并生成图片
         if (img64Str == null) // 图像数据为空
             return false;
+        OutputStream out = null;
         try {
             // Base64解码
             byte[] bytes = Base64.decodeBase64(img64Str);
@@ -26,13 +28,20 @@ public class Base64Util {
                 }
             }
             // 生成jpeg图片
-            OutputStream out = new FileOutputStream(imgFilePath);
+            out = new FileOutputStream(imgFilePath);
             out.write(bytes);
-            out.flush();
-            out.close();
             return true;
         } catch (Exception e) {
             return false;
+        } finally {
+            try {
+                out.flush();
+                out.close();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+
         }
     }
 

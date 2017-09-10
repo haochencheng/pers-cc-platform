@@ -58,6 +58,10 @@ public class BlogController {
         } else {
             mAndView.addObject("keyWords", null);
         }
+        // 从jsp改成themeleaf后路径 发生变化
+        String content = blog.getContent();
+        content = content.replaceAll("src=\"/static", "src=\"");
+        blog.setContent(content);
         mAndView.addObject("blog", blog);
         Integer clickHit = blog.getClickHit();
         blog.setClickHit(clickHit + 1);
@@ -66,11 +70,6 @@ public class BlogController {
         map.put("blogId", blog.getId());
         map.put("state", 1);
         mAndView.addObject("commentList", commentService.list(map));
-        String page = getUpandDownPageCode(
-                blogService.getLastBlog(blog.getReleaseDate()),
-                blogService.getNextBlog(blog.getReleaseDate()),
-                request.getServletContext().getContextPath());
-        System.out.println(page);
         mAndView.addObject("pageCode",
                 getUpandDownPageCode(
                         blogService.getLastBlog(blog.getReleaseDate()),
