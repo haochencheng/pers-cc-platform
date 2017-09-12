@@ -65,8 +65,9 @@ public class BloggerCcController {
             String filePath = request.getServletContext().getRealPath("/");
             String imageName = DateUtil.getCurrentDateStr() + "."
                     + imageFile.getOriginalFilename().split("\\.")[1];
-            imageFile.transferTo(
-                    new File(filePath + "static/userImages/" + imageName));
+            imageFile
+                    .transferTo(new File(filePath.replace("webapp", "resources")
+                            + "/static/userImages/" + imageName));
             blogger.setImageName(imageName);
         }
         int resultTotal = bloggerService.update(blogger) == null ? 0 : 1;
