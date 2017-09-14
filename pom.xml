@@ -120,24 +120,18 @@
 		</dependency>
 
 		<!-- apache公共包 -->
+	<!-- 	<dependency>
+		    <groupId>org.apache.commons</groupId>
+		    <artifactId>commons-lang3</artifactId>
+		    <version>3.6</version>
+		</dependency> -->
 		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-lang3</artifactId>
-			<version>3.4</version>
+		    <groupId>org.apache.commons</groupId>
+		    <artifactId>commons-text</artifactId>
+		    <version>1.1</version>
 		</dependency>
-
-		<dependency>
-			<groupId>commons-logging</groupId>
-			<artifactId>commons-logging</artifactId>
-			<version>1.2</version>
-		</dependency>
-
-		<dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
-			<version>2.5</version>
-		</dependency>
-
+				
+		
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
@@ -280,7 +274,7 @@
 
 	</build>
 	<modules>
-		<module>pers-platform-common-utils</module>
+        <module>pers-platform-common-utils</module>
 		<module>pers-platform-common-service</module>
 		<module>pers-platform-blog-service</module>
 		<module>pers-platform-blog-web</module>

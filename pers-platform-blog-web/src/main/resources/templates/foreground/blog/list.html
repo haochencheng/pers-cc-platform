@@ -10,7 +10,7 @@
 								  <span th:text="${#calendars.format(blog.releaseDate,'yyyy年MM月dd日')}"></span>
 								</a></span>
 					<span class="title"><a
-						th:href="'/blog/articles/'+@{${blog.id}}+'.html'" th:text="${blog.title }"></a></span> 
+						th:href="'/blog/articles/'+@{${blog.id}}+'.html'" ><span th:text="${blog.title }" ></span></a></span>
 					<a th:href="'/blog/articles/'+@{${blog.id}}+'.html'" target="_blank">
 						<span
 					class="summary"><span style="font-weight: bold">摘要：</span><span th:text="${blog.summary }"></span>...</span>

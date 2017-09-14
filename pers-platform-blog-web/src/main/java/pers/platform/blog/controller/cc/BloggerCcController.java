@@ -1,23 +1,21 @@
 package pers.platform.blog.controller.cc;
 
-import java.io.File;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import net.sf.json.JSONObject;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-
-import net.sf.json.JSONObject;
 import pers.platform.blog.model.Blogger;
 import pers.platform.blog.service.BloggerService;
 import pers.platfrom.common.utils.CryptographyUtil;
 import pers.platfrom.common.utils.DateUtil;
 import pers.platfrom.common.utils.ResponseUtil;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 
 /**
  * 管理员博主Controller
@@ -62,12 +60,12 @@ public class BloggerCcController {
             Blogger blogger, HttpServletRequest request,
             HttpServletResponse response) throws Exception {
         if (!imageFile.isEmpty()) {
-            String filePath = request.getServletContext().getRealPath("/");
+            String filePath  = request.getServletContext()
+                    .getRealPath("/static/userImages/");
             String imageName = DateUtil.getCurrentDateStr() + "."
                     + imageFile.getOriginalFilename().split("\\.")[1];
             imageFile
-                    .transferTo(new File(filePath.replace("webapp", "resources")
-                            + "/static/userImages/" + imageName));
+                    .transferTo(new File(filePath + imageName));
             blogger.setImageName(imageName);
         }
         int resultTotal = bloggerService.update(blogger) == null ? 0 : 1;
