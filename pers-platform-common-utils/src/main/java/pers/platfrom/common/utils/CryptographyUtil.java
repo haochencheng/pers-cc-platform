@@ -10,7 +10,7 @@ import org.apache.shiro.crypto.hash.Md5Hash;
  */
 public class CryptographyUtil {
     /**
-     * Md5����
+     * Md5加盐加密
      * 
      * @param str
      * @param salt
