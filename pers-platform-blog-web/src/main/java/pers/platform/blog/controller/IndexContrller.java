@@ -1,5 +1,12 @@
 package pers.platform.blog.controller;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -8,16 +15,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
 import pers.platform.blog.model.Blog;
 import pers.platform.blog.model.PageBean;
-import pers.platform.blog.service.*;
+import pers.platform.blog.service.BlogService;
+import pers.platform.blog.service.BlogTypeService;
+import pers.platform.blog.service.BloggerService;
+import pers.platform.blog.service.CommentService;
+import pers.platform.blog.service.LinkService;
 import pers.platfrom.common.utils.StringUtil;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * 主页Contrller
@@ -90,8 +96,7 @@ public class IndexContrller {
         if (StringUtil.isNotEmpty(releaseDateStr)) {
             param.append("releaseDateStr=" + releaseDateStr + "&");
         }
-        pageBean.setTotalPages(Integer.valueOf(String.valueOf(
-                (blogService.getTotal(map) / pageBean.getPageSize()))));
+        pageBean.setTotalPages(blogService.getTotal(map));
         mAndView.addObject("page", pageBean);
         mAndView.addObject("pageTitle", "叶晨个人博客系统");
         mAndView.addObject("mainPage", "foreground/blog/list");

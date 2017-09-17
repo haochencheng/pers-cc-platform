@@ -134,14 +134,18 @@ public class BlogController {
                 ? Integer.parseInt(page) * pageSize : blogList.size();
         mAndView.addObject("blogList", blogList
                 .subList((Integer.parseInt(page) - 1) * pageSize, toIndex));
-        PageBean pageBean = new PageBean(1, pageSize);
-        pageBean.setTotalPages(blogList.size());
+        PageBean pageBean = new PageBean(Integer.parseInt(page), pageSize);
+        pageBean.setTotalPages((long) blogList.size());
         mAndView.addObject("q", q);
-        mAndView.addObject("pageCode",
-                genUpAndDownPageCode(Integer.parseInt(page), blogList.size(), q,
-                        pageSize,
-                        request.getServletContext().getContextPath()));
+        // mAndView.addObject("pageCode",
+        // genUpAndDownPageCode(Integer.parseInt(page), blogList.size(), q,
+        // pageSize,
+        // request.getServletContext().getContextPath()));
         mAndView.addObject("resultTotal", blogList.size());
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("start", pageBean.getStart());
+        map.put("size", pageBean.getPageSize());
+        mAndView.addObject("page", pageBean);
         mAndView.addObject("mainPage", "foreground/blog/result");
         mAndView.setViewName("mainTemp");
         return mAndView;
@@ -158,34 +162,34 @@ public class BlogController {
      * @return
      * @throws Exception
      */
-    private String genUpAndDownPageCode(Integer page, Integer totalNum,
-            String q, Integer pageSize, String projectContext)
-            throws Exception {
-        long totalPage = totalNum % pageSize == 0 ? totalNum / pageSize
-                : totalNum / pageSize + 1;
-        StringBuffer pageCode = new StringBuffer();
-        if (totalPage == 0) {
-            return "";
-        } else {
-            pageCode.append("<nav>");
-            pageCode.append("<ul class='pager'>");
-            if (page > 1) {
-                pageCode.append(
-                        "<li><a href='" + projectContext + "/blog/q.html?page="
-                                + (page - 1) + "&q=" + q + "'>上一页</a></li>");
-            } else {
-                pageCode.append("<li class='disabled'><span>上一页</span></li>");
-            }
-            if (page < totalPage) {
-                pageCode.append(
-                        "<li><a href='" + projectContext + "/blog/q.html?page="
-                                + (page + 1) + "&q=" + q + "'>下一页</a></li>");
-            } else {
-                pageCode.append("<li class='disabled'><span>下一页</span></li>");
-            }
-            pageCode.append("</ul></nav>");
-        }
-        return pageCode.toString();
-    }
+    // private String genUpAndDownPageCode(Integer page, Integer totalNum,
+    // String q, Integer pageSize, String projectContext)
+    // throws Exception {
+    // long totalPage = totalNum % pageSize == 0 ? totalNum / pageSize
+    // : totalNum / pageSize + 1;
+    // StringBuffer pageCode = new StringBuffer();
+    // if (totalPage == 0) {
+    // return "";
+    // } else {
+    // pageCode.append("<nav>");
+    // pageCode.append("<ul class='pager'>");
+    // if (page > 1) {
+    // pageCode.append(
+    // "<li><a href='" + projectContext + "/blog/q.html?page="
+    // + (page - 1) + "&q=" + q + "'>上一页</a></li>");
+    // } else {
+    // pageCode.append("<li class='disabled'><span>上一页</span></li>");
+    // }
+    // if (page < totalPage) {
+    // pageCode.append(
+    // "<li><a href='" + projectContext + "/blog/q.html?page="
+    // + (page + 1) + "&q=" + q + "'>下一页</a></li>");
+    // } else {
+    // pageCode.append("<li class='disabled'><span>下一页</span></li>");
+    // }
+    // pageCode.append("</ul></nav>");
+    // }
+    // return pageCode.toString();
+    // }
 
 }

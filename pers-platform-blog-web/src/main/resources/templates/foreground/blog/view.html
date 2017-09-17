@@ -6,12 +6,13 @@
 	</div>
 	<div>
 		<div class="blog_title"><h3><strong th:text="${blog.title }"></strong></h3></div>
-		<div class="blog_share">
+		<!-- <div class="blog_share">
 			<h4>\(^o^)/~>分享功能</h4>
-		</div>
+		</div> -->
 		<div class="blog_info">
 			发布时间：『 <span th:text="${#calendars.format(blog.releaseDate,'yyyy-MM-dd HH:mm:ss')} "></span>』&nbsp;&nbsp;博客类别：<span th:text="${blog.blogType.typeName }"></span>&nbsp;&nbsp;阅读(<span th:text="${blog.clickHit }"></span>) 评论(<span th:text="${blog.replyHit }"></span>)
 		</div>
+		<hr  color="#987cb9" size="10" />
 		<div class="blog_content" th:utext="${blog.content }">
 		
 		</div>
@@ -91,8 +92,13 @@
     <script type="text/javascript" th:src="@{/SyntaxHighlighter/shBrushPython.js}"></script> 
     <script type="text/javascript" th:src="@{/SyntaxHighlighter/shBrushSql.js}"></script> 
     <script type="text/javascript" th:src="@{/SyntaxHighlighter/shBrushXml.js}"></script> 
-    
 <script type="text/javascript">
+
+	$(function() {
+		$('p').removeClass();
+		$('p').attr('color','#fff');
+	});
+
     function showOtherComment(){
     	$(".otherComment").show();
     }
@@ -123,5 +129,6 @@
 				{"q":keyWord},"json"
 		); 
 	}
+    
 </script>    
 

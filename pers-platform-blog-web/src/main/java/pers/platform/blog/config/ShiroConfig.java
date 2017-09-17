@@ -69,6 +69,7 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/foreground/**", "anon");
         filterChainDefinitionMap.put("/static/**", "anon");
         filterChainDefinitionMap.put("/static/userImages", "anon");
+        filterChainDefinitionMap.put("/api/**", "anon");
         filterChainDefinitionMap.put("/cc/**", "authc");
         filterChainDefinitionMap.put("/druid/**", "authc");
         shiroFilterFactoryBean

@@ -130,7 +130,7 @@ function submitData(){
 	var ckeditor=CKEDITOR.instances.editor;
 	var content=ckeditor.getData();
 	var contentNoTag=ckeditor.document.getBody().getText();
-	var summary=contentNoTag.substr(0,155);
+	var summary=contentNoTag.substr(0,180);
 	var keyWord=$("#keyWord").val();
 	if(title==null || title==''){
 		alert("请输入标题！");

@@ -64,7 +64,7 @@ p{
 }
 
 .data_list .datas ul li {
-    margin-top: 10px;
+   /*  margin-top: 10px; */
 }
 
 .data_list .data_list_title .datas{
@@ -73,6 +73,7 @@ p{
 
 .datas .date ,.datas .title {
     display:block;
+
     line-height: 1.5;
     font-family: Verdana,Arial,Helvetica,sans-serif;
     padding-bottom: 5px;
@@ -85,9 +86,10 @@ p{
     font-weight: bold;
 }
 
-.datas .title a{
-    color: #333;
-    font-weight: bold;
+.datas .title span{
+    color: #06AFDA;
+    
+    font-size: 18px;
 }
 
 .datas .summary{
@@ -140,6 +142,8 @@ p{
 
 .data_list .blog_info{
     text-align: center;
+    margin-top:30px;
+    margin-bottom:16px;
 }
 
 .data_list .blog_content{
@@ -210,3 +214,25 @@ p{
 .data_list .search{
     padding-top: 5px;
 }
+
+.excerpt:hover {
+    border-left-color: #FFF;
+    padding-left: 10px;
+    margin-left: -4px;
+    background-color: #2D2D2D;
+    border-left: solid 4px #06AFDA;
+}
+
+/* 分页 */
+.pagecode{
+	text-align: center;
+	margin-top: 36px;
+}
+
+.widget_tit{
+	margin-left:15px;
+}
+
+
+
+

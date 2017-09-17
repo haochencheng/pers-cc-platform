@@ -33,8 +33,9 @@ public class PageBean {
         return this.totalPages;
     }
 
-    public void setTotalPages(Integer totalPages) {
-        this.totalPages = totalPages;
+    public void setTotalPages(Long totalPages) {
+        this.totalPages = (int) (totalPages % pageSize == 0
+                ? totalPages / pageSize : totalPages / pageSize + 1);
     }
 
     public Integer getStart() {

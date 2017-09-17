@@ -133,6 +133,7 @@ public class BlogIndex {
             Document doc = is.doc(scoreDoc.doc);
             Blog blog = new Blog();
             blog.setId(doc.get("id"));
+            blog.setKeyWord(doc.get("keyWord"));
             blog.setReleaseDateStr(doc.get("releaseDate"));
             String title = doc.get("title");
             String content = StringEscapeUtils.escapeHtml4(doc.get("content"));
@@ -154,10 +155,10 @@ public class BlogIndex {
                 if (StringUtil.isNotEmpty(hContent)) {
                     blog.setContent(hContent);
                 } else {
-                    if (content.length() <= 130) {
+                    if (content.length() <= 150) {
                         blog.setContent(content);
                     } else {
-                        blog.setContent(content.substring(0, 130));
+                        blog.setContent(content.substring(0, 150));
                     }
                 }
             }

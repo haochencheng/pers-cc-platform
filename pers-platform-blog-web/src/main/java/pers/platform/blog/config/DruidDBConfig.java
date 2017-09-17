@@ -86,7 +86,7 @@ public class DruidDBConfig {
             logger.error("druid configuration initialization filter", e);
         }
         datasource.setConnectionProperties(connectionProperties);
-
+        datasource.setName("dataSource");
         return datasource;
     }
 
