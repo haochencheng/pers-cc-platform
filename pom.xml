@@ -19,6 +19,7 @@
 		<junit-version>4.2</junit-version>
 		<shiro-version>1.3.0</shiro-version>
 		<lucene.version>6.1.0</lucene.version>
+        <maven.skip.text>true</maven.skip.text>
 	</properties>
 
 	<dependencies>
@@ -33,22 +34,14 @@
 					<groupId>org.springframework.boot</groupId>
 					<artifactId>spring-boot-starter-tomcat</artifactId>
 				</exclusion>-->
-                <exclusion>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-amqp</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-data-jpa</artifactId>
-                </exclusion>
 			</exclusions>
 		</dependency>
 
-		<dependency>
+		<!--<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-tomcat</artifactId>
 			<scope>provided</scope>
-		</dependency>
+		</dependency>-->
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -90,7 +83,6 @@
 			<artifactId>shiro-core</artifactId>
 			<version>${shiro-version}</version>
 		</dependency>
-
 
 		<dependency>
 			<groupId>mysql</groupId>
@@ -150,7 +142,7 @@
 					<fork>true</fork>
 					<skip>true</skip>
 					<!-- 指定该Main Class为全局的唯一入口 -->
-					<mainClass>pers.platform.blog.Application</mainClass>
+					<mainClass>pers.platform.monitor.Application</mainClass>
 					<layout>WAR</layout>
 				</configuration>
 				<dependencies>
@@ -215,8 +207,6 @@
 	<modules>
         <module>pers-platform-common-utils</module>
 		<module>pers-platform-common-service</module>
-		<module>pers-platform-blog-service</module>
-		<module>pers-platform-blog-web</module>
 		<module>pers-platform-monitor-service</module>
 		<module>pers-platform-monitor-web</module>
 	</modules>

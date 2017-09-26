@@ -58,6 +58,7 @@ public class MyRealm extends AuthorizingRealm {
     protected AuthenticationInfo doGetAuthenticationInfo(
             AuthenticationToken token) throws AuthenticationException {
         logger.info("MyRealm.doGetAuthenticationInfo()");
+        @SuppressWarnings("unused")
         String userName = (String) token.getPrincipal();
         User blogger = userService.getUserById(1);
         if (blogger != null) {
