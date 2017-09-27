@@ -61,17 +61,11 @@
 			<artifactId>spring-boot-starter-data-redis</artifactId>
 		</dependency>
 
-		<!--thymeleaf模板支持 -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-thymeleaf</artifactId>
-		</dependency>
-
 		 <dependency>
 	        <groupId>org.springframework.boot</groupId>
 	        <artifactId>spring-boot-starter-jdbc</artifactId>
 	    </dependency>
-
+		
 		<!-- shiro -->
 		<dependency>
 			<groupId>org.apache.shiro</groupId>
@@ -173,7 +167,7 @@
 
 			<!-- 资源文件拷贝插件 -->
 			<!-- 此plugin可以用 利用此plugin，把源代码中的xml文件，打包到相应位置， 这里主要是为了打包Mybatis的mapper.xml文件 -->
-			<plugin>
+			 <plugin>
 				<artifactId>maven-resources-plugin</artifactId>
 				<configuration>
 					<encoding>UTF-8</encoding>
