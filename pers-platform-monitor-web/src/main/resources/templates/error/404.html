@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>监控平台-欢迎登陆</title>
+  <meta charset="utf-8" />
+  <meta name="renderer" content="webkit" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1 , maximum-scale=1" />
+  <link rel="stylesheet" th:href="@{/layui/css/layui.css}"  media="all" /> 
+  <link rel="stylesheet" th:href="@{/css/common.css}"  />
+</head>
+
+<body  class="index">
+<div>
+    <h1>404 not found!</h1>
+</div>
+
+
+<script type="text/javascript" th:src="@{/layui/layui.js}" ></script>
+<script type="text/javascript" th:src="@{/js/jquery.min.js}" ></script>
+<script>
+
+		//我们强烈推荐你在代码最外层把需要用到的模块先加载
+		layui.use(['layer', 'form'], function(){
+		var layer = layui.layer
+		,form = layui.form;
+		
+		//……
+		//你的代码都应该写在这里面
+        $('#head').load('common/head.html');
+
+		});
+</script>
+</body>
+</html>

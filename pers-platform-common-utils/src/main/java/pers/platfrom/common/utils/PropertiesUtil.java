@@ -8,7 +8,7 @@ public class PropertiesUtil {
 
 	public static String getValue(String key) {
 		Properties	prop=new Properties();
-		InputStream in=PropertiesUtil.class.getResourceAsStream("/Properties");
+		InputStream in=PropertiesUtil.class.getResourceAsStream("/application.properties");
 		try {
 			prop.load(in);
 		} catch (IOException e) {

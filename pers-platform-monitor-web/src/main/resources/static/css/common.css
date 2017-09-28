@@ -1,4 +1,4 @@
-.index {
+.login {
 	background: #414141;
 	
 }
@@ -12,7 +12,7 @@
 	top:30%;/*配合margin-top的负值实现垂直居中*/ 
 }
 
-.index .layui-form .layui-form-pane {
+.login .layui-form .layui-form-pane {
 	
 	margin:0px auto;
 }

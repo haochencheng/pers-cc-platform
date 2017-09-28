@@ -1,26 +1,31 @@
 package pers.platform.monitor.controller;
 
+import javax.annotation.Resource;
+
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+
 import pers.platform.monitor.model.User;
 import pers.platform.monitor.service.UserService;
-
-import javax.annotation.Resource;
+import pers.platfrom.common.utils.CryptographyUtil;
 
 @Controller
 public class UserController {
 
     @Resource
+    private Environment env;
+
+    @Resource
     UserService userServuce;
 
-    // @RequestMapping(value = "/login.html", method = RequestMethod.POST,
-    // consumes = "application/json")
-    @RequestMapping(value = "/login.html")
+    @RequestMapping(value = "/mainPage.html")
     public ModelAndView login(User user) {
         ModelAndView modelAndView = new ModelAndView();
         User user2 = userServuce.getUserByIdAndName(user.getUserName(),
-                user.getPassword());
+                CryptographyUtil.md5(user.getPassword(),
+                        env.getProperty("salt")));
         modelAndView.addObject("message", "helloworld");
         if (user2 != null) {
             modelAndView.setViewName("/admin/mainPage");
@@ -28,11 +33,6 @@ public class UserController {
             modelAndView.setViewName("/index");
         }
         return modelAndView;
-    }
-
-    @RequestMapping(value = "/register.html")
-    public String register() {
-        return "register";
     }
 
 }
