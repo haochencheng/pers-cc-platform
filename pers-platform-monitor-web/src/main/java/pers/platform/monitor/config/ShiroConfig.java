@@ -65,7 +65,7 @@ public class ShiroConfig {
     }
 
     @Bean
-    public MyRealm myShiroRealm() {
+    public MyRealm monitorShiroRealm() {
         return new MyRealm();
     }
 
@@ -76,7 +76,7 @@ public class ShiroConfig {
     @ConditionalOnMissingBean(value = SecurityManager.class)
     public SecurityManager securityManager() {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
-        securityManager.setRealm(myShiroRealm());
+        securityManager.setRealm(monitorShiroRealm());
         return securityManager;
     }
 

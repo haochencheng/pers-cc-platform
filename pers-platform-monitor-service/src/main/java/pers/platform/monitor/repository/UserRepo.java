@@ -8,6 +8,7 @@ import pers.platform.monitor.model.User;
 
 public interface UserRepo extends CrudRepository<User, Serializable> {
 
-    User findUserByUserNameAndPassword(String userName, String password);
+    User getUserByUserNameOrPhoneOrEmail(String userName, String phone,
+            String email);
 
 }

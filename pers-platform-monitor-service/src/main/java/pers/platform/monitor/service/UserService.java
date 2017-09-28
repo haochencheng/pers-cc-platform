@@ -6,5 +6,6 @@ public interface UserService {
 
     User getUserById(long id);
 
-    User getUserByIdAndName(String userName, String password);
+    User getUserByUserNameOrPhoneOrEmail(String userName, String phone,
+            String email);
 }

@@ -3,14 +3,16 @@ package pers.platform.monitor.realm;
 import javax.annotation.Resource;
 
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
+import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
+import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.util.ByteSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -56,20 +58,25 @@ public class MyRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(
-            AuthenticationToken token) throws AuthenticationException {
+            AuthenticationToken token) {
         logger.info("MyRealm.doGetAuthenticationInfo()");
-        @SuppressWarnings("unused")
         String userName = (String) token.getPrincipal();
-        User blogger = userService.getUserById(1);
-        if (blogger != null) {
-            logger.info("---------->>bloggerInfo" + blogger.toString());
-            SecurityUtils.getSubject().getSession().setAttribute("currentUser",
-                    blogger);
-            AuthenticationInfo authcInfo = new SimpleAuthenticationInfo(
-                    blogger.getUserName(), blogger.getUserName(), "xxx");
-            return authcInfo;
+        User user = userService.getUserByUserNameOrPhoneOrEmail(userName,
+                userName, userName);
+        if (user == null) {
+            // 抛出 帐号找不到异常
+            throw new UnknownAccountException();
         }
-        return null;
+        // 判断是否用户被锁定
+        if (user.isLocked()) {
+            // 抛出 帐号锁定异常
+            throw new LockedAccountException();
+        }
+        // 将当前用户放入缓存
+        SecurityUtils.getSubject().getSession().setAttribute("user", user);
+        return new SimpleAuthenticationInfo(user.getUserName(),
+                user.getPassword(), ByteSource.Util.bytes(user.getSalt()),
+                "monitorShiroRealm");
     }
 
 }

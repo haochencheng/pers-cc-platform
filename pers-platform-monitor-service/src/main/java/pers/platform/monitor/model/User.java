@@ -1,8 +1,15 @@
 package pers.platform.monitor.model;
 
 import java.util.Date;
+import java.util.UUID;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+import pers.platfrom.common.utils.CryptographyUtil;
 
 /**
  * @Title:
@@ -36,6 +43,10 @@ public class User {
 
     private Date userModifyTime; // 用户修改时间
 
+    private boolean locked = Boolean.FALSE;
+
+    private String salt; // 密码随机加盐
+
     public long getId() {
         return this.id;
     }
@@ -50,6 +61,8 @@ public class User {
 
     public void setUserName(String userName) {
         this.userName = userName;
+        this.salt = CryptographyUtil.md5(UUID.randomUUID().toString(),
+                userName);
     }
 
     public String getPassword() {
@@ -106,6 +119,18 @@ public class User {
 
     public void setUserModifyTime(Date userModifyTime) {
         this.userModifyTime = userModifyTime;
+    }
+
+    public boolean isLocked() {
+        return this.locked;
+    }
+
+    public void setLocked(boolean locked) {
+        this.locked = locked;
+    }
+
+    public String getSalt() {
+        return this.salt;
     }
 
 }
