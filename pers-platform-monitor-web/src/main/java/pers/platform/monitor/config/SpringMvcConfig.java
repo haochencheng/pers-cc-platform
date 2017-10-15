@@ -20,6 +20,8 @@ public class SpringMvcConfig extends WebMvcConfigurerAdapter {
                 .setViewName("/user/register"); // 注册页面
         registry.addViewController("/user/forgetPassword.html")
                 .setViewName("/user/forgetPassword");
+        registry.addViewController("/admin/mainPage")
+                .setViewName("/admin/mainPage");
         registry.addViewController("/404.html").setViewName("/error/404");
         registry.addViewController("/500.html").setViewName("/error/500");
         registry.addViewController("/400.html").setViewName("/error/400");

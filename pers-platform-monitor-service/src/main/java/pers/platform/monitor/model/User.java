@@ -1,15 +1,11 @@
 package pers.platform.monitor.model;
 
+import pers.platfrom.common.utils.cryptography.CryptographyUtil;
+
+import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.UUID;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
-import pers.platfrom.common.utils.CryptographyUtil;
 
 /**
  * @Title:
@@ -19,7 +15,7 @@ import pers.platfrom.common.utils.CryptographyUtil;
  * @Version:1.0.0
  */
 @Entity
-public class User {
+public class User implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -31,10 +27,13 @@ public class User {
     @Column(nullable = false)
     private String password; // 密码
 
+    @Column(nullable = true)
     private String phone; // 电话,短信提醒服务
 
+    @Column(nullable = true)
     private String sex; // 性别
 
+    @Column(nullable = false)
     private String roleId; // 角色外键
 
     private String email; // 邮箱地址,邮箱提醒服务
@@ -43,9 +42,11 @@ public class User {
 
     private Date userModifyTime; // 用户修改时间
 
-    private boolean locked = Boolean.FALSE;
+    private Integer locked = 0;
 
     private String salt; // 密码随机加盐
+
+    private Integer rememberMe; //记住我
 
     public long getId() {
         return this.id;
@@ -53,10 +54,6 @@ public class User {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public String getUserName() {
-        return this.userName;
     }
 
     public void setUserName(String userName) {
@@ -122,15 +119,45 @@ public class User {
     }
 
     public boolean isLocked() {
-        return this.locked;
+        return this.locked==1;
     }
 
-    public void setLocked(boolean locked) {
+    public void setLocked(Integer locked) {
         this.locked = locked;
     }
 
-    public String getSalt() {
-        return this.salt;
+    public boolean isRememberMe() {
+        return rememberMe == 1;
     }
 
+    public void setRememberMe(Integer rememberMe) {
+        this.rememberMe = rememberMe;
+    }
+
+    public String getPrincipal() {
+        return userName;
+    }
+    public Object getCredentials() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public Integer getLocked() {
+        return locked;
+    }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public Integer getRememberMe() {
+        return rememberMe;
+    }
 }

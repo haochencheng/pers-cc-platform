@@ -1,7 +1,8 @@
 package pers.platform.monitor.config;
 
-import java.lang.reflect.Method;
-
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.PropertyAccessor;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
 import org.springframework.cache.annotation.EnableCaching;
@@ -14,16 +15,14 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.PropertyAccessor;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import java.lang.reflect.Method;
 
 @Configuration
 @EnableCaching
 public class ReidsConfig extends CachingConfigurerSupport {
 
     @Bean
-    public CacheManager cacheManager(
+    public CacheManager redisCacheManager(
             RedisTemplate<String, String> redisTemplate) {
         RedisCacheManager rcm = new RedisCacheManager(redisTemplate);
         // 默认过期时间 s

@@ -1,23 +1,20 @@
 package pers.platform.monitor.realm;
 
-import javax.annotation.Resource;
-
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.AuthenticationInfo;
-import org.apache.shiro.authc.AuthenticationToken;
-import org.apache.shiro.authc.LockedAccountException;
-import org.apache.shiro.authc.SimpleAuthenticationInfo;
-import org.apache.shiro.authc.UnknownAccountException;
+import org.apache.shiro.authc.*;
+import org.apache.shiro.authc.credential.CredentialsMatcher;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
+import org.apache.shiro.cache.CacheManager;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import pers.platform.monitor.model.User;
 import pers.platform.monitor.service.UserService;
+
+import javax.annotation.Resource;
 
 /**
  * 自定义Realm
@@ -25,12 +22,16 @@ import pers.platform.monitor.service.UserService;
  * @author Administrator
  *
  */
-public class MyRealm extends AuthorizingRealm {
+public class MonitorShiroRealm extends AuthorizingRealm {
 
-    Logger logger = LoggerFactory.getLogger(MyRealm.class);
+    Logger logger = LoggerFactory.getLogger(MonitorShiroRealm.class);
 
     @Resource
     private UserService userService;
+
+    public MonitorShiroRealm(CacheManager cacheManager, CredentialsMatcher matcher) {
+        super(cacheManager, matcher);
+    }
 
     /*
      * (non-Javadoc) 为当前的登录的用户授予角色和权限
@@ -59,7 +60,7 @@ public class MyRealm extends AuthorizingRealm {
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(
             AuthenticationToken token) {
-        logger.info("MyRealm.doGetAuthenticationInfo()");
+        logger.info("MonitorShiroRealm.doGetAuthenticationInfo()");
         String userName = (String) token.getPrincipal();
         User user = userService.getUserByUserNameOrPhoneOrEmail(userName,
                 userName, userName);
@@ -74,9 +75,9 @@ public class MyRealm extends AuthorizingRealm {
         }
         // 将当前用户放入缓存
         SecurityUtils.getSubject().getSession().setAttribute("user", user);
-        return new SimpleAuthenticationInfo(user.getUserName(),
-                user.getPassword(), ByteSource.Util.bytes(user.getSalt()),
-                "monitorShiroRealm");
+        return new SimpleAuthenticationInfo(user.getPrincipal(),
+                user.getPassword(), ByteSource.Util.bytes(user.getCredentials()),
+                getName());
     }
 
 }

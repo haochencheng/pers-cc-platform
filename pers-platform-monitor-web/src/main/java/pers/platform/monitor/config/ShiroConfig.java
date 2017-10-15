@@ -1,23 +1,49 @@
 package pers.platform.monitor.config;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
+import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
+import org.apache.shiro.cache.ehcache.EhCacheManager;
+import org.apache.shiro.codec.Base64;
 import org.apache.shiro.mgt.SecurityManager;
+import org.apache.shiro.session.mgt.ExecutorServiceSessionValidationScheduler;
+import org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO;
+import org.apache.shiro.spring.LifecycleBeanPostProcessor;
+import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
+import org.apache.shiro.web.mgt.CookieRememberMeManager;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.apache.shiro.web.servlet.SimpleCookie;
+import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
+import org.springframework.beans.factory.config.MethodInvokingFactoryBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
+import pers.platform.monitor.realm.MonitorShiroRealm;
+import pers.platform.monitor.realm.RetryLimitHashedCredentialsMatcher;
 
-import pers.platform.monitor.realm.MyRealm;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 @Configuration
 public class ShiroConfig {
 
     private final Logger logger = LoggerFactory.getLogger(ShiroConfig.class);
+
+    /**
+     * shiro缓存管理器;
+     * 需要注入对应的其它的实体类中：
+     * 1、安全管理器：securityManager
+     * 可见securityManager是整个shiro的核心；
+     *
+     * @return
+     */
+    @Bean(name = "cacheShiroManager")
+    public EhCacheManager getCacheManage(){
+        EhCacheManager cacheManager = new EhCacheManager();
+        return cacheManager;
+    }
 
     /**
      * Shiro的Web过滤器Factory 命名:shiroFilter<br />
@@ -64,20 +90,118 @@ public class ShiroConfig {
         return shiroFilterFactoryBean;
     }
 
+
+    @Bean(name = "sessionValidationScheduler")
+    public ExecutorServiceSessionValidationScheduler getExecutorServiceSessionValidationScheduler() {
+        ExecutorServiceSessionValidationScheduler scheduler = new ExecutorServiceSessionValidationScheduler();
+        scheduler.setInterval(900000);
+        return scheduler;
+    }
+
+    @Bean(name = "hashedCredentialsMatcher")
+    public HashedCredentialsMatcher credentialsMatcher(){
+        return new RetryLimitHashedCredentialsMatcher(getCacheManage());
+    }
+
+    @Bean(name = "sessionIdCookie")
+    public SimpleCookie getSessionIdCookie() {
+        SimpleCookie cookie = new SimpleCookie("sid");
+        cookie.setHttpOnly(true);
+        cookie.setMaxAge(-1);
+        return cookie;
+    }
+
     @Bean
-    public MyRealm monitorShiroRealm() {
-        return new MyRealm();
+    public SimpleCookie rememberMeCookie() {
+        SimpleCookie simpleCookie = new SimpleCookie("rememberMe");
+        simpleCookie.setHttpOnly(true);
+        simpleCookie.setMaxAge(2592000);
+        return simpleCookie;
+    }
+
+    @Bean
+    public CookieRememberMeManager rememberManager(){
+        CookieRememberMeManager meManager = new CookieRememberMeManager();
+        meManager.setCipherKey(Base64.decode("4AvVhmFLUs0KTA3Kprsdag=="));
+        meManager.setCookie(rememberMeCookie());
+        return meManager;
+    }
+
+    @Bean
+    public DefaultWebSessionManager sessionManager() {
+        DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
+        sessionManager.setGlobalSessionTimeout(1800000);
+        sessionManager.setSessionValidationScheduler(getExecutorServiceSessionValidationScheduler());
+        sessionManager.setSessionValidationSchedulerEnabled(true);
+        sessionManager.setDeleteInvalidSessions(true);
+        sessionManager.setSessionIdCookieEnabled(true);
+        sessionManager.setSessionIdCookie(getSessionIdCookie());
+        EnterpriseCacheSessionDAO cacheSessionDAO = new EnterpriseCacheSessionDAO();
+        cacheSessionDAO.setCacheManager(getCacheManage());
+        sessionManager.setSessionDAO(cacheSessionDAO);
+        // -----可以添加session 创建、删除的监听器
+        return sessionManager;
+    }
+
+    @Bean
+    public MonitorShiroRealm monitorShiroRealm() {
+        MonitorShiroRealm realm = new MonitorShiroRealm(getCacheManage(),credentialsMatcher());
+        realm.setName("monitorShiroRealm");
+        realm.setAuthenticationCache(getCacheManage().getCache(realm.getName()));
+        return realm;
     }
 
     /**
      * 不指定名字的话，自动创建一个方法名第一个字母小写的bean * @Bean(name = "securityManager") * @return
      */
-    @Bean
-    @ConditionalOnMissingBean(value = SecurityManager.class)
+    @Bean(name = "securityManager")
     public SecurityManager securityManager() {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
+        securityManager.setCacheManager(getCacheManage());
+        securityManager.setSessionManager(sessionManager());
+        securityManager.setRememberMeManager(rememberManager());
         securityManager.setRealm(monitorShiroRealm());
         return securityManager;
+    }
+
+    @Bean
+    public MethodInvokingFactoryBean getMethodInvokingFactoryBean(){
+        MethodInvokingFactoryBean factoryBean = new MethodInvokingFactoryBean();
+        factoryBean.setStaticMethod("org.apache.shiro.SecurityUtils.setSecurityManager");
+        factoryBean.setArguments(new Object[]{securityManager()});
+        return factoryBean;
+    }
+
+
+    /**
+     * Shiro生命周期处理器
+     * @return
+     */
+    @Bean
+    public LifecycleBeanPostProcessor lifecycleBeanPostProcessor(){
+        return new LifecycleBeanPostProcessor();
+    }
+    /**
+     * 开启Shiro的注解(如@RequiresRoles,@RequiresPermissions),需借助SpringAOP扫描使用Shiro注解的类,并在必要时进行安全逻辑验证
+     * 配置以下两个bean(DefaultAdvisorAutoProxyCreator(可选)和AuthorizationAttributeSourceAdvisor)即可实现此功能
+     * @return
+     */
+    @Bean
+    @DependsOn({"lifecycleBeanPostProcessor"})
+    public DefaultAdvisorAutoProxyCreator advisorAutoProxyCreator(){
+        DefaultAdvisorAutoProxyCreator advisorAutoProxyCreator = new DefaultAdvisorAutoProxyCreator();
+        advisorAutoProxyCreator.setProxyTargetClass(true);
+        return advisorAutoProxyCreator;
+    }
+
+    /**
+     * 开启shiro aop注解支持. 使用代理方式;所以需要开启代码支持;
+     */
+    @Bean
+    public AuthorizationAttributeSourceAdvisor getAuthorizationAttributeSourceAdvisor(){
+        AuthorizationAttributeSourceAdvisor advisor = new AuthorizationAttributeSourceAdvisor();
+        advisor.setSecurityManager(securityManager());
+        return advisor;
     }
 
 }

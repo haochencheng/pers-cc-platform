@@ -11,7 +11,7 @@ import org.springframework.http.HttpStatus;
  * Created by cc on 2017/9/28.
  */
 @Configuration
-public class ErrorConfiguration {
+public class ErrorConfig {
 
     @Bean
     public EmbeddedServletContainerCustomizer containerCustomizer(){
