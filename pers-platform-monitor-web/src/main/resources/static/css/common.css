@@ -1,19 +1,45 @@
-.login {
-	background: #414141;
-	
+/* login登录页面样式 index.html开始 */
+
+header{
+	height:60px;
+	color: red;
+	text-align: center;
+}
+
+.wrap{min-height:100%}
+
+.main{
+	padding-bottom:30px;
+	overflow:hidden;
+	margin:0 auto;
+	width:400px;
 }
 
 .login-box{
-	width: 360px;/*元素的宽度*/ 
-	height:200px;/*元素的高度*/ 
-	position: absolute; 
-	left: 45%;/*配合margin-left的负值实现水平居中*/ 
-	margin-left: -68px;/*值的大小等于元素宽度的一半*/ 
-	top:30%;/*配合margin-top的负值实现垂直居中*/ 
+	margin-top:120px;
 }
 
+footer{
+	color: red;
+	text-align: center;
+}
+
+
 .login .layui-form .layui-form-pane {
-	
 	margin:0px auto;
 }
 
+.login-error-div{
+	padding-bottom:6px;
+}
+
+.login-error-span{
+	color:red;
+}
+/* login登录页面样式 index.html结束 */
+/* register注册页面样式 /user/register.html开始 */
+.register-box{
+	
+}
+
+/* register注册页面样式 /user/register.html结束 */

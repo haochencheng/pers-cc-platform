@@ -6,8 +6,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
-import org.apache.shiro.authc.ExcessiveAttemptsException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
+import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
@@ -24,9 +24,9 @@ public class UserController {
     @Resource
     UserService userServuce;
 
-    @RequestMapping(value = "/mainPage.html")
+    @RequestMapping(value = "/login.html")
     public String login(User user, HttpServletRequest request,
-            HttpServletResponse response) {
+            HttpServletResponse response) throws LockedAccountException {
         Subject subject = SecurityUtils.getSubject();
         String userName = user.getPrincipal();
         String password = String.valueOf(user.getPassword());
@@ -56,12 +56,10 @@ public class UserController {
                 request.setAttribute("message", "helloworld");
             } catch (UnknownAccountException
                     | IncorrectCredentialsException e) {
-                error = "用户名/密码错误";
-            } catch (ExcessiveAttemptsException e) {
-                error = "登录失败5次，账户锁定10分钟";
+                error = "用户名或密码错误";
             } catch (AuthenticationException e) {
                 // 其他错误，比如锁定，如果想单独处理请单独catch处理
-                error = "其他错误：" + e.getMessage();
+                error = "登录失败5次，账户锁定10分钟";
             }
         }
         // 默认记住我
