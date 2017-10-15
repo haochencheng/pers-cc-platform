@@ -210,11 +210,8 @@
 						</configuration>
 					</execution>
 				</executions>
-
 			</plugin>
-
 		</plugins>
-
 	</build>
 	<modules>
         <module>pers-platform-common-utils</module>

@@ -15,6 +15,7 @@ public class SpringMvcConfig extends WebMvcConfigurerAdapter {
      */
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addViewController("/index.html").setViewName("/index");
         registry.addViewController("/").setViewName("/index"); // index页面
         registry.addViewController("/user/register.html")
                 .setViewName("/user/register"); // 注册页面

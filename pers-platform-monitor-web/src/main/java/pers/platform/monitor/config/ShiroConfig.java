@@ -1,5 +1,8 @@
 package pers.platform.monitor.config;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.cache.ehcache.EhCacheManager;
 import org.apache.shiro.codec.Base64;
@@ -20,11 +23,9 @@ import org.springframework.beans.factory.config.MethodInvokingFactoryBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
+
 import pers.platform.monitor.realm.MonitorShiroRealm;
 import pers.platform.monitor.realm.RetryLimitHashedCredentialsMatcher;
-
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 @Configuration
 public class ShiroConfig {
@@ -32,15 +33,13 @@ public class ShiroConfig {
     private final Logger logger = LoggerFactory.getLogger(ShiroConfig.class);
 
     /**
-     * shiro缓存管理器;
-     * 需要注入对应的其它的实体类中：
-     * 1、安全管理器：securityManager
+     * shiro缓存管理器; 需要注入对应的其它的实体类中： 1、安全管理器：securityManager
      * 可见securityManager是整个shiro的核心；
      *
      * @return
      */
     @Bean(name = "cacheShiroManager")
-    public EhCacheManager getCacheManage(){
+    public EhCacheManager getCacheManage() {
         EhCacheManager cacheManager = new EhCacheManager();
         return cacheManager;
     }
@@ -58,7 +57,7 @@ public class ShiroConfig {
         // Shiro的核心安全接口,这个属性是必须的
         shiroFilterFactoryBean.setSecurityManager(securityManager);
         // 要求登录时的链接(可根据项目的URL进行替换),非必须的属性,默认会自动寻找Web工程根目录下的"/login.jsp"页面
-        shiroFilterFactoryBean.setLoginUrl("/toLogin.html");
+        shiroFilterFactoryBean.setLoginUrl("/index.html");
         // 登录成功后要跳转的连接,逻辑也可以自定义，例如返回上次请求的页面
         shiroFilterFactoryBean.setSuccessUrl("/doLogin.html");
         // 用户访问未对其授权的资源时,所显示的连接
@@ -90,7 +89,6 @@ public class ShiroConfig {
         return shiroFilterFactoryBean;
     }
 
-
     @Bean(name = "sessionValidationScheduler")
     public ExecutorServiceSessionValidationScheduler getExecutorServiceSessionValidationScheduler() {
         ExecutorServiceSessionValidationScheduler scheduler = new ExecutorServiceSessionValidationScheduler();
@@ -99,7 +97,7 @@ public class ShiroConfig {
     }
 
     @Bean(name = "hashedCredentialsMatcher")
-    public HashedCredentialsMatcher credentialsMatcher(){
+    public HashedCredentialsMatcher credentialsMatcher() {
         return new RetryLimitHashedCredentialsMatcher(getCacheManage());
     }
 
@@ -120,7 +118,7 @@ public class ShiroConfig {
     }
 
     @Bean
-    public CookieRememberMeManager rememberManager(){
+    public CookieRememberMeManager rememberManager() {
         CookieRememberMeManager meManager = new CookieRememberMeManager();
         meManager.setCipherKey(Base64.decode("4AvVhmFLUs0KTA3Kprsdag=="));
         meManager.setCookie(rememberMeCookie());
@@ -131,7 +129,8 @@ public class ShiroConfig {
     public DefaultWebSessionManager sessionManager() {
         DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
         sessionManager.setGlobalSessionTimeout(1800000);
-        sessionManager.setSessionValidationScheduler(getExecutorServiceSessionValidationScheduler());
+        sessionManager.setSessionValidationScheduler(
+                getExecutorServiceSessionValidationScheduler());
         sessionManager.setSessionValidationSchedulerEnabled(true);
         sessionManager.setDeleteInvalidSessions(true);
         sessionManager.setSessionIdCookieEnabled(true);
@@ -145,9 +144,11 @@ public class ShiroConfig {
 
     @Bean
     public MonitorShiroRealm monitorShiroRealm() {
-        MonitorShiroRealm realm = new MonitorShiroRealm(getCacheManage(),credentialsMatcher());
+        MonitorShiroRealm realm = new MonitorShiroRealm(getCacheManage(),
+                credentialsMatcher());
         realm.setName("monitorShiroRealm");
-        realm.setAuthenticationCache(getCacheManage().getCache(realm.getName()));
+        realm.setAuthenticationCache(
+                getCacheManage().getCache(realm.getName()));
         return realm;
     }
 
@@ -165,30 +166,33 @@ public class ShiroConfig {
     }
 
     @Bean
-    public MethodInvokingFactoryBean getMethodInvokingFactoryBean(){
+    public MethodInvokingFactoryBean getMethodInvokingFactoryBean() {
         MethodInvokingFactoryBean factoryBean = new MethodInvokingFactoryBean();
-        factoryBean.setStaticMethod("org.apache.shiro.SecurityUtils.setSecurityManager");
-        factoryBean.setArguments(new Object[]{securityManager()});
+        factoryBean.setStaticMethod(
+                "org.apache.shiro.SecurityUtils.setSecurityManager");
+        factoryBean.setArguments(new Object[] { securityManager() });
         return factoryBean;
     }
 
-
     /**
      * Shiro生命周期处理器
+     * 
      * @return
      */
     @Bean
-    public LifecycleBeanPostProcessor lifecycleBeanPostProcessor(){
+    public LifecycleBeanPostProcessor lifecycleBeanPostProcessor() {
         return new LifecycleBeanPostProcessor();
     }
+
     /**
      * 开启Shiro的注解(如@RequiresRoles,@RequiresPermissions),需借助SpringAOP扫描使用Shiro注解的类,并在必要时进行安全逻辑验证
      * 配置以下两个bean(DefaultAdvisorAutoProxyCreator(可选)和AuthorizationAttributeSourceAdvisor)即可实现此功能
+     * 
      * @return
      */
     @Bean
-    @DependsOn({"lifecycleBeanPostProcessor"})
-    public DefaultAdvisorAutoProxyCreator advisorAutoProxyCreator(){
+    @DependsOn({ "lifecycleBeanPostProcessor" })
+    public DefaultAdvisorAutoProxyCreator advisorAutoProxyCreator() {
         DefaultAdvisorAutoProxyCreator advisorAutoProxyCreator = new DefaultAdvisorAutoProxyCreator();
         advisorAutoProxyCreator.setProxyTargetClass(true);
         return advisorAutoProxyCreator;
@@ -198,7 +202,7 @@ public class ShiroConfig {
      * 开启shiro aop注解支持. 使用代理方式;所以需要开启代码支持;
      */
     @Bean
-    public AuthorizationAttributeSourceAdvisor getAuthorizationAttributeSourceAdvisor(){
+    public AuthorizationAttributeSourceAdvisor getAuthorizationAttributeSourceAdvisor() {
         AuthorizationAttributeSourceAdvisor advisor = new AuthorizationAttributeSourceAdvisor();
         advisor.setSecurityManager(securityManager());
         return advisor;

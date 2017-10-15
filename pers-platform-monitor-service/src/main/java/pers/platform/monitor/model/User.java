@@ -1,11 +1,16 @@
 package pers.platform.monitor.model;
 
-import pers.platfrom.common.utils.cryptography.CryptographyUtil;
-
-import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.UUID;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+import pers.platfrom.common.utils.cryptography.CryptographyUtil;
 
 /**
  * @Title:
@@ -14,8 +19,9 @@ import java.util.UUID;
  * @Since:2017年8月19日
  * @Version:1.0.0
  */
+@SuppressWarnings("serial")
 @Entity
-public class User implements Serializable{
+public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -46,7 +52,7 @@ public class User implements Serializable{
 
     private String salt; // 密码随机加盐
 
-    private Integer rememberMe; //记住我
+    private Integer rememberMe = 0; // 记住我
 
     public long getId() {
         return this.id;
@@ -119,7 +125,7 @@ public class User implements Serializable{
     }
 
     public boolean isLocked() {
-        return this.locked==1;
+        return this.locked == 1;
     }
 
     public void setLocked(Integer locked) {
@@ -127,7 +133,7 @@ public class User implements Serializable{
     }
 
     public boolean isRememberMe() {
-        return rememberMe == 1;
+        return rememberMe == null ? false : rememberMe == 1;
     }
 
     public void setRememberMe(Integer rememberMe) {
@@ -137,6 +143,7 @@ public class User implements Serializable{
     public String getPrincipal() {
         return userName;
     }
+
     public Object getCredentials() {
         return salt;
     }

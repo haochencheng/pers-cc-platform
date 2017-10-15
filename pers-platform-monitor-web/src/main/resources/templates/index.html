@@ -21,7 +21,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">用户名</label>
             <div class="layui-input-inline">
-                <input type="text" name="userName" lay-verify="pass" placeholder="邮箱/用户名/已验证手机" autocomplete="true" class="layui-input" />
+                <input type="text" name="userName" lay-verify="required|userName" placeholder="邮箱/用户名/已验证手机" autocomplete="true" class="layui-input" />
             </div>
         </div>
         <div class="layui-form-item">
@@ -29,25 +29,24 @@
             <div class="layui-input-inline" >
                 <input type="password" name="password" lay-verify="pass" placeholder="请输入密码" autocomplete="true" class="layui-input" />
             </div>
-            <div class="layui-form-mid layui-word-aux" style="display: none;">请填写6到12位密码</div>
+            <div class="layui-form-mid layui-word-aux" style="display: none;"></div>
         </div>
         <!-- &lt;!&ndash; 记住我 &ndash;&gt; -->
         <div class="layui-form-item" align="left" style="margin-left: -10px;">
-            <input type="checkbox" name="remeberMe" lay-skin="primary" title="记住我" style="color: #FBEBF5" /><span style="margin-top: 10px;margin-left: 156px;position: absolute;"><a th:href="@{/user/forgetPassword.html}" style="color: #FBEBF5">忘记密码</a></span>
+            <input type="checkbox" name="rememberMe" lay-filter="rememberMe" id="rememberMe" value="0" lay-skin="primary" title="记住我" style="color: #FBEBF5" /><span style="margin-top: 10px;margin-left: 156px;position: absolute;"><a th:href="@{/user/forgetPassword.html}" style="color: #FBEBF5">忘记密码</a></span>
         </div>
         <div class="layui-form-item" align="left">
-            <button class="layui-btn"  lay-filter="login" style="width:300px; ">登陆</button>
+            <button class="layui-btn" lay-submit="submit"  lay-filter="login" style="width:300px; ">登陆</button>
         </div>
         <!-- &lt;!&ndash; 第三方登陆 &ndash;&gt; -->
         <div class="layui-form-item" align="left" style="margin-left: -10px;">
             <ul>
                 <li>
-
-                    <a href="javascript:void(0)" onclick="window.location=';return false;" clstag="pageclick|keycount|201607144|6" class="pdl"><b class="QQ-icon">
+                    <a href="javascript:void(0)" onclick="window.location='return false;'" clstag="pageclick|keycount|201607144|6" class="pdl"><b class="QQ-icon">
                         <span><img alt="QQ" th:src="@{image/QQ-weixin.png} " style="position:absolute;clip:rect(0px 20px 20px 0px);margin-left: 10px;" /></span>
                     </b><span style="margin-left: 38px;color: #FBEBF5">QQ</span></a>
                     <span class="line" style="margin-left: 10px;">|</span>
-                    <a href="javascript:void(0)" onclick="window.location=';return false;" clstag="pageclick|keycount|201607144|7" class="pdl"><b class="weixin-icon">
+                    <a href="javascript:void(0)" onclick="window.location='return false;'" clstag="pageclick|keycount|201607144|7" class="pdl"><b class="weixin-icon">
                         <span><img alt="QQ" th:src="@{image/QQ-weixin.png} " style="position:absolute;clip:rect(0px 40px 20px 20px);margin-left: -10px;" /></span>
                     </b><span style="margin-left: 35px;color: #FBEBF5">微信</span></a>
                     <span style="margin-left: 104px;"><a th:href="@{/user/register.html}" target="_blank" style="color: #FBEBF5"><b></b>立即注册</a></span>
@@ -57,19 +56,48 @@
     </form>
 </div>
 <script type="text/javascript" th:src="@{/layui/layui.js}" ></script>
+<script type="text/javascript" th:src="@{/layui/layui.all.js}" ></script>
 <script type="text/javascript" th:src="@{/js/jquery.min.js}" ></script>
 <script>
-
 		//我们强烈推荐你在代码最外层把需要用到的模块先加载
 		layui.use(['layer', 'form'], function(){
 		var layer = layui.layer
 		,form = layui.form;
-		
-		//……
-		//你的代码都应该写在这里面
-        $('#head').load('common/head.html');
-
+		 //自定义验证规则  
+	    form.verify({  
+	    	 userName: function(value, item){ //value：表单的值、item：表单的DOM对象
+	    		    if(!new RegExp("^[a-zA-Z0-9_\u4e00-\u9fa5\\s·]+$").test(value)){
+	    		      return '用户名不能有特殊字符';
+	    		    }
+	    		    if(/(^\_)|(\__)|(\_+$)/.test(value)){
+	    		      return '用户名首尾不能出现下划线\'_\'';
+	    		    }
+	    		    /* if(/^\d+\d+\d$/.test(value)){
+	    		      return '用户名不能全为数字';
+	    		    } */
+	    		  },
+			 pass: [
+	        	    /^[\S]{5,12}$/
+	        	    ,'密码必须5到12位，且不能出现空格'
+	        	   ] 
+		  });  
+		//监听checkbox
+		form.on('checkbox(rememberMe)', function(data){
+			// console.log(data.value); //复选框value值，也可以通过data.elem.value得到
+			// console.log(data.elem.checked); //是否被选中，true或者false
+			if (data.elem.checked) {
+				$('#rememberMe').val(1);
+			}else {
+				$('#rememberMe').val(0);
+			}
 		});
+		
+		//form.render('checkbox');
+		form.render();
+		//……
+        $('#head').load('common/head.html');
+       
+	});
 </script>
 </body>
 </html>

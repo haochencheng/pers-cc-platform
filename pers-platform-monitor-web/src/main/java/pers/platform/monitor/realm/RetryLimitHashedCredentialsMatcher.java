@@ -21,6 +21,7 @@ public class RetryLimitHashedCredentialsMatcher
         this.passwordRetryCache = cacheManager.getCache("passwordRetryCache");
     }
 
+    //登陆失败5次讲被锁定10分钟
     @Override
     public boolean doCredentialsMatch(AuthenticationToken token,
             AuthenticationInfo info) {
