@@ -11,8 +11,8 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import pers.platform.monitor.api.UserService;
 import pers.platform.monitor.model.User;
-import pers.platform.monitor.service.UserService;
 
 import javax.annotation.Resource;
 

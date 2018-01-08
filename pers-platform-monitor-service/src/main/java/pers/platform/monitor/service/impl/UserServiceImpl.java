@@ -4,9 +4,9 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import pers.platform.monitor.api.UserService;
 import pers.platform.monitor.model.User;
 import pers.platform.monitor.repository.UserRepo;
-import pers.platform.monitor.service.UserService;
 
 @Service("userService")
 public class UserServiceImpl implements UserService {

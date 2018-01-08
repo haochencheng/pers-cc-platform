@@ -14,9 +14,9 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import pers.platform.common.utils.StringUtil;
+import pers.platform.monitor.api.UserService;
 import pers.platform.monitor.model.User;
-import pers.platform.monitor.service.UserService;
-import pers.platfrom.common.utils.StringUtil;
 
 @Controller
 public class UserController {
