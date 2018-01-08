@@ -9,6 +9,8 @@ http://www.ityouknow.com/springboot/2016/08/20/springboot(%E4%BA%94)-spring-data
 http://www.cnblogs.com/ityouknow/p/5833560.html
 http://www.thymeleaf.org/doc/tutorials/3.0/thymeleafspring.html
 
-#layui 
-http://www.layui.com/doc/modules/form.html#onsubmit
-http://www.layui.com/doc/element/form.html
+#vue
+https://cn.vuejs.org/
+#iview
+https://www.iviewui.com/
+
