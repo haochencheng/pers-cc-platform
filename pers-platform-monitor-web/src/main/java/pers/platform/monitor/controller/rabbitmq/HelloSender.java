@@ -5,7 +5,7 @@ import java.util.Date;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import pers.platform.monitor.config.RabbitMqConfig;
+import pers.platform.common.config.RabbitMqConfig;
 
 //@Component
 public class HelloSender {

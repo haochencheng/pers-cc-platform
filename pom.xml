@@ -54,18 +54,7 @@
            <artifactId>spring-boot-configuration-processor</artifactId>
            <optional>true</optional>
         </dependency>
-		
-		<!-- redis支持 -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-redis</artifactId>
-		</dependency>
 
-		 <dependency>
-	        <groupId>org.springframework.boot</groupId>
-	        <artifactId>spring-boot-starter-jdbc</artifactId>
-	    </dependency>
-		
 		<!-- shiro -->
 		<dependency>
 			<groupId>org.apache.shiro</groupId>
@@ -218,5 +207,6 @@
 		<module>pers-platform-common-service</module>
 		<module>pers-platform-monitor-service</module>
 		<module>pers-platform-monitor-web</module>
+		<module>pers-platform-common-config</module>
 	</modules>
 </project>
