@@ -19,7 +19,6 @@ import java.util.Map;
 @PropertySource(value = "classpath:context.properties")
 public class SpringConfig extends SpringBootServletInitializer {
 
-    // @Primary
      @Bean
      public DataSource dataSourceOne(){
      return DruidDataSourceBuilder.create().build();

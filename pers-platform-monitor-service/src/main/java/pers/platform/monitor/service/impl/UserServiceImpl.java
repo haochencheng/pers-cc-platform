@@ -2,13 +2,14 @@ package pers.platform.monitor.service.impl;
 
 import javax.annotation.Resource;
 
-import org.springframework.stereotype.Service;
 
+import com.alibaba.dubbo.config.annotation.Service;
 import pers.platform.monitor.api.UserService;
 import pers.platform.monitor.model.User;
 import pers.platform.monitor.repository.UserRepo;
 
-@Service("userService")
+// 注册为 Dubbo 服务
+@Service
 public class UserServiceImpl implements UserService {
 
     @Resource
