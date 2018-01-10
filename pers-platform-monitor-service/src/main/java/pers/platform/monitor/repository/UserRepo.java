@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import pers.platform.monitor.model.User;
 
 @Repository
-public interface UserRepo extends CrudRepository<User, Serializable> {
+public interface UserRepo extends CrudRepository<User, Serializable>  {
 
     User getUserByUserNameOrPhoneOrEmail(String userName, String phone,
             String email);

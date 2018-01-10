@@ -14,7 +14,7 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import pers.platform.common.utils.StringUtil;
+import pers.platform.common.utils.common.StringUtil;
 import pers.platform.monitor.api.UserService;
 import pers.platform.monitor.model.User;
 

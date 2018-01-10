@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/pers-cc-platform.iml" filepath="$PROJECT_DIR$/pers-cc-platform.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pers-platform-common/pers-platform-common.iml" filepath="$PROJECT_DIR$/pers-platform-common/pers-platform-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pers-platform-core/pers-platform-core.iml" filepath="$PROJECT_DIR$/pers-platform-core/pers-platform-core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pers-platform-monitor-api/pers-platform-monitor-api.iml" filepath="$PROJECT_DIR$/pers-platform-monitor-api/pers-platform-monitor-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pers-platform-monitor-service/pers-platform-monitor-service.iml" filepath="$PROJECT_DIR$/pers-platform-monitor-service/pers-platform-monitor-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pers-platform-monitor-web/pers-platform-monitor-web.iml" filepath="$PROJECT_DIR$/pers-platform-monitor-web/pers-platform-monitor-web.iml" />
+    </modules>
+  </component>
+</project>

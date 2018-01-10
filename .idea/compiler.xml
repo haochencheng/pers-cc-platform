@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="pers-platform-common" />
+        <module name="pers-platform-core" />
+        <module name="pers-platform-monitor-api" />
+        <module name="pers-platform-monitor-service" />
+        <module name="pers-platform-monitor-web" />
+        <module name="persplatformcommonconfig" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="pers-cc-platform" target="1.8" />
+      <module name="pers-platform-common" target="1.8" />
+      <module name="pers-platform-common-config" target="1.8" />
+      <module name="pers-platform-common-service" target="1.8" />
+      <module name="pers-platform-common-utils" target="1.7" />
+      <module name="pers-platform-core" target="1.8" />
+      <module name="pers-platform-monitor-api" target="1.8" />
+      <module name="pers-platform-monitor-service" target="1.8" />
+      <module name="pers-platform-monitor-web" target="1.8" />
+      <module name="persplatformcommonconfig" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

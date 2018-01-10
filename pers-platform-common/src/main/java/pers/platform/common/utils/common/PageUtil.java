@@ -1,4 +1,4 @@
-package pers.platform.common.utils;
+package pers.platform.common.utils.common;
 
 /**
  * 分页工具类

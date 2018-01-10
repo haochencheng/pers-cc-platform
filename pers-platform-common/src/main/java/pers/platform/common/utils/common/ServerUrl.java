@@ -1,4 +1,4 @@
-package pers.platform.common.utils;
+package pers.platform.common.utils.common;
 
 import javax.servlet.http.HttpServletRequest;
 

@@ -1,4 +1,4 @@
-package pers.platform.common.utils;
+package pers.platform.common.utils.common;
 
 import java.net.InetAddress;
 import java.net.NetworkInterface;
