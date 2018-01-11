@@ -9,19 +9,30 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>pers-platform-monitor-api</artifactId>
+    <artifactId>pers-platform-demo</artifactId>
+
+    <packaging>pom</packaging>
+    <modules>
+        <module>pers-platform-demo-account-service</module>
+        <module>pers-platform-demo-account-api</module>
+        <module>pers-platform-demo-inventory-service</module>
+        <module>pers-platform-demo-inventory-api</module>
+    </modules>
 
 
     <dependencies>
-        <!-- 通用服务 -->
+
+
         <dependency>
-            <groupId>${project.groupId}</groupId>
+            <groupId>pers-cc-platform</groupId>
             <artifactId>pers-platform-common</artifactId>
             <version>${project.version}</version>
         </dependency>
 
 
-    </dependencies>
 
+
+
+    </dependencies>
 
 </project>
