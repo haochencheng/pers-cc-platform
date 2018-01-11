@@ -12,15 +12,10 @@
 
     <artifactId>pers-platform-demo-account-api</artifactId>
 
-
     <dependencies>
 
 
-        <dependency>
-            <groupId>com.happylifeplat.tcc</groupId>
-            <artifactId>happylifeplat-tcc-annotation</artifactId>
-            <version>1.1.1-SNAPSHOT</version>
-        </dependency>
+
       
     </dependencies>
 

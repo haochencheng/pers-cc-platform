@@ -16,7 +16,7 @@
  *
  */
 
-package pers.platform.account.service;
+package pers.platform.demo.account.service;
 
 import com.alibaba.dubbo.config.annotation.Service;
 import com.happylifeplat.tcc.annotation.Tcc;
@@ -26,9 +26,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import pers.platform.account.repository.AccountRepo;
+import pers.platform.demo.account.repository.AccountRepo;
 import pers.platform.demo.account.dto.AccountDTO;
-import pers.platform.demo.account.entity.Account;
+import pers.platform.demo.account.model.Account;
 import pers.platform.demo.account.api.AccountService;
 
 import java.util.Date;

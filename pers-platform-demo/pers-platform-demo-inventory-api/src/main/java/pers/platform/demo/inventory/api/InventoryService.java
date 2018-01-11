@@ -16,12 +16,12 @@
  *
  */
 
-package pers.platform.inventory.api;
+package pers.platform.demo.inventory.api;
 
 
 import com.happylifeplat.tcc.annotation.Tcc;
-import pers.platform.inventory.dto.InventoryDTO;
-import pers.platform.inventory.entity.Inventory;
+import pers.platform.demo.inventory.dto.InventoryDTO;
+import pers.platform.demo.inventory.model.Inventory;
 
 /**
  * @author xiaoyu

@@ -1,4 +1,4 @@
-package pers.platform.inventory;/*
+/*
  *
  * Copyright 2017-2018 549477611@qq.com(xiaoyu)
  *
@@ -16,20 +16,48 @@ package pers.platform.inventory;/*
  *
  */
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.ImportResource;
+package pers.platform.demo.inventory.dto;
 
+
+import java.io.Serializable;
 
 /**
  * @author xiaoyu
  */
-@SpringBootApplication
-@ImportResource({"classpath:applicationContext.xml"})
-public class DubboTccInventoryApplication {
-    public static void main(String[] args) {
-        SpringApplication.run(DubboTccInventoryApplication.class, args);
+public class InventoryDTO implements Serializable {
+
+    private static final long serialVersionUID = 8229355519336565493L;
+
+
+    /**
+     * 商品id
+     */
+    private String productId;
+
+
+    /**
+     * 数量
+     */
+    private Integer count;
+
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
     }
 
+    public String getProductId() {
+        return productId;
+    }
 
+    public void setProductId(String productId) {
+        this.productId = productId;
+    }
+
+    public Integer getCount() {
+        return count;
+    }
+
+    public void setCount(Integer count) {
+        this.count = count;
+    }
 }

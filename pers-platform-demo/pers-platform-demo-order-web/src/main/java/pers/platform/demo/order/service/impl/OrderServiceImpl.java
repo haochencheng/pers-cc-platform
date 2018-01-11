@@ -19,7 +19,7 @@
 package pers.platform.demo.order.service.impl;
 
 import com.happylifeplat.tcc.common.utils.IdWorkerUtils;
-import pers.platform.demo.order.entity.Order;
+import pers.platform.demo.order.model.Order;
 import pers.platform.demo.order.enums.OrderStatusEnum;
 import pers.platform.demo.order.respository.OrderRepo;
 import pers.platform.demo.order.service.OrderService;
@@ -54,7 +54,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public String orderPay(Integer count, BigDecimal amount) {
         final Order order = buildOrder(count, amount);
-        final int rows = orderRepo.saveOne(order);
+        final int rows = orderRepo.add(order);
 
         if (rows > 0) {
             paymentService.makePayment(order);
@@ -73,7 +73,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public String mockInventoryWithTryException(Integer count, BigDecimal amount) {
         final Order order = buildOrder(count, amount);
-        final int rows = orderRepo.saveOne(order);
+        final int rows = orderRepo.add(order);
 
         if (rows > 0) {
             paymentService.mockPaymentInventoryWithTryException(order);
@@ -93,7 +93,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public String mockInventoryWithTryTimeout(Integer count, BigDecimal amount) {
         final Order order = buildOrder(count, amount);
-        final int rows = orderRepo.saveOne(order);
+        final int rows = orderRepo.add(order);
 
         if (rows > 0) {
             paymentService.mockPaymentInventoryWithTryTimeout(order);
@@ -113,7 +113,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public String mockInventoryWithConfirmException(Integer count, BigDecimal amount) {
         final Order order = buildOrder(count, amount);
-        final int rows = orderRepo.saveOne(order);
+        final int rows = orderRepo.add(order);
 
         if (rows > 0) {
             paymentService.mockPaymentInventoryWithConfirmException(order);
@@ -133,7 +133,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public String mockInventoryWithConfirmTimeout(Integer count, BigDecimal amount) {
         final Order order = buildOrder(count, amount);
-        final int rows = orderRepo.saveOne(order);
+        final int rows = orderRepo.add(order);
 
         if (rows > 0) {
             paymentService.mockPaymentInventoryWithConfirmTimeout(order);

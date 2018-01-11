@@ -18,7 +18,7 @@
 
 package pers.platform.demo.order.service;
 
-import pers.platform.demo.order.entity.Order;
+import pers.platform.demo.order.model.Order;
 
 /**
  * @author xiaoyu

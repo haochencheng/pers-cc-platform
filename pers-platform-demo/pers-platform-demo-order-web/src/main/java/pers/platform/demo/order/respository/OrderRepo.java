@@ -18,11 +18,11 @@
 
 package pers.platform.demo.order.respository;
 
-import org.hibernate.annotations.SQLInsert;
-import org.hibernate.annotations.SQLUpdate;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-import pers.platform.demo.order.entity.Order;
+import pers.platform.demo.order.model.Order;
 
 
 import java.io.Serializable;
@@ -40,9 +40,10 @@ public interface OrderRepo extends CrudRepository<Order, Serializable> {
      * @param order 订单对象
      * @return rows
      */
-    @SQLInsert(sql = " insert into `order` (create_time,number,status,product_id,total_amount,count,user_id) " +
-            " values ( #{createTime},#{number},#{status},#{productId},#{totalAmount},#{count},#{userId})")
-    int saveOne(Order order);
+    @Query(value = " add into `order` (create_time,number,status,product_id,total_amount,count,user_id) " +
+            " values ( #{createTime},#{number},#{status},#{productId},#{totalAmount},#{count},#{userId})" ,nativeQuery = true)
+    @Modifying
+    int add(Order order);
 
 
     /**
@@ -51,7 +52,8 @@ public interface OrderRepo extends CrudRepository<Order, Serializable> {
      * @param order 订单对象
      * @return rows
      */
-    @SQLUpdate(sql = "update `order` set status = #{status} , total_amount=#{totalAmount} where number=#{number}")
+    @Query(value = "update `order` set status = #{status} , total_amount=#{totalAmount} where number=#{number}",nativeQuery = true)
+    @Modifying
     int update(Order order);
 
     /**

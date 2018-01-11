@@ -16,41 +16,40 @@
  *
  */
 
-package pers.platform.inventory.entity;
+package pers.platform.demo.account.model;
 
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * @author xiaoyu
  */
 @Entity
-public class Inventory implements Serializable {
+public class Account implements Serializable {
 
-    private static final long serialVersionUID = 6957734749389133832L;
+    private static final long serialVersionUID = -81849676368907419L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    /**
-     * 商品id
-     */
     @Column
-    private String productId;
+    private String userId;
 
-    /**
-     * 总库存
-     */
     @Column
-    private Integer totalInventory;
+    private BigDecimal balance;
 
-    /**
-     * 锁定库存
-     */
     @Column
-    private Integer lockInventory;
+    private BigDecimal freezeAmount;
 
+    @Column
+    private Date createTime;
+
+    @Column
+    private Date updateTime;
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
@@ -64,27 +63,46 @@ public class Inventory implements Serializable {
         this.id = id;
     }
 
-    public String getProductId() {
-        return productId;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setProductId(String productId) {
-        this.productId = productId;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
-    public Integer getTotalInventory() {
-        return totalInventory;
+    public BigDecimal getBalance() {
+        return balance;
     }
 
-    public void setTotalInventory(Integer totalInventory) {
-        this.totalInventory = totalInventory;
+    public void setBalance(BigDecimal balance) {
+        this.balance = balance;
     }
 
-    public Integer getLockInventory() {
-        return lockInventory;
+    public BigDecimal getFreezeAmount() {
+        return freezeAmount;
     }
 
-    public void setLockInventory(Integer lockInventory) {
-        this.lockInventory = lockInventory;
+    public void setFreezeAmount(BigDecimal freezeAmount) {
+        this.freezeAmount = freezeAmount;
     }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
+
+
+
 }

@@ -16,7 +16,7 @@
  *
  */
 
-package pers.platform.demo.order.entity;
+package pers.platform.demo.order.model;
 
 
 import javax.persistence.*;

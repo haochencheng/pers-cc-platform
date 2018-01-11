@@ -16,7 +16,7 @@
  *
  */
 
-package pers.platform.inventory.service;
+package pers.platform.demo.inventory.service;
 
 import com.alibaba.dubbo.config.annotation.Service;
 import com.happylifeplat.tcc.annotation.Tcc;
@@ -26,10 +26,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
-import pers.platform.inventory.api.InventoryService;
-import pers.platform.inventory.dto.InventoryDTO;
-import pers.platform.inventory.entity.Inventory;
-import pers.platform.inventory.repository.InventoryRepo;
+import pers.platform.demo.inventory.api.InventoryService;
+import pers.platform.demo.inventory.repository.InventoryRepo;
+import pers.platform.demo.inventory.dto.InventoryDTO;
+import pers.platform.demo.inventory.model.Inventory;
 
 
 /**

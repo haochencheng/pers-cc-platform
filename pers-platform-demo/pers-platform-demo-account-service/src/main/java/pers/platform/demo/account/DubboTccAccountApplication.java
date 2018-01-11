@@ -15,33 +15,24 @@
  * along with this distribution; if not, see <http://www.gnu.org/licenses/>.
  *
  */
+package pers.platform.demo.account;
 
-package pers.platform.demo.account.api;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.context.annotation.ImportResource;
 
-import com.happylifeplat.tcc.annotation.Tcc;
-import pers.platform.demo.account.dto.AccountDTO;
-import pers.platform.demo.account.model.Account;
 
 /**
  * @author xiaoyu
  */
-public interface AccountService {
+@SpringBootApplication
+@ImportResource({"classpath:applicationContext.xml"})
+@EntityScan("pers.platform.demo.account.model")
+public class DubboTccAccountApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(DubboTccAccountApplication.class, args);
+    }
 
 
-    /**
-     * 扣款支付
-     *
-     * @param accountDTO 参数dto
-     * @return true
-     */
-    @Tcc
-    boolean payment(AccountDTO accountDTO);
-
-
-    /**
-     * 获取用户账户信息
-     * @param userId 用户id
-     * @return AccountDO
-     */
-    Account findByUserId(String userId);
 }

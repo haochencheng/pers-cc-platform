@@ -1,4 +1,4 @@
-/*
+package pers.platform.demo.inventory;/*
  *
  * Copyright 2017-2018 549477611@qq.com(xiaoyu)
  *
@@ -15,10 +15,10 @@
  * along with this distribution; if not, see <http://www.gnu.org/licenses/>.
  *
  */
-package pers.platform.account;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.ImportResource;
 
 
@@ -27,9 +27,10 @@ import org.springframework.context.annotation.ImportResource;
  */
 @SpringBootApplication
 @ImportResource({"classpath:applicationContext.xml"})
-public class DubboTccAccountApplication {
+@EntityScan("pers.platform.demo.inventory.model")
+public class DubboTccInventoryApplication {
     public static void main(String[] args) {
-        SpringApplication.run(DubboTccAccountApplication.class, args);
+        SpringApplication.run(DubboTccInventoryApplication.class, args);
     }
 
 

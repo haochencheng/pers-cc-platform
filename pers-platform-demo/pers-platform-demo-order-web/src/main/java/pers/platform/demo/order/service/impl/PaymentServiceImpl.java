@@ -26,17 +26,17 @@ import com.happylifeplat.tcc.common.exception.TccRuntimeException;
 import org.springframework.beans.factory.annotation.Autowired;
 import pers.platform.demo.account.api.AccountService;
 import pers.platform.demo.account.dto.AccountDTO;
-import pers.platform.demo.account.entity.Account;
-import pers.platform.demo.order.entity.Order;
+import pers.platform.demo.account.model.Account;
+import pers.platform.demo.order.model.Order;
 import pers.platform.demo.order.enums.OrderStatusEnum;
 import pers.platform.demo.order.respository.OrderRepo;
 import pers.platform.demo.order.service.PaymentService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import pers.platform.inventory.api.InventoryService;
-import pers.platform.inventory.dto.InventoryDTO;
-import pers.platform.inventory.entity.Inventory;
+import pers.platform.demo.inventory.api.InventoryService;
+import pers.platform.demo.inventory.dto.InventoryDTO;
+import pers.platform.demo.inventory.model.Inventory;
 
 /**
  * @author xiaoyu

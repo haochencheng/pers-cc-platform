@@ -16,33 +16,52 @@
  *
  */
 
-package pers.platform.inventory.dto;
+package pers.platform.demo.inventory.model;
 
 
+import javax.persistence.*;
 import java.io.Serializable;
 
 /**
  * @author xiaoyu
  */
-public class InventoryDTO implements Serializable {
+@Entity
+public class Inventory implements Serializable {
 
-    private static final long serialVersionUID = 8229355519336565493L;
-
+    private static final long serialVersionUID = 6957734749389133832L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
 
     /**
      * 商品id
      */
+    @Column
     private String productId;
 
+    /**
+     * 总库存
+     */
+    @Column
+    private Integer totalInventory;
 
     /**
-     * 数量
+     * 锁定库存
      */
-    private Integer count;
+    @Column
+    private Integer lockInventory;
 
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getProductId() {
@@ -53,11 +72,19 @@ public class InventoryDTO implements Serializable {
         this.productId = productId;
     }
 
-    public Integer getCount() {
-        return count;
+    public Integer getTotalInventory() {
+        return totalInventory;
     }
 
-    public void setCount(Integer count) {
-        this.count = count;
+    public void setTotalInventory(Integer totalInventory) {
+        this.totalInventory = totalInventory;
+    }
+
+    public Integer getLockInventory() {
+        return lockInventory;
+    }
+
+    public void setLockInventory(Integer lockInventory) {
+        this.lockInventory = lockInventory;
     }
 }

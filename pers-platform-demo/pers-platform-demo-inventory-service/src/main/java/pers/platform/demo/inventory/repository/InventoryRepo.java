@@ -1,9 +1,9 @@
-package pers.platform.inventory.repository;
+package pers.platform.demo.inventory.repository;
 
-import org.hibernate.annotations.SQLUpdate;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-import pers.platform.inventory.entity.Inventory;
+import pers.platform.demo.inventory.model.Inventory;
 
 import java.io.Serializable;
 
@@ -17,9 +17,9 @@ public interface InventoryRepo extends CrudRepository<Inventory, Serializable>  
      * @param inventory 实体对象
      * @return rows
      */
-    @SQLUpdate(sql = "update inventory set total_inventory =#{totalInventory}," +
+    @Query(value = "update inventory set total_inventory =#{totalInventory}," +
             " lock_inventory= #{lockInventory} " +
-            " where product_id =#{productId}  and  total_inventory >0  ")
+            " where product_id =#{productId}  and  total_inventory >0  ",nativeQuery = true)
     int decrease(Inventory inventory);
 
 
@@ -29,9 +29,9 @@ public interface InventoryRepo extends CrudRepository<Inventory, Serializable>  
      * @param inventory 实体对象
      * @return rows
      */
-    @SQLUpdate(sql = "update inventory set " +
+    @Query(value = "update inventory set " +
             " lock_inventory= #{lockInventory} " +
-            " where product_id =#{productId}  and lock_inventory >0 ")
+            " where product_id =#{productId}  and lock_inventory >0 ",nativeQuery = true)
     int confirm(Inventory inventory);
 
 
@@ -41,9 +41,9 @@ public interface InventoryRepo extends CrudRepository<Inventory, Serializable>  
      * @param inventory 实体对象
      * @return rows
      */
-    @SQLUpdate(sql = "update inventory set total_inventory =#{totalInventory}," +
+    @Query(value = "update inventory set total_inventory =#{totalInventory}," +
             " lock_inventory= #{lockInventory} " +
-            " where product_id =#{productId}  and lock_inventory >0 ")
+            " where product_id =#{productId}  and lock_inventory >0 ",nativeQuery = true)
     int cancel(Inventory inventory);
 
     /**

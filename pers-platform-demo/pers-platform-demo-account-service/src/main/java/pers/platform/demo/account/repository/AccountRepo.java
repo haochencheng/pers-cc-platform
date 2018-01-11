@@ -1,9 +1,9 @@
-package pers.platform.account.repository;
+package pers.platform.demo.account.repository;
 
-import org.hibernate.annotations.SQLUpdate;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-import pers.platform.demo.account.entity.Account;
+import pers.platform.demo.account.model.Account;
 
 import java.io.Serializable;
 
@@ -25,9 +25,9 @@ public interface AccountRepo extends CrudRepository<Account, Serializable>  {
      * @param account 实体类
      * @return rows
      */
-    @SQLUpdate(sql = "update account set balance =#{balance}," +
+    @Query(value = "update account set balance =#{balance}," +
             " freeze_amount= #{freezeAmount} ,update_time = #{updateTime}" +
-            " where user_id =#{userId}  and  balance > 0  ")
+            " where user_id =#{userId}  and  balance > 0  ",nativeQuery = true)
     int update(Account account);
 
 
@@ -39,9 +39,9 @@ public interface AccountRepo extends CrudRepository<Account, Serializable>  {
      * @param account 实体类
      * @return rows
      */
-    @SQLUpdate(sql = "update account set " +
+    @Query(value = "update account set " +
             " freeze_amount= #{freezeAmount} ,update_time = #{updateTime}" +
-            " where user_id =#{userId}  and freeze_amount >0 ")
+            " where user_id =#{userId}  and freeze_amount >0 ",nativeQuery = true)
     int confirm(Account account);
 
 
@@ -52,9 +52,9 @@ public interface AccountRepo extends CrudRepository<Account, Serializable>  {
      * @param account 实体类
      * @return rows
      */
-    @SQLUpdate(sql="update account set balance =#{balance}," +
+    @Query(value="update account set balance =#{balance}," +
             " freeze_amount= #{freezeAmount} ,update_time = #{updateTime}" +
-            " where user_id =#{userId}  and freeze_amount >0")
+            " where user_id =#{userId}  and freeze_amount >0",nativeQuery = true)
     int cancel(Account account);
 
 }
