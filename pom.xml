@@ -31,7 +31,8 @@
         <module>pers-platform-monitor-api</module>
         <module>pers-platform-monitor-service</module>
         <module>pers-platform-monitor-web</module>
-    </modules>
+		<module>pers-platform-demo</module>
+	</modules>
 
     <licenses>
         <license>
@@ -69,9 +70,12 @@
 	<dependencies>
 
 
-
-
-	</dependencies>
+        <dependency>
+            <groupId>com.happylifeplat.tcc</groupId>
+            <artifactId>happylifeplat-tcc-core</artifactId>
+            <version>1.1.1-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 	<build>
 		<finalName>pers-cc-platform</finalName>
 		<resources>
