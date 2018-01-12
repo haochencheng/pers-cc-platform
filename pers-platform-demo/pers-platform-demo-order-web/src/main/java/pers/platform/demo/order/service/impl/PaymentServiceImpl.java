@@ -70,6 +70,7 @@ public class PaymentServiceImpl implements PaymentService {
 
         //做库存和资金账户的检验工作 这里只是demo 。。。
         final Account accountDO = accountService.findByUserId(order.getUserId());
+        LOGGER.info(accountDO.toString());
         if (accountDO.getBalance().compareTo(order.getTotalAmount()) <= 0) {
             throw  new TccRuntimeException("余额不足！");
         }

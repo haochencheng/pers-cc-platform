@@ -1,7 +1,9 @@
 package pers.platform.demo.inventory.repository;
 
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import pers.platform.demo.inventory.model.Inventory;
 
@@ -17,10 +19,11 @@ public interface InventoryRepo extends CrudRepository<Inventory, Serializable>  
      * @param inventory 实体对象
      * @return rows
      */
-    @Query(value = "update inventory set total_inventory =#{totalInventory}," +
-            " lock_inventory= #{lockInventory} " +
-            " where product_id =#{productId}  and  total_inventory >0  ",nativeQuery = true)
-    int decrease(Inventory inventory);
+    @Query(value = "update inventory set total_inventory =:#{#inventory.totalInventory}," +
+            " lock_inventory= :#{#inventory.lockInventory} " +
+            " where product_id =:#{#inventory.productId}  and  total_inventory >0  ",nativeQuery = true)
+    @Modifying
+    int decrease(@Param("inventory") Inventory inventory);
 
 
     /**
@@ -30,9 +33,10 @@ public interface InventoryRepo extends CrudRepository<Inventory, Serializable>  
      * @return rows
      */
     @Query(value = "update inventory set " +
-            " lock_inventory= #{lockInventory} " +
-            " where product_id =#{productId}  and lock_inventory >0 ",nativeQuery = true)
-    int confirm(Inventory inventory);
+            " lock_inventory= :#{#inventory.lockInventory} " +
+            " where product_id =:#{#inventory.productId}  and lock_inventory >0 ",nativeQuery = true)
+    @Modifying
+    int confirm(@Param("inventory") Inventory inventory);
 
 
     /**
@@ -41,9 +45,10 @@ public interface InventoryRepo extends CrudRepository<Inventory, Serializable>  
      * @param inventory 实体对象
      * @return rows
      */
-    @Query(value = "update inventory set total_inventory =#{totalInventory}," +
-            " lock_inventory= #{lockInventory} " +
-            " where product_id =#{productId}  and lock_inventory >0 ",nativeQuery = true)
+    @Query(value = "update inventory set total_inventory =:#{#inventory.totalInventory}," +
+            " lock_inventory= :#{#inventory.lockInventory} " +
+            " where product_id =:#{#inventory.productId}  and lock_inventory >0 ",nativeQuery = true)
+    @Modifying
     int cancel(Inventory inventory);
 
     /**

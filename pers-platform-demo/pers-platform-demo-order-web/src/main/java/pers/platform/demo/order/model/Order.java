@@ -40,43 +40,43 @@ public class Order implements Serializable {
     /**
      * 创建时间
      */
-    @Column
+    @Column(name = "create_time")
     private Date createTime;
 
     /**
      * 订单编号
      */
-    @Column
+    @Column(name = "number")
     private String number;
 
     /**
      * 订单状态
      */
-    @Column
+    @Column(name = "status")
     private Integer status;
 
     /**
      * 商品id
      */
-    @Column
+    @Column(name = "product_id")
     private String productId;
 
     /**
      * 付款金额
      */
-    @Column
+    @Column(name = "total_amount")
     private BigDecimal totalAmount;
 
     /**
      * 购买数量
      */
-    @Column
+    @Column(name = "count")
     private Integer count;
 
     /**
      * 购买人
      */
-    @Column
+    @Column(name = "user_id")
     private String userId;
 
     public static long getSerialVersionUID() {

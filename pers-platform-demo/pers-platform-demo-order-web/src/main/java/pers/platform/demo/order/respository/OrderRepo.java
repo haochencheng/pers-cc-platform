@@ -21,11 +21,14 @@ package pers.platform.demo.order.respository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import pers.platform.demo.order.model.Order;
 
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -40,11 +43,11 @@ public interface OrderRepo extends CrudRepository<Order, Serializable> {
      * @param order 订单对象
      * @return rows
      */
-    @Query(value = " add into `order` (create_time,number,status,product_id,total_amount,count,user_id) " +
-            " values ( #{createTime},#{number},#{status},#{productId},#{totalAmount},#{count},#{userId})" ,nativeQuery = true)
+    @Query(value = " INSERT INTO `order` (create_time,`number`,status,product_id,total_amount,`count`,user_id) " +
+            " values ( :#{#order.createTime},:#{#order.number},:#{#order.status},:#{#order.productId},:#{#order.totalAmount},:#{#order.count},:#{#order.userId})" ,nativeQuery = true)
+    //int add(Date createTime, String number, Integer status, String productId, BigDecimal totalAmount,Integer count,String userId);
     @Modifying
-    int add(Order order);
-
+    int add(@Param("order") Order order);
 
     /**
      * 更新订单
@@ -52,9 +55,9 @@ public interface OrderRepo extends CrudRepository<Order, Serializable> {
      * @param order 订单对象
      * @return rows
      */
-    @Query(value = "update `order` set status = #{status} , total_amount=#{totalAmount} where number=#{number}",nativeQuery = true)
+    @Query(value = "update `order` set status = :#{#order.status} , total_amount=:#{#order.totalAmount} where `number`=:#{#order.number}",nativeQuery = true)
     @Modifying
-    int update(Order order);
+    int update(@Param("order") Order order);
 
     /**
      * 获取所有的订单
