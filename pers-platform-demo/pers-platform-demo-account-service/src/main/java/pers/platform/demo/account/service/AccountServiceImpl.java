@@ -26,6 +26,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.transaction.annotation.Transactional;
 import pers.platform.demo.account.repository.AccountRepo;
 import pers.platform.demo.account.dto.AccountDTO;
 import pers.platform.demo.account.model.Account;
@@ -37,6 +38,7 @@ import java.util.Date;
  * @author xiaoyu
  */
 @Service
+@Transactional(rollbackFor = Exception.class)
 public class AccountServiceImpl implements AccountService {
 
     /**
@@ -97,11 +99,11 @@ public class AccountServiceImpl implements AccountService {
     public boolean cancel(AccountDTO accountDTO) {
 
         LOGGER.debug("============ dubbo tcc 执行取消付款接口===============");
-        final Account accountDO = accountRepo.findByUserId(accountDTO.getUserId());
-        accountDO.setBalance(accountDO.getBalance().add(accountDTO.getAmount()));
-        accountDO.setFreezeAmount(accountDO.getFreezeAmount().subtract(accountDTO.getAmount()));
-        accountDO.setUpdateTime(new Date());
-        final int rows = accountRepo.cancel(accountDO);
+        final Account account = accountRepo.findByUserId(accountDTO.getUserId());
+        account.setBalance(account.getBalance().add(accountDTO.getAmount()));
+        account.setFreezeAmount(account.getFreezeAmount().subtract(accountDTO.getAmount()));
+        account.setUpdateTime(new Date());
+        final int rows = accountRepo.cancel(account);
         if(rows!=1){
             throw  new TccRuntimeException("取消扣减账户异常！");
         }

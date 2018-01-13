@@ -38,7 +38,7 @@ import java.util.Date;
  * @author xiaoyu
  */
 @Service
-@Transactional
+@Transactional(rollbackFor = Exception.class)
 public class OrderServiceImpl implements OrderService {
 
     /**

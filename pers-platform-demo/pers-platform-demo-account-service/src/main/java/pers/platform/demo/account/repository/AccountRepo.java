@@ -56,7 +56,7 @@ public interface AccountRepo extends CrudRepository<Account, Serializable>  {
      * @param account 实体类
      * @return rows
      */
-    @Query(value="update account set balance =#{balance}," +
+    @Query(value="update account set balance =:#{#account.balance}," +
             " freeze_amount= :#{#account.freezeAmount} ,update_time = :#{#account.updateTime}" +
             " where user_id =:#{#account.userId}  and freeze_amount >0",nativeQuery = true)
     @Modifying

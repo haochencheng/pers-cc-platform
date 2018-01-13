@@ -47,9 +47,9 @@ public interface InventoryRepo extends CrudRepository<Inventory, Serializable>  
      */
     @Query(value = "update inventory set total_inventory =:#{#inventory.totalInventory}," +
             " lock_inventory= :#{#inventory.lockInventory} " +
-            " where product_id =:#{#inventory.productId}  and lock_inventory >0 ",nativeQuery = true)
+            " where product_id =:#{#inventory.productId}  and  total_inventory >0  ",nativeQuery = true)
     @Modifying
-    int cancel(Inventory inventory);
+    int cancel(@Param("inventory") Inventory inventory);
 
     /**
      * 根据商品id找到库存信息

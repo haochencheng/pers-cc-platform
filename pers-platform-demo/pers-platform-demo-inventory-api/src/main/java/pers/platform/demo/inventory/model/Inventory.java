@@ -36,19 +36,19 @@ public class Inventory implements Serializable {
     /**
      * 商品id
      */
-    @Column
+    @Column(name = "productId")
     private String productId;
 
     /**
      * 总库存
      */
-    @Column
+    @Column(name = "total_inventory")
     private Integer totalInventory;
 
     /**
      * 锁定库存
      */
-    @Column
+    @Column(name = "lock_inventory")
     private Integer lockInventory;
 
 

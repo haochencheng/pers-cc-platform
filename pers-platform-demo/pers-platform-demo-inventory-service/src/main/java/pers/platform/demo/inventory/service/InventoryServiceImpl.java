@@ -36,6 +36,7 @@ import pers.platform.demo.inventory.model.Inventory;
  * @author xiaoyu
  */
 @Service
+@Transactional(rollbackFor = Exception.class)
 public class InventoryServiceImpl implements InventoryService {
 
     /**
@@ -88,7 +89,6 @@ public class InventoryServiceImpl implements InventoryService {
 
     @Override
     @Tcc(confirmMethod = "confirmMethod", cancelMethod = "cancelMethod")
-    @Transactional(rollbackFor = Exception.class)
     public Boolean mockWithTryTimeout(InventoryDTO inventoryDTO) {
         try {
             //模拟延迟 当前线程暂停10秒
@@ -108,7 +108,6 @@ public class InventoryServiceImpl implements InventoryService {
 
     @Override
     @Tcc(confirmMethod = "confirmMethodException", cancelMethod = "cancelMethod")
-    @Transactional(rollbackFor = Exception.class)
     public String mockWithConfirmException(InventoryDTO inventoryDTO) {
         final Inventory entity = inventoryRepo.findByProductId(inventoryDTO.getProductId());
         entity.setTotalInventory(entity.getTotalInventory() - inventoryDTO.getCount());
@@ -123,7 +122,6 @@ public class InventoryServiceImpl implements InventoryService {
 
     @Override
     @Tcc(confirmMethod = "confirmMethodTimeout", cancelMethod = "cancelMethod")
-    @Transactional(rollbackFor = Exception.class)
     public Boolean mockWithConfirmTimeout(InventoryDTO inventoryDTO) {
         LOGGER.info("==========调用扣减库存确认方法mockWithConfirmTimeout===========");
         final Inventory entity = inventoryRepo.findByProductId(inventoryDTO.getProductId());
