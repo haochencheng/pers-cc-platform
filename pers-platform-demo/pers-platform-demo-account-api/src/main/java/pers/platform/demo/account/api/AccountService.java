@@ -22,6 +22,8 @@ import com.happylifeplat.tcc.annotation.Tcc;
 import pers.platform.demo.account.dto.AccountDTO;
 import pers.platform.demo.account.model.Account;
 
+import java.io.Serializable;
+
 /**
  * @author xiaoyu
  */

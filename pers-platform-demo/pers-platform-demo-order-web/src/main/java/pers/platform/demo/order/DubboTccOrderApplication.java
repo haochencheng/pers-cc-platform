@@ -20,6 +20,8 @@ package pers.platform.demo.order;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.ComponentScans;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
@@ -28,8 +30,10 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
  * @author xiaoyu
  */
 @SpringBootApplication
-@ImportResource({"classpath:applicationContext.xml"})
+@ImportResource({"classpath:applicationContext.xml","classpath:spring-dubbo.xml"})
+//@ImportResource({"classpath:applicationContext.xml"})
 @EntityScan("pers.platform.demo.order.model")
+@ComponentScan(basePackages = {"pers.platform.demo.order"})
 public class DubboTccOrderApplication {
 
     public static void main(String[] args) {

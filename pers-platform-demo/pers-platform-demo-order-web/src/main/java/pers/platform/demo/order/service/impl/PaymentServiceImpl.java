@@ -24,6 +24,7 @@ import com.happylifeplat.tcc.annotation.Tcc;
 import com.happylifeplat.tcc.common.exception.TccRuntimeException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import pers.platform.demo.account.api.AccountService;
 import pers.platform.demo.account.dto.AccountDTO;
 import pers.platform.demo.account.model.Account;
@@ -37,6 +38,8 @@ import org.springframework.stereotype.Service;
 import pers.platform.demo.inventory.api.InventoryService;
 import pers.platform.demo.inventory.dto.InventoryDTO;
 import pers.platform.demo.inventory.model.Inventory;
+
+import javax.persistence.Id;
 
 /**
  * @author xiaoyu
@@ -54,12 +57,10 @@ public class PaymentServiceImpl implements PaymentService {
     private OrderRepo orderRepo;
 
     @Reference
-    private AccountService accountService;
+    AccountService accountService;
 
     @Reference
-    private InventoryService inventoryService;
-
-
+    InventoryService inventoryService;
 
 
     @Override
@@ -169,6 +170,7 @@ public class PaymentServiceImpl implements PaymentService {
         return "success";
     }
 
+    @Transactional(rollbackFor = Exception.class)
     public void confirmOrderStatus(Order order) {
 
         order.setStatus(OrderStatusEnum.PAY_SUCCESS.getCode());
@@ -178,6 +180,7 @@ public class PaymentServiceImpl implements PaymentService {
 
     }
 
+    @Transactional(rollbackFor = Exception.class)
     public void cancelOrderStatus(Order order) {
 
         order.setStatus(OrderStatusEnum.PAY_FAIL.getCode());

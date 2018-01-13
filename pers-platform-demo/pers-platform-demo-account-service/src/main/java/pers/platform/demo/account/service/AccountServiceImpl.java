@@ -81,9 +81,10 @@ public class AccountServiceImpl implements AccountService {
         return accountRepo.findByUserId(userId);
     }
 
+    @Transactional(rollbackFor = Exception.class)
     public boolean confirm(AccountDTO accountDTO) {
 
-        LOGGER.debug("============dubbo tcc 执行确认付款接口===============");
+        LOGGER.info("============dubbo tcc 执行确认付款接口===============");
 
         final Account accountDO = accountRepo.findByUserId(accountDTO.getUserId());
         accountDO.setFreezeAmount(accountDO.getFreezeAmount().subtract(accountDTO.getAmount()));
@@ -95,10 +96,10 @@ public class AccountServiceImpl implements AccountService {
         return Boolean.TRUE;
     }
 
-
+    @Transactional(rollbackFor = Exception.class)
     public boolean cancel(AccountDTO accountDTO) {
 
-        LOGGER.debug("============ dubbo tcc 执行取消付款接口===============");
+        LOGGER.info("============ dubbo tcc 执行取消付款接口===============");
         final Account account = accountRepo.findByUserId(accountDTO.getUserId());
         account.setBalance(account.getBalance().add(accountDTO.getAmount()));
         account.setFreezeAmount(account.getFreezeAmount().subtract(accountDTO.getAmount()));

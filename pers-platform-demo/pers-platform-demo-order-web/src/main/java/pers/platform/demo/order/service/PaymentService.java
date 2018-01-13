@@ -18,6 +18,7 @@
 
 package pers.platform.demo.order.service;
 
+import com.happylifeplat.tcc.annotation.Tcc;
 import pers.platform.demo.order.model.Order;
 
 /**
@@ -30,6 +31,7 @@ public interface PaymentService {
      *
      * @param order 订单实体
      */
+    @Tcc
     void makePayment(Order order);
 
     /**
@@ -38,6 +40,7 @@ public interface PaymentService {
      * @param order 订单实体
      * @return String
      */
+    @Tcc
     String mockPaymentInventoryWithTryException(Order order);
 
 
@@ -47,6 +50,7 @@ public interface PaymentService {
      * @param order 订单实体
      * @return String
      */
+    @Tcc
     String mockPaymentInventoryWithTryTimeout(Order order);
 
 

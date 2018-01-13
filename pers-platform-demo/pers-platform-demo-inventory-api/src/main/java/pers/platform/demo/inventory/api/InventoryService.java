@@ -23,10 +23,12 @@ import com.happylifeplat.tcc.annotation.Tcc;
 import pers.platform.demo.inventory.dto.InventoryDTO;
 import pers.platform.demo.inventory.model.Inventory;
 
+import java.io.Serializable;
+
 /**
  * @author xiaoyu
  */
-public interface InventoryService {
+public interface InventoryService  {
 
 
     /**

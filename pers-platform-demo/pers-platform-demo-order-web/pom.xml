@@ -41,13 +41,13 @@
 
 		<dependency>
             <groupId>pers-cc-platform</groupId>
-            <artifactId>pers-platform-demo-inventory-service</artifactId>
+            <artifactId>pers-platform-demo-inventory-api</artifactId>
             <version>${project.version}</version>
         </dependency>
 		
 		<dependency>
             <groupId>pers-cc-platform</groupId>
-            <artifactId>pers-platform-demo-account-service</artifactId>
+            <artifactId>pers-platform-demo-account-api</artifactId>
             <version>${project.version}</version>
         </dependency>
 
