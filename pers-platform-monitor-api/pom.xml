@@ -16,7 +16,7 @@
         <!-- 通用服务 -->
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>pers-platform-common</artifactId>
+            <artifactId>pers-platform-core</artifactId>
             <version>${project.version}</version>
         </dependency>
 

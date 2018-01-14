@@ -13,7 +13,13 @@
 
 
     <dependencies>
-    
+
+        <dependency>
+            <groupId>pers-cc-platform</groupId>
+            <artifactId>pers-platform-common</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
         <!-- shiro -->
         <dependency>
             <groupId>org.apache.shiro</groupId>

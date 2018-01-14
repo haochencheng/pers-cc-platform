@@ -180,14 +180,6 @@
            <version>${shiro-version}</version>
        </dependency>
 
-       <!-- Spring Boot Dubbo 依赖 -->
-       <!--<dependency>
-           <groupId>io.dubbo.springboot</groupId>
-           <artifactId>spring-boot-starter-dubbo</artifactId>
-           <version>1.0.0</version>
-       </dependency>-->
-
-
        <dependency>
            <groupId>com.gitee.reger</groupId>
            <artifactId>spring-boot-starter-dubbo</artifactId>
@@ -230,6 +222,15 @@
            <artifactId>springfox-bean-validators</artifactId>
            <version>2.6.1</version>
        </dependency>
+
+       <!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
+       <dependency>
+           <groupId>com.alibaba</groupId>
+           <artifactId>fastjson</artifactId>
+           <version>1.2.44</version>
+       </dependency>
+
+
 
    </dependencies>
 

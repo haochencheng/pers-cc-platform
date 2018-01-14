@@ -35,7 +35,7 @@
 
         <dependency>
             <groupId>pers-cc-platform</groupId>
-            <artifactId>pers-platform-common</artifactId>
+            <artifactId>pers-platform-core</artifactId>
             <version>${project.version}</version>
         </dependency>
 
