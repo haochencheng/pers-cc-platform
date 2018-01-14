@@ -56,7 +56,6 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public String orderPay(Integer count, BigDecimal amount) {
         final Order order = buildOrder(count, amount);
-      //  final int rows = orderRepo.add(order.getCreateTime(),order.getNumber(),order.getStatus(),order.getProductId(),order.getTotalAmount(),order.getCount(),order.getUserId());
         final int rows = orderRepo.add(order);
         if (rows > 0) {
             paymentService.makePayment(order);

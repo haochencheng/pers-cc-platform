@@ -16,7 +16,7 @@
  *
  */
 
-package pers.platform.demo.order.configuration;
+package pers.platform.common.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -44,18 +44,17 @@ import static com.google.common.collect.Lists.newArrayList;
 @EnableSwagger2
 public class SwaggerConfig {
 
-    private static final String SWAGGER_SCAN_BASE_PACKAGE = "com.happylifeplat.tcc.demo.dubbo.order.controller";
     private static final String VERSION = "1.0.0";
 
     ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title("Swagger API")
-                .description("dubbo分布式事务解决方案之TCC测试体验")
+                .description("cc个人框架 pers-cc-platfrom/monitor-web")
                 .license("Apache 2.0")
                 .licenseUrl("http://www.apache.org/licenses/LICENSE-2.0.html")
                 .termsOfServiceUrl("")
                 .version(VERSION)
-                .contact(new Contact("xiaoyu", "", "549477611@qq.com"))
+                .contact(new Contact("cc", "", "532224524@qq.com"))
                 .build();
     }
 

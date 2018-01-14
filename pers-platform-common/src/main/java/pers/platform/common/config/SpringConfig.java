@@ -16,7 +16,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Configuration
-@PropertySource(value = "classpath:context.properties")
 public class SpringConfig extends SpringBootServletInitializer {
 
      @Bean

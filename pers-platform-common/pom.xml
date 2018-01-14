@@ -64,6 +64,12 @@
            <artifactId>spring-boot-starter-test</artifactId>
        </dependency>
 
+       <!--springboot热部署-->
+       <dependency>
+           <groupId>org.springframework.boot</groupId>
+           <artifactId>spring-boot-devtools</artifactId>
+           <optional>true</optional>
+       </dependency>
 
        <!-- sl4j + logback start-->
        <dependency>
@@ -226,6 +232,18 @@
        </dependency>
 
    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <fork>true</fork>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 
 </project>
