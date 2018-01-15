@@ -1,31 +1,26 @@
 package pers.platform.common.enums;
 
-public enum EmailTypeEnum {
+public enum BaseResultStatusEnum {
 
-    TEXT(0,"普通格式"),
-
-    HTML(1,"html格式"),
-
-    FILE(2,"带图片格式");
+    FAIL(0,"失败"),
+    SUCCESS(1,"成功");
 
     private int code;
     private String desc;
 
-    EmailTypeEnum(int code,String desc){
+    BaseResultStatusEnum(int code,String desc){
         this.code = code;
         this.desc = desc;
     }
 
-    public static EmailTypeEnum valueOf(int value) {    //    手写的从int到enum的转换函数
+    public static BaseResultStatusEnum valueOf(int value) {    //    手写的从int到enum的转换函数
         switch (value) {
             case 0:
-                return TEXT;
+                return FAIL;
             case 1:
-                return HTML;
-            case 2:
-                return FILE;
+                return SUCCESS;
             default:
-                return TEXT;
+                return FAIL;
         }
     }
 

@@ -6,10 +6,9 @@ package pers.platform.common.base;
  */
 public class BaseResult {
 
+    private int status=0;    //状态码 1成功 0失败
 
-    private int status;    //状态码 1成功 0失败
-
-    private String message;   //消息
+    private String message;   //描述
 
     private Object object; //数据结果集
 

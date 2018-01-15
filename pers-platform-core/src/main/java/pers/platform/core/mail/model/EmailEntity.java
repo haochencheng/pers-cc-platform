@@ -6,9 +6,8 @@ import java.io.File;
 
 public class EmailEntity {
 
-    private  Subject token;
     private  String host;
-    private  String to;
+    private  String[] to;
     private  String from;
     private  String[] receives;
     private  String subject;
@@ -19,17 +18,11 @@ public class EmailEntity {
     private File file;
 
 
-    public Subject getToken() {
-        return token;
-    }
 
     public String getHost() {
         return host;
     }
 
-    public String getTo() {
-        return to;
-    }
 
     public String getFrom() {
         return from;
@@ -55,16 +48,15 @@ public class EmailEntity {
         return password;
     }
 
-
-    public void setToken(Subject token) {
-        this.token = token;
-    }
-
     public void setHost(String host) {
         this.host = host;
     }
 
-    public void setTo(String to) {
+    public String[] getTo() {
+        return to;
+    }
+
+    public void setTo(String[] to) {
         this.to = to;
     }
 
