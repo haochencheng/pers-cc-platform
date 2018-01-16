@@ -84,7 +84,7 @@ public class SendEmailServiceImpl implements SendEmailService{
                     helper.setSubject(emailEntity.getSubject());
                     helper.setText(emailEntity.getText());
                     FileSystemResource fileSystemResource=new FileSystemResource(FileBytesConvertUtil.bytes2file(emailEntity.getFile()));
-                    helper.addInline(emailEntity.getFileName(),fileSystemResource);
+                    helper.addAttachment(emailEntity.getFileName(),fileSystemResource);
                     sender.send(mimeMessageFile);
                 } catch (MessagingException e) {
                     baseResult.setMessage("发送邮件时发生异常！");
@@ -93,6 +93,22 @@ public class SendEmailServiceImpl implements SendEmailService{
                     e.printStackTrace();
                 }
                 break;
+            case RESOURCE:
+                MimeMessage mimeMessageResource=sender.createMimeMessage();
+                MimeMessageHelper resourceHelper= null;
+                try {
+                    resourceHelper = new MimeMessageHelper(mimeMessageResource,true);
+                    resourceHelper.setFrom(StringUtil.isEmpty(emailEntity.getFrom())?from:emailEntity.getFrom());
+                    resourceHelper.setTo(emailEntity.getTo());
+                    resourceHelper.setSubject(emailEntity.getSubject());
+                    resourceHelper.setText(emailEntity.getText());
+                    FileSystemResource fileSystemResource=new FileSystemResource(FileBytesConvertUtil.bytes2file(emailEntity.getFile()));
+                    resourceHelper.addInline(emailEntity.getFileName(),fileSystemResource);
+                    sender.send(mimeMessageResource);
+                }catch (Exception e) {
+                    e.printStackTrace();
+                    baseResult.setMessage("发送邮件时发生异常！");
+                }
             default:
                 baseResult.setStatus(BaseResultStatusEnum.FAIL.getCode());
                 baseResult.setMessage("输入参数有误，请检查type字段");

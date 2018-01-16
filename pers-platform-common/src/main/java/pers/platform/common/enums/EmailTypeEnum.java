@@ -6,7 +6,9 @@ public enum EmailTypeEnum {
 
     HTML(1,"html格式"),
 
-    FILE(2,"带图片格式");
+    FILE(2,"带附格式"),
+
+    RESOURCE(3,"静态资源格式");
 
     private int code;
     private String desc;
@@ -24,6 +26,8 @@ public enum EmailTypeEnum {
                 return HTML;
             case 2:
                 return FILE;
+            case 3:
+                return RESOURCE;
             default:
                 return TEXT;
         }
