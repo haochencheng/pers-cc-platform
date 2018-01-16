@@ -2,10 +2,18 @@ package pers.platform.core.mail.model;
 
 import org.apache.shiro.subject.Subject;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.io.File;
 
+@Entity
+@Table(name="email_entity")
 public class EmailEntity {
 
+    @Id
+    private long id;
     private  String host;
     private  String[] to;
     private  String from;
@@ -17,6 +25,14 @@ public class EmailEntity {
     private  int type;
     private byte[] file;
     private String fileName;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public String getHost() {
         return host;

@@ -42,7 +42,7 @@ public class SendEmailServiceImpl implements SendEmailService{
     private JavaMailSender sender;
 
     @Override
-    public BaseResult sendEmailSync(Subject subject, EmailEntity emailEntity) {
+    public BaseResult sendEmailSync(String apiKey,String apiSecret, EmailEntity emailEntity) {
         BaseResult baseResult=new BaseResult();
         switch (EmailTypeEnum.valueOf(emailEntity.getType())){
             case TEXT:
@@ -118,7 +118,7 @@ public class SendEmailServiceImpl implements SendEmailService{
     }
 
     @Override
-    public void sendEmailASync(Subject subject,EmailEntity emailEntity) {
+    public void sendEmailASync(String apiKey,String apiSecret,EmailEntity emailEntity) {
 
     }
 }

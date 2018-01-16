@@ -13,9 +13,9 @@ import pers.platform.core.mail.model.EmailEntity;
 public interface SendEmailService {
 
     //同步调用
-    BaseResult sendEmailSync(Subject subject, EmailEntity emailEntity);
+    BaseResult sendEmailSync(String apiKey,String apiSecret, EmailEntity emailEntity);
 
     //异步调用
-    void sendEmailASync(Subject subject,EmailEntity emailEntity);
+    void sendEmailASync(String apiKey,String apiSecret,EmailEntity emailEntity);
 
 }

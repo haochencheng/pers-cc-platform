@@ -6,12 +6,15 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 /**
+ * rpclog接入
  * Created by cc on  2018/1/10
  */
 @Aspect
+@Order(3)
 @Component
 public class RpcLogAspect {
 
