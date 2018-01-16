@@ -15,9 +15,8 @@ public class EmailEntity {
     private  String userName;
     private  String password;
     private  int type;
-    private File file;
-
-
+    private byte[] file;
+    private String fileName;
 
     public String getHost() {
         return host;
@@ -92,11 +91,19 @@ public class EmailEntity {
         this.type = type;
     }
 
-    public File getFile() {
+    public byte[] getFile() {
         return file;
     }
 
-    public void setFile(File file) {
+    public void setFile(byte[] file) {
         this.file = file;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
 }
