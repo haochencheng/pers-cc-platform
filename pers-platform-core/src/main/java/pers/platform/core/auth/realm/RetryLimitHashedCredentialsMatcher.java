@@ -1,4 +1,4 @@
-package pers.platform.core.realm;
+package pers.platform.core.auth.realm;
 
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -12,27 +12,27 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class RetryLimitHashedCredentialsMatcher
         extends HashedCredentialsMatcher  {
 
-    private Cache<String, AtomicInteger> passwordRetryCache;
+    private Cache<String, AtomicInteger> apiRetryCache;
 
     public RetryLimitHashedCredentialsMatcher(CacheManager cacheManager) {
         this.setHashAlgorithmName("MD5");
         this.setHashIterations(3);
         this.setStoredCredentialsHexEncoded(true);
-        this.passwordRetryCache = cacheManager.getCache("passwordRetryCache");
+        this.apiRetryCache = cacheManager.getCache("apiRetryCache");
     }
 
-    //登陆失败5次讲被锁定10分钟
+    //登陆失败10次讲被锁定10分钟
     @Override
     public boolean doCredentialsMatch(AuthenticationToken token,
             AuthenticationInfo info) {
-        String username = (String) token.getPrincipal();
+        String apiKey = (String) token.getPrincipal();
         // retry count + 1
-        AtomicInteger retryCount = passwordRetryCache.get(username);
+        AtomicInteger retryCount = apiRetryCache.get(apiKey);
         if (retryCount == null) {
             retryCount = new AtomicInteger(0);
-            passwordRetryCache.put(username, retryCount);
+            apiRetryCache.put(apiKey, retryCount);
         }
-        if (retryCount.incrementAndGet() > 5) {
+        if (retryCount.incrementAndGet() > 10) {
             // if retry count > 5 throw
             throw new ExcessiveAttemptsException();
         }
@@ -40,7 +40,7 @@ public class RetryLimitHashedCredentialsMatcher
         boolean matches = super.doCredentialsMatch(token, info);
         if (matches) {
             // clear retry count
-            passwordRetryCache.remove(username);
+            apiRetryCache.remove(apiKey);
         }
         return matches;
     }

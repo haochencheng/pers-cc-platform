@@ -2,17 +2,8 @@ package pers.platform.core.config;
 
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.cache.ehcache.EhCacheManager;
-import org.apache.shiro.codec.Base64;
 import org.apache.shiro.mgt.SecurityManager;
-import org.apache.shiro.session.mgt.ExecutorServiceSessionValidationScheduler;
-import org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
-import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
-import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
-import org.apache.shiro.web.mgt.CookieRememberMeManager;
-import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
-import org.apache.shiro.web.servlet.SimpleCookie;
-import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
@@ -21,11 +12,8 @@ import org.springframework.beans.factory.config.MethodInvokingFactoryBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
-import pers.platform.core.realm.ApiShiroRealm;
-import pers.platform.core.realm.RetryLimitHashedCredentialsMatcher;
-
-import java.util.LinkedHashMap;
-import java.util.Map;
+import pers.platform.core.auth.realm.ApiShiroRealm;
+import pers.platform.core.auth.realm.RetryLimitHashedCredentialsMatcher;
 
 @Configuration
 public class ApiShiroConfig {
@@ -47,35 +35,9 @@ public class ApiShiroConfig {
         return cacheManager;
     }
 
-    /**
-     * Shiro的Web过滤器Factory 命名:shiroFilter<br />
-     * * * @param securityManager * @return
-     */
-    @Bean(name = "shiroFilter")
-    public ShiroFilterFactoryBean shiroFilterFactoryBean(
-            SecurityManager securityManager) {
-        return null;
-    }
-
     @Bean(name = "hashedCredentialsMatcher")
     public HashedCredentialsMatcher credentialsMatcher() {
         return new RetryLimitHashedCredentialsMatcher(getCacheManage());
-    }
-
-    @Bean
-    public SimpleCookie rememberMeCookie() {
-        SimpleCookie simpleCookie = new SimpleCookie("rememberMe");
-        simpleCookie.setHttpOnly(true);
-        simpleCookie.setMaxAge(2592000);
-        return simpleCookie;
-    }
-
-    @Bean
-    public CookieRememberMeManager rememberManager() {
-        CookieRememberMeManager meManager = new CookieRememberMeManager();
-        meManager.setCipherKey(Base64.decode("4AvVhmFLUs0KTA3Kprsdag=="));
-        meManager.setCookie(rememberMeCookie());
-        return meManager;
     }
 
     @Bean

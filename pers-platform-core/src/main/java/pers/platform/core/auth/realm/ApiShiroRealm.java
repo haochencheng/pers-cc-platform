@@ -1,5 +1,6 @@
-package pers.platform.core.realm;
+package pers.platform.core.auth.realm;
 
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authc.credential.CredentialsMatcher;
 import org.apache.shiro.authz.AuthorizationInfo;
@@ -7,8 +8,14 @@ import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.cache.CacheManager;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.util.ByteSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import pers.platform.core.auth.model.ApiUserAuth;
+import pers.platform.core.auth.repository.ApiUserAuthRepo;
+
+import java.util.List;
 
 /**
  * 自定义Realm
@@ -20,7 +27,8 @@ public class ApiShiroRealm extends AuthorizingRealm {
 
     Logger logger = LoggerFactory.getLogger(ApiShiroRealm.class);
 
-
+    @Autowired
+    private ApiUserAuthRepo apiUserAuthRepo;
 
     public ApiShiroRealm(CacheManager cacheManager, CredentialsMatcher matcher) {
         super(cacheManager, matcher);
@@ -36,7 +44,7 @@ public class ApiShiroRealm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(
             PrincipalCollection principals) {
-        logger.info("权限配置-->MyShiroRealm.doGetAuthorizationInfo()");
+        logger.info("权限验证->ApiShiroRealm.doGetAuthorizationInfo()");
         SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
 //        User bloggerInfo = (User) principals.getPrimaryPrincipal();
 //        logger.info(bloggerInfo.toString());
@@ -54,24 +62,22 @@ public class ApiShiroRealm extends AuthorizingRealm {
     protected AuthenticationInfo doGetAuthenticationInfo(
             AuthenticationToken token) {
         logger.info("ApiShiroRealm.doGetAuthenticationInfo()");
-        String userName = (String) token.getPrincipal();
-//        User user = userService.getUserByUserNameOrPhoneOrEmail(userName,
-//                userName, userName);
-//        if (user == null) {
-//            // 抛出 帐号找不到异常
-//            throw new UnknownAccountException();
-//        }
-//        // 判断是否用户被锁定
-//        if (user.isLocked()) {
-//            // 抛出 帐号锁定异常
-//            throw new LockedAccountException();
-//        }
-//        // 将当前用户放入缓存
-//        SecurityUtils.getSubject().getSession().setAttribute("user", user);
-//        return new SimpleAuthenticationInfo(user.getPrincipal(),
-//                user.getPassword(), ByteSource.Util.bytes(user.getCredentials()),
-//                getName());
-        return null;
+        String apiKey = (String) token.getPrincipal();
+        String apiSercuty= (String) token.getCredentials();
+        ApiUserAuth apiUserAuth = apiUserAuthRepo.getAllByApiKeyAAndApiSecret(apiKey, apiSercuty);
+
+        if (apiUserAuth == null) {
+            // 抛出 帐号找不到异常
+            throw new UnknownAccountException();
+        }
+        // 判断是否用户被锁定
+        if (apiUserAuth.isLocked()) {
+            // 抛出 帐号锁定异常
+            throw new LockedAccountException();
+        }
+        return new SimpleAuthenticationInfo(apiKey,
+                apiSercuty,
+                getName());
     }
 
 }

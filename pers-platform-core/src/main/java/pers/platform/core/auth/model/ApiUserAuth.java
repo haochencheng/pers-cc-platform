@@ -40,12 +40,38 @@ public class ApiUserAuth extends BaseModel {
 
     private int apiRequestCount;  //请求次数
 
+    private Integer locked = 0; //0锁定1解锁
+
     public long getId() {
         return id;
     }
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public String getApiKey() {
+        return apiKey;
+    }
+
+    public void setApiKey(String apiKey) {
+        this.apiKey = apiKey;
+    }
+
+    public String getApiSecret() {
+        return apiSecret;
+    }
+
+    public void setApiSecret(String apiSecret) {
+        this.apiSecret = apiSecret;
+    }
+
+    public boolean isLocked() {
+        return locked==0?true:false;
+    }
+
+    public void setLocked(Integer locked) {
+        this.locked = locked;
     }
 
     public String getUserId() {
