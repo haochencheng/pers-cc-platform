@@ -10,6 +10,7 @@ import pers.platform.monitor.repository.UserRepo;
 
 // 注册为 Dubbo 服务
 @Service
+@org.springframework.stereotype.Service
 public class UserServiceImpl implements UserService {
 
     @Resource
