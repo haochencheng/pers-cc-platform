@@ -5,6 +5,7 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
@@ -26,38 +27,48 @@ public class ApiInterceptor {
 
     private static final Logger logger = LoggerFactory.getLogger(RpcLogAspect.class);
 
-    @Pointcut("execution(* *..service..*.*(..))")
+    @Pointcut("@annotation(com.alibaba.dubbo.config.annotation.Service)")
     public void service(){
 
     }
 
     @Before("service()")
-    public Object doInterceptorBeforeService(JoinPoint joinPoint){
-        BaseResult baseResult=new BaseResult();
+    public void doInterceptorBeforeService(JoinPoint joinPoint){
+        //记录调用api次数
+        //TODO
         Object[] objects =joinPoint.getArgs();
-        //TODO  异常信息统一
-        Object apikey = objects[0];
-        Object apiSecurity = objects[1];
-        if (Objects.isNull(apikey)||Objects.isNull(apiSecurity)){
-           baseResult.setMessage("api权限参数校验失败！");
-            return baseResult;
-        }
-        if ("".equals(apikey.toString())||"".equals(apiSecurity.toString())){
-           baseResult.setMessage("api权限参数不可为空！");
-            return baseResult;
-        }
-        for (Object object:objects){
-            //过滤非法字符
-            if (!Objects.isNull(object)&&StringUtil.filterSpecialChar(object.toString())){
-                baseResult.setMessage("参数中含有非法参数！");
-                return baseResult;
+        if (objects.length>2&&false){
+            //TODO  异常信息统一
+            Object apikey = objects[0];
+            Object apiSecurity = objects[1];
+            if (Objects.isNull(apikey)||Objects.isNull(apiSecurity)){
+//                baseResult.setMessage("api权限参数校验失败！");
             }
+            if ("".equals(apikey.toString())||"".equals(apiSecurity.toString())){
+//                baseResult.setMessage("api权限参数不可为空！");
+            }
+            for (Object object:objects){
+                //过滤非法字符
+                if (!Objects.isNull(object)&&StringUtil.filterSpecialChar(object.toString())){
+//                    baseResult.setMessage("参数中含有非法参数！");
+                }
+            }
+            //shiro权限验证
+            Subject subject= SecurityUtils.getSubject();
+            UsernamePasswordToken userNametoken=new UsernamePasswordToken(apikey.toString(),apiSecurity.toString(),false);
+            subject.login(userNametoken);
         }
-        //shiro权限验证
-        Subject subject= SecurityUtils.getSubject();
-        UsernamePasswordToken userNametoken=new UsernamePasswordToken(apikey.toString(),apiSecurity.toString(),false);
-        subject.login(userNametoken);
+    }
+
+    @AfterThrowing("service()")
+    public Object afterServiceThrowing() {
+        BaseResult baseResult=new BaseResult();
+
         return baseResult;
+    }
+
+    private boolean isChecked(){
+        return true;
     }
 
 }

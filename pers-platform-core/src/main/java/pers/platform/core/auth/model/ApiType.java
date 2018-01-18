@@ -4,7 +4,9 @@ package pers.platform.core.auth.model;
 import org.hibernate.validator.constraints.NotEmpty;
 import pers.platform.common.model.BaseModel;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
@@ -16,30 +18,34 @@ import javax.persistence.Table;
 @Table(name="api_type")
 public class ApiType extends BaseModel {
 
-    private int id;
+    @Id
+    private long id;
 
     @NotEmpty(message = "apiTypeCode不可为空")
-    private int apiTypeCode;   //api类别编码
+    @Column(name = "api_type_code")
+    private String apiTypeCode;   //api类别编码
 
     @NotEmpty(message = "apiTypeName不可为空")
+    @Column(name = "api_type_name")
     private int apiTypeName;   //api类别名称
 
-    @NotEmpty(message = "apiType不可为空")
-    private int apiType;    //0免费，1收费
+    @NotEmpty(message = "isFree不可为空")
+    @Column(name = "is_free")
+    private int isFree;    //0免费，1收费
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    public int getApiTypeCode() {
+    public String getApiTypeCode() {
         return apiTypeCode;
     }
 
-    public void setApiTypeCode(int apiTypeCode) {
+    public void setApiTypeCode(String apiTypeCode) {
         this.apiTypeCode = apiTypeCode;
     }
 
@@ -51,11 +57,11 @@ public class ApiType extends BaseModel {
         this.apiTypeName = apiTypeName;
     }
 
-    public int getApiType() {
-        return apiType;
+    public int getIsFree() {
+        return isFree;
     }
 
-    public void setApiType(int apiType) {
-        this.apiType = apiType;
+    public void setIsFree(int isFree) {
+        this.isFree = isFree;
     }
 }

@@ -4,6 +4,7 @@ package pers.platform.core.auth.model;
 import org.hibernate.validator.constraints.NotEmpty;
 import pers.platform.common.model.BaseModel;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -20,26 +21,39 @@ public class ApiUserAuth extends BaseModel {
 
     @Id
     private long  id;
-
     @NotEmpty(message = "apiUserId不可为空")
+    @Column(name = "user_id")
     private long  userId;  //用户id，外键
+
     @NotEmpty(message = "apiListId不可为空")
+    @Column(name = "api_list_Id")
     private long apiListId; //访问api，外键
+
     @NotEmpty(message = "apiKey不可为空")
+    @Column(name = "api_key")
     private String apiKey; //apikey
+
     @NotEmpty(message = "apiSecret不可为空")
+    @Column(name = "api_secret")
     private String apiSecret; //api访问密匙
 
+    @Column(name = "api_begin_time")
     private Date apiBeginTime;  //生效时间
 
+    @Column(name = "api_expire_time")
     private Date apiExpireTime; //过期时间
-    @NotEmpty(message = "apiListId不可为空")
+
+    @NotEmpty(message = "apiUserType不可为空")
+    @Column(name = "api_user_type")
     private int apiUserType; //是否vip 0不是，1是。不是vip只能访问免费接口
-    @NotEmpty(message = "apiListId不可为空")
+
+    @NotEmpty(message = "apiRequestCount不可为空")
+    @Column(name = "api_request_count")
     private int apiRequestType; //api请求类型 0时间，1次数 。
 
-
-    private Integer locked = 0; //0锁定1解锁
+    @NotEmpty(message = "islocked不可为空")
+    @Column(name = "is_locked")
+    private Integer isLocked = 0; //0锁定1解锁
 
     public long getId() {
         return id;
@@ -66,11 +80,11 @@ public class ApiUserAuth extends BaseModel {
     }
 
     public boolean isLocked() {
-        return locked==0?true:false;
+        return isLocked==0?true:false;
     }
 
-    public void setLocked(Integer locked) {
-        this.locked = locked;
+    public void setLocked(Integer isLocked) {
+        this.isLocked = isLocked;
     }
 
 
@@ -123,7 +137,4 @@ public class ApiUserAuth extends BaseModel {
         this.apiListId = apiListId;
     }
 
-    public Integer getLocked() {
-        return locked;
-    }
 }

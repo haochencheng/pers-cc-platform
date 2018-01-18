@@ -12,7 +12,7 @@ import org.springframework.context.annotation.ImportResource;
  */
 @SpringBootApplication
 @ImportResource({"classpath:applicationContext.xml"})
-@EntityScan("pers.platform.core.model")
+@EntityScan(basePackages={"pers.platform.core.**.model","pers.platform.common.model"})
 @ComponentScan(basePackages = {"pers.platform.common.config","pers.platform.core"})
 public class PlatFormCoreApplication {
 
