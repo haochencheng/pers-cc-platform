@@ -22,12 +22,12 @@ public class ApiUserAuth extends BaseModel {
     private long  id;
 
     @NotEmpty(message = "apiUserId不可为空")
-    private String  userId;  //用户id，外键
+    private long  userId;  //用户id，外键
     @NotEmpty(message = "apiListId不可为空")
-    private String apiListId; //访问api，外键
-
+    private long apiListId; //访问api，外键
+    @NotEmpty(message = "apiKey不可为空")
     private String apiKey; //apikey
-
+    @NotEmpty(message = "apiSecret不可为空")
     private String apiSecret; //api访问密匙
 
     private Date apiBeginTime;  //生效时间
@@ -38,7 +38,6 @@ public class ApiUserAuth extends BaseModel {
     @NotEmpty(message = "apiListId不可为空")
     private int apiRequestType; //api请求类型 0时间，1次数 。
 
-    private int apiRequestCount;  //请求次数
 
     private Integer locked = 0; //0锁定1解锁
 
@@ -74,21 +73,7 @@ public class ApiUserAuth extends BaseModel {
         this.locked = locked;
     }
 
-    public String getUserId() {
-        return userId;
-    }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    public String getApiListId() {
-        return apiListId;
-    }
-
-    public void setApiListId(String apiListId) {
-        this.apiListId = apiListId;
-    }
 
     public Date getApiBeginTime() {
         return apiBeginTime;
@@ -122,11 +107,23 @@ public class ApiUserAuth extends BaseModel {
         this.apiRequestType = apiRequestType;
     }
 
-    public int getApiRequestCount() {
-        return apiRequestCount;
+    public long getUserId() {
+        return userId;
     }
 
-    public void setApiRequestCount(int apiRequestCount) {
-        this.apiRequestCount = apiRequestCount;
+    public void setUserId(long userId) {
+        this.userId = userId;
+    }
+
+    public long getApiListId() {
+        return apiListId;
+    }
+
+    public void setApiListId(long apiListId) {
+        this.apiListId = apiListId;
+    }
+
+    public Integer getLocked() {
+        return locked;
     }
 }

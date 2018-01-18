@@ -18,6 +18,7 @@ import javax.persistence.Table;
 public class ApiList extends BaseModel{
 
     @Id
+    @NotEmpty(message = "id不可为空")
     private long  id;
     @NotEmpty(message = "apiName不可为空")
     private String apiName; //api名称
@@ -27,8 +28,6 @@ public class ApiList extends BaseModel{
     private String apiStatus; //api状态 是否可用 0不可用1可用
     private String appName; //应用名称
     private int totalCount; //请求次数
-    @NotEmpty(message = "apiType不可为空")
-    private int apiType;    //0免费，1收费
 
     public String getApiName() {
         return apiName;
@@ -78,11 +77,5 @@ public class ApiList extends BaseModel{
         this.totalCount = totalCount;
     }
 
-    public int getApiType() {
-        return apiType;
-    }
 
-    public void setApiType(int apiType) {
-        this.apiType = apiType;
-    }
 }

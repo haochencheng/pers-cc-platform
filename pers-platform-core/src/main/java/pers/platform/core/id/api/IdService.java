@@ -1,4 +1,4 @@
-package pers.platform.common.api;
+package pers.platform.core.id.api;
 
 public interface IdService {
 
@@ -8,6 +8,6 @@ public interface IdService {
      * @return uuid.toString()
      * @Description:
      */
-    public String getId();
+     String getNewId();
 
 }
