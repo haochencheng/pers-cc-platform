@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>html5 调用本地摄像头</title>
+</head>
+<body>
+<video id="jsVideo" style="display: block; width: 640px; height: 480pxpx; transform: scaleX(-1);" autoplay=""></video>
+//<video id="video" autoplay="autoplay" style='width:640px;height:480px'></video>
+<button id='picture'>PICTURE</button>
+<canvas id="canvas" width="640" height="480"></canvas>
+<script type="text/javascript">
+    var video = document.getElementById("video"); debugger
+    var context = canvas.getContext("2d");
+    var errocb = function (code) {
+        console.log(code);
+    };
+    if (navigator.getUserMedia) { // 标准的API
+        navigator.getUserMedia({ "video": true }, function (stream) {
+            video.src = stream;
+			var playPromise = document.querySelector('video').play();
+			// In browsers that don’t yet support this functionality,
+			// playPromise won’t be defined.
+			if (playPromise !== undefined) {
+			  playPromise.then(function() {
+					video.play();
+				// Automatic playback started!
+			  }).catch(function(error) {
+				// Automatic playback failed.
+				// Show a UI element to let the user manually start playback.
+				alert('播放出错！'+error);
+			  });
+			}else{
+				alert('无权限调用摄像头');
+			}
+        }, errocb);
+    } else if (navigator.webkitGetUserMedia) { // WebKit 核心的API
+
+        console.log(navigator.webkitGetUserMedia);
+        navigator.webkitGetUserMedia({ "video": true }, function (stream) {
+
+            video.src = window.webkitURL.createObjectURL(stream);
+            video.play();
+        }, errocb);
+
+    }
+//    将拍好的照片显示在画布上
+    document.getElementById("picture").addEventListener("click", function () {
+        context.drawImage(video, 0, 0, 640, 480);
+    });
+</script>
+</body>
+</html>

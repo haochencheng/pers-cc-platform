@@ -2,7 +2,9 @@ package pers.platform.core;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ImportResource;
 
 /**
@@ -10,6 +12,8 @@ import org.springframework.context.annotation.ImportResource;
  */
 @SpringBootApplication
 @ImportResource({"classpath:applicationContext.xml"})
+@EntityScan("pers.platform.core.model")
+@ComponentScan(basePackages = {"pers.platform.common.config","pers.platform.core"})
 public class PlatFormCoreApplication {
 
 

@@ -35,4 +35,14 @@ public class BaseResult {
     public void setObject(Object object) {
         this.object = object;
     }
+
+    public BaseResult(int status, String message, Object object) {
+        this.status = status;
+        this.message = message;
+        this.object = object;
+    }
+
+
+    public BaseResult() {
+    }
 }

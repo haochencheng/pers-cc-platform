@@ -31,6 +31,7 @@ import java.io.FileInputStream;
 
 
 @Service
+@org.springframework.stereotype.Service
 public class SendEmailServiceImpl implements SendEmailService{
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
