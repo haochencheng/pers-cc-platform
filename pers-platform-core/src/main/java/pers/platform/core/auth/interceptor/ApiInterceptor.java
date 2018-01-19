@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
+import pers.platform.core.auth.exception.ApiException;
 import pers.platform.core.log.RpcLogAspect;
 import pers.platform.common.base.BaseResult;
 import pers.platform.common.utils.common.StringUtil;
@@ -24,6 +25,8 @@ import java.util.Objects;
 @Order(9)
 @Aspect
 public class ApiInterceptor {
+
+
 
     private static final Logger logger = LoggerFactory.getLogger(RpcLogAspect.class);
 
@@ -38,22 +41,22 @@ public class ApiInterceptor {
         boolean providerSide = RpcContext.getContext().isProviderSide();
         if (providerSide){
             //记录调用api次数
-            //TODO
+
             Object[] objects =joinPoint.getArgs();
             if (objects.length>2&&providerSide){
                 //TODO  异常信息统一
                 Object apikey = objects[0];
                 Object apiSecurity = objects[1];
                 if (Objects.isNull(apikey)||Objects.isNull(apiSecurity)){
-//                baseResult.setMessage("api权限参数校验失败！");
+                    throw  ApiException.BAD_ARGUMENTS;
                 }
                 if ("".equals(apikey.toString())||"".equals(apiSecurity.toString())){
-//                baseResult.setMessage("api权限参数不可为空！");
+                    throw  ApiException.BAD_ARGUMENTS;
                 }
                 for (Object object:objects){
                     //过滤非法字符
                     if (!Objects.isNull(object)&&StringUtil.filterSpecialChar(object.toString())){
-//                    baseResult.setMessage("参数中含有非法参数！");
+                        throw  ApiException.BAD_ARGUMENTS;
                     }
                 }
                 //shiro权限验证
