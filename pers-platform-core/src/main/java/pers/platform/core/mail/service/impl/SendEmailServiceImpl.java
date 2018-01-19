@@ -24,14 +24,9 @@ import pers.platform.core.mail.api.SendEmailService;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
-import javax.validation.Valid;
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileInputStream;
 
 
 @Service
-@org.springframework.stereotype.Service
 public class SendEmailServiceImpl implements SendEmailService{
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());

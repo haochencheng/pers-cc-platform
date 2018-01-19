@@ -1,7 +1,7 @@
 package pers.platform.core.auth.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * api访问量表
@@ -12,18 +12,19 @@ import javax.persistence.Table;
 @Table(name="api_access_counter")
 public class ApiAccessCounter {
 
-    private long ApiUserAuthId; //外键 和pond做联合主键
+    @EmbeddedId
+    private ApiUserAuthId apiUserAuthId;
 
+    @Column(name = "api_request_count")
     private int apiRequestCount;  //请求次数
 
-    private int pond; //池子，就是用来随机用的
 
-    public long getApiUserAuthId() {
-        return ApiUserAuthId;
+    public ApiUserAuthId getApiUserAuthId() {
+        return apiUserAuthId;
     }
 
-    public void setApiUserAuthId(long apiUserAuthId) {
-        ApiUserAuthId = apiUserAuthId;
+    public void setApiUserAuthId(ApiUserAuthId apiUserAuthId) {
+        this.apiUserAuthId = apiUserAuthId;
     }
 
     public int getApiRequestCount() {
@@ -34,13 +35,7 @@ public class ApiAccessCounter {
         this.apiRequestCount = apiRequestCount;
     }
 
-    public int getPond() {
-        return pond;
-    }
 
-    public void setPond(int pond) {
-        this.pond = pond;
-    }
 
     /*另一种比较好的办法是对每一个文章的计数器不是一行，而是多行，比如吧，一百行。每次随机更新其中一行，该文章的浏览数就是所有行的和。
 复制代码 代码如下:

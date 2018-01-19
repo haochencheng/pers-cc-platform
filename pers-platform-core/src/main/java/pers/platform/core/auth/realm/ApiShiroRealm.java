@@ -64,7 +64,7 @@ public class ApiShiroRealm extends AuthorizingRealm {
         logger.info("ApiShiroRealm.doGetAuthenticationInfo()");
         String apiKey = (String) token.getPrincipal();
         String apiSercuty= (String) token.getCredentials();
-        ApiUserAuth apiUserAuth = apiUserAuthRepo.getAllByApiKeyAAndApiSecret(apiKey, apiSercuty);
+        ApiUserAuth apiUserAuth = apiUserAuthRepo.getAllByApiKeyAndApiSecret(apiKey, apiSercuty);
 
         if (apiUserAuth == null) {
             // 抛出 帐号找不到异常

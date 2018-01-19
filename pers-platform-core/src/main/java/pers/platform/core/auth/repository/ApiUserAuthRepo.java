@@ -11,6 +11,6 @@ import java.util.List;
 public interface ApiUserAuthRepo extends CrudRepository<ApiUserAuth, Serializable> {
 
 
-    ApiUserAuth getAllByApiKeyAAndApiSecret(String apiKey,String apiSecret);
+    ApiUserAuth getAllByApiKeyAndApiSecret(String apiKey,String apiSecret);
 
 }
