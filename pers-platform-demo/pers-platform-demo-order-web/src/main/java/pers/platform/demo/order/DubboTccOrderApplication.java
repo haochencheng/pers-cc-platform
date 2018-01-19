@@ -33,7 +33,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @ImportResource({"classpath:applicationContext.xml","classpath:spring-dubbo.xml"})
 //@ImportResource({"classpath:applicationContext.xml"})
 @EntityScan("pers.platform.demo.order.model")
-@ComponentScan(basePackages = {"pers.platform.common.config","pers.platform.common.api","pers.platform.demo.order"})
+@ComponentScan(basePackages = {"pers.platform.common.config","pers.platform.demo.order"})
 public class DubboTccOrderApplication {
 
     public static void main(String[] args) {
