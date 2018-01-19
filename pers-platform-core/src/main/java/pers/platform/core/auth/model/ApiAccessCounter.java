@@ -10,7 +10,7 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name="api_access_counter")
-public class ApiAccessCounter {
+public class ApiAccessCounter implements Serializable{
 
     @EmbeddedId
     private ApiUserAuthId apiUserAuthId;

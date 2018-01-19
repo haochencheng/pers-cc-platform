@@ -1,4 +1,4 @@
-package pers.platform.core.auth.web;
+package pers.platform.test.web;
 
 
 import com.alibaba.dubbo.config.annotation.Reference;
@@ -8,17 +8,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import pers.platform.common.base.BaseResult;
-import pers.platform.core.mail.api.SendEmailService;
-import pers.platform.core.mail.model.EmailEntity;
+import pers.platform.core.api.SendEmailService;
+import pers.platform.core.model.EmailEntity;
 
-import java.math.BigDecimal;
 
 @RestController
 @RequestMapping("/core")
 public class CoreController {
 
     @Reference
-    public SendEmailService sendEmailService;
+    private SendEmailService sendEmailService;
 
 
     @PostMapping(value = "/send/sync")

@@ -12,7 +12,7 @@ import org.springframework.context.annotation.ImportResource;
  * Created by cc on  2018/1/9
  */
 @SpringBootApplication
-@ImportResource({"classpath:applicationContext.xml","classpath:spring-dubbo.xml"})
+@ImportResource({"classpath:applicationContext.xml"})
 @EntityScan(basePackages={"pers.platform.core.**.model","pers.platform.common.model"})
 @ComponentScan(basePackages = {"pers.platform.common.config","pers.platform.core"})
 @DubboComponentScan(basePackages = {"pers.platform.core.**.service"})

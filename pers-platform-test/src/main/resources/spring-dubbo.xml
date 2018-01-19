@@ -25,14 +25,14 @@
        http://code.alibabatech.com/schema/dubbo
        http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
 
-    <dubbo:application name="platform_core_consumer"/>
+    <dubbo:application name="test_consumer"/>
 
     <dubbo:registry protocol="zookeeper" address="127.0.0.1:2181"/>
 
     <dubbo:protocol accesslog="true" name="dubbo" port="20887"/>
 
     <dubbo:reference timeout="10000"
-                     interface="pers.platform.core.mail.api.SendEmailService"
+                     interface="pers.platform.core.api.SendEmailService"
                      id="sendEmailService"
                      retries="0" check="false"/>
 

@@ -1,9 +1,11 @@
 package pers.platform.common.model;
 
+import java.io.Serializable;
+
 /**
  * Created by cc on  2018/1/16
  */
-public class ArgumentInvalidResult {
+public class ArgumentInvalidResult implements Serializable{
 
 
     private String field;

@@ -1,10 +1,12 @@
 package pers.platform.common.base;
 
+import java.io.Serializable;
+
 /**
  * 统一返回结果类
  * Created by cc on  2018/1/10
  */
-public class BaseResult {
+public class BaseResult implements Serializable {
 
     private int status=0;    //状态码 1成功 0失败
 

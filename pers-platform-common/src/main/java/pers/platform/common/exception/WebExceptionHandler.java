@@ -1,4 +1,4 @@
-package pers.platform.common.web;
+package pers.platform.common.exception;
 
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.validation.FieldError;

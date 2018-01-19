@@ -13,7 +13,7 @@ public class UserApi {
     @Resource
     UserService userServuce;
 
-    @RequestMapping(value = "/api/users")
+    @RequestMapping(value = "/pers/platform/core/api/users")
     public User getAll() {
         return userServuce.getUserById(1);
     }

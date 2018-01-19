@@ -9,8 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>pers-platform-core</artifactId>
-
+    <artifactId>pers-platform-test</artifactId>
 
     <dependencies>
 
@@ -20,28 +19,11 @@
             <version>${project.version}</version>
         </dependency>
 
-        <!-- shiro -->
-        <dependency>
-            <groupId>org.apache.shiro</groupId>
-            <artifactId>shiro-spring</artifactId>
-            <version>${shiro-version}</version>
-        </dependency>
 
-        <dependency>
-            <groupId>org.apache.shiro</groupId>
-            <artifactId>shiro-ehcache</artifactId>
-            <version>${shiro-ehcache}</version>
-        </dependency>
 
-        <!--发送邮件-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-mail</artifactId>
-        </dependency>
+
 
     </dependencies>
-
-
 
 
 </project>

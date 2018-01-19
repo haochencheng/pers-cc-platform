@@ -1,6 +1,7 @@
 package pers.platform.common.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -9,7 +10,7 @@ import java.util.Date;
  * @date 2018-01-16
  */
 @MappedSuperclass
-public class BaseModel {
+public class BaseModel implements Serializable {
 
     //声明两个时间列，用来作为创建时间和更新时间
     @Temporal(TemporalType.TIMESTAMP)
@@ -23,6 +24,8 @@ public class BaseModel {
     private String modifyUser; //修改人
 
     private String remark;// 描述
+
+    private int version=0; //默认版本号0
 
     //在创建时，对创建时间和更新时间进行刷新
     @PrePersist
@@ -66,5 +69,13 @@ public class BaseModel {
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    public int getVersion() {
+        return version;
+    }
+
+    public void setVersion(int version) {
+        this.version = version;
     }
 }

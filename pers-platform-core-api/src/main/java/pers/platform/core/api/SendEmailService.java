@@ -1,10 +1,8 @@
-package pers.platform.core.mail.api;
+package pers.platform.core.api;
 
 
-import com.alibaba.fastjson.JSONObject;
-import org.apache.shiro.subject.Subject;
+import pers.platform.core.model.EmailEntity;
 import pers.platform.common.base.BaseResult;
-import pers.platform.core.mail.model.EmailEntity;
 
 /**
  * @author cc
@@ -16,6 +14,6 @@ public interface SendEmailService {
     BaseResult sendEmailSync(String apiKey,String apiSecret, EmailEntity emailEntity);
 
     //异步调用
-    void sendEmailASync(String apiKey,String apiSecret,EmailEntity emailEntity);
+    void sendEmailASync(String apiKey, String apiSecret, EmailEntity emailEntity);
 
 }

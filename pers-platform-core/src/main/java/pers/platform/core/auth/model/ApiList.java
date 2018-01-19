@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.io.Serializable;
 
 
 /**
@@ -16,7 +17,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="api_list")
-public class ApiList extends BaseModel{
+public class ApiList extends BaseModel implements Serializable {
 
     @Id
     @NotEmpty(message = "id不可为空")

@@ -1,4 +1,4 @@
-package pers.platform.common.aspect;
+package pers.platform.core.log;
 
 import com.alibaba.dubbo.rpc.RpcContext;
 import org.aspectj.lang.JoinPoint;
@@ -47,9 +47,11 @@ public class RpcLogAspect {
         boolean consumerSide = RpcContext.getContext().isConsumerSide();
         // 获取最后一次提供方或调用方IP
         String ip = RpcContext.getContext().getRemoteHost();
-        // 服务url
-        String rpcUrl = RpcContext.getContext().getUrl().getParameter("application");
-        logger.info("consumerSide={}, ip={}, url={}", consumerSide, ip, rpcUrl);
+        if (consumerSide){
+            // 服务url
+            String rpcUrl = RpcContext.getContext().getUrl().getParameter("application");
+            logger.info("consumerSide={}, ip={}, url={}", consumerSide, ip, rpcUrl);
+        }
         return result;
     }
 

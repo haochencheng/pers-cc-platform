@@ -1,4 +1,4 @@
-package pers.platform.core.id.api;
+package pers.platform.core.api;
 
 public interface IdService {
 

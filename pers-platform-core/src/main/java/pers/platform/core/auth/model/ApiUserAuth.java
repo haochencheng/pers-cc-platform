@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -17,7 +18,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name="api_user_auth")
-public class ApiUserAuth extends BaseModel {
+public class ApiUserAuth extends BaseModel implements Serializable {
 
     @Id
     private long  id;

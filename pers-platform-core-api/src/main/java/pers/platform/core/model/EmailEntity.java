@@ -1,4 +1,4 @@
-package pers.platform.core.mail.model;
+package pers.platform.core.model;
 
 import org.apache.shiro.subject.Subject;
 
@@ -7,10 +7,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.File;
+import java.io.Serializable;
 
 @Entity
 @Table(name="email_entity")
-public class EmailEntity {
+public class EmailEntity implements Serializable{
 
     @Id
     private long id;
