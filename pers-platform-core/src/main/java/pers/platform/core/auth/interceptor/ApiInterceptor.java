@@ -12,9 +12,11 @@ import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import pers.platform.core.auth.exception.ApiException;
+import pers.platform.core.auth.service.RecordApiReuestCountService;
 import pers.platform.core.log.RpcLogAspect;
 import pers.platform.common.base.BaseResult;
 import pers.platform.common.utils.common.StringUtil;
@@ -26,9 +28,10 @@ import java.util.Objects;
 @Aspect
 public class ApiInterceptor {
 
-
-
     private static final Logger logger = LoggerFactory.getLogger(RpcLogAspect.class);
+
+    @Autowired
+    private RecordApiReuestCountService recordApiReuestCountService;
 
     @Pointcut("execution(* *..service..*.*(..))")
     public void service(){
@@ -41,7 +44,7 @@ public class ApiInterceptor {
         boolean providerSide = RpcContext.getContext().isProviderSide();
         if (providerSide){
             //记录调用api次数
-
+            recordApiReuestCountService.sendIncrementApiCountMessage("1");
             Object[] objects =joinPoint.getArgs();
             if (objects.length>2&&providerSide){
                 //TODO  异常信息统一
