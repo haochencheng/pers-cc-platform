@@ -10,8 +10,9 @@ import pers.platform.core.constant.CoreConstant;
 /**
  * Created by cc on  2018/1/20
  */
-@Service
+
 @Slf4j
+@Service
 public class RecordApiReuestCountServiceImpl implements RecordApiReuestCountService {
 
     //kafka

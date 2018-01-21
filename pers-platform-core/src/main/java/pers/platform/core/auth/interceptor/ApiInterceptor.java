@@ -61,7 +61,7 @@ public class ApiInterceptor {
                 }
                 for (Object object:objects){
                     //过滤非法字符
-                    if (!Objects.isNull(object)&&StringUtil.filterSpecialChar(object.toString())){
+                    if (!Objects.isNull(object)&&!StringUtil.filterSpecialChar(object.toString())){
                         throw  ApiException.BAD_ARGUMENTS;
                     }
                 }
