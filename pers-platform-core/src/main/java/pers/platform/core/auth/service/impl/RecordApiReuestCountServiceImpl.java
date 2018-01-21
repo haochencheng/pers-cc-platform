@@ -1,5 +1,6 @@
 package pers.platform.core.auth.service.impl;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
@@ -10,6 +11,7 @@ import pers.platform.core.constant.CoreConstant;
  * Created by cc on  2018/1/20
  */
 @Service
+@Slf4j
 public class RecordApiReuestCountServiceImpl implements RecordApiReuestCountService {
 
     //kafka

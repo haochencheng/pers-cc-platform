@@ -15,12 +15,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import pers.platform.core.auth.exception.ApiException;
 import pers.platform.core.auth.service.RecordApiReuestCountService;
 import pers.platform.core.log.RpcLogAspect;
 import pers.platform.common.base.BaseResult;
 import pers.platform.common.utils.common.StringUtil;
 
+import java.lang.annotation.Annotation;
 import java.util.Objects;
 
 @Component
@@ -40,9 +42,10 @@ public class ApiInterceptor {
 
     @Before("service()")
     public void doInterceptorBeforeService(JoinPoint joinPoint){
-        // 是否是提供方
+        // 是否是提供方side
         boolean providerSide = RpcContext.getContext().isProviderSide();
-        if (providerSide){
+        Annotation c=joinPoint.getSignature().getDeclaringType().getAnnotation(Service.class);
+        if (providerSide&&c==null){
             //记录调用api次数
             recordApiReuestCountService.sendIncrementApiCountMessage("1");
             Object[] objects =joinPoint.getArgs();
