@@ -22,6 +22,7 @@ public class RecordApiReuestCountQueueListenerImpl implements RecordApiReuestCou
     @KafkaListener(topics = CoreConstant.QUEUE_CORE_TOPIC)
     public void listener(ConsumerRecord<?, ?> consumerRecord) {
         if (CoreConstant.QUEUE_CORE_KEY_INCREMENT_API_COUNT.equals(consumerRecord.key())){
+            logger.info((String) consumerRecord.value());
             int incrementFlag=apiAccessCounterRepo.incrementApiCount((String) consumerRecord.value());
             if (incrementFlag==0){
                 //更新失败处理

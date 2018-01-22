@@ -43,6 +43,7 @@ public class SendEmailServiceImpl implements SendEmailService {
                 message.setFrom(StringUtil.isEmpty(emailEntity.getFrom())?from:emailEntity.getFrom());
                 message.setTo(emailEntity.getTo());
                 message.setSubject(emailEntity.getSubject());
+
                 message.setText(emailEntity.getText());
                 try {
                     sender.send(message);
