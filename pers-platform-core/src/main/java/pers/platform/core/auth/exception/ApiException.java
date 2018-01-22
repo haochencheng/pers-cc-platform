@@ -20,7 +20,7 @@ public class ApiException extends BusinessException{
 
     public static final ApiException MISSING_ARGUMENTS = new ApiException(1004, "缺少某个必选参数！");
 
-    public static final ApiException BAD_ARGUMENTS = new ApiException(1005, "某个参数解析出错（比如必须是数字，但是输入的是非数字字符串; 或者长度过长，etc.）");
+    public static final ApiException BAD_ARGUMENTS = new ApiException(1005, "某个参数解析出错（比如必须是数字，但是输入的是非数字字符串; 或者长度过长）");
 
     public static final ApiException API_NOT_FOUND = new ApiException(1006, "所调用的API不存在！");
 

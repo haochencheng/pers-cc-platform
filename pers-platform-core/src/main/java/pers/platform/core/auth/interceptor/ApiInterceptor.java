@@ -59,16 +59,16 @@ public class ApiInterceptor {
                 if ("".equals(apikey.toString())||"".equals(apiSecurity.toString())){
                     throw  ApiException.BAD_ARGUMENTS;
                 }
-                for (Object object:objects){
-                    //过滤非法字符
-                    if (!Objects.isNull(object)&&!StringUtil.filterSpecialChar(object.toString())){
-                        throw  ApiException.BAD_ARGUMENTS;
-                    }
-                }
-                //shiro权限验证
-                Subject subject= SecurityUtils.getSubject();
-                UsernamePasswordToken userNametoken=new UsernamePasswordToken(apikey.toString(),apiSecurity.toString(),false);
-                subject.login(userNametoken);
+//                for (Object object:objects){
+//                    //过滤非法字符
+//                    if (Objects.isNull(object)||StringUtil.filterSpecialChar(object.toString())){
+//                        throw  ApiException.BAD_ARGUMENTS;
+//                    }
+//                }
+//                //shiro权限验证
+//                Subject subject= SecurityUtils.getSubject();
+//                UsernamePasswordToken userNametoken=new UsernamePasswordToken(apikey.toString(),apiSecurity.toString(),false);
+//                subject.login(userNametoken);
             }
         }
 

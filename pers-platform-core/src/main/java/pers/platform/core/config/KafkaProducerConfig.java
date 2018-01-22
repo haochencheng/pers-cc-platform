@@ -15,7 +15,7 @@ import java.util.Map;
 
 @Configuration
 @EnableKafka
-public class KafkaConfig {
+public class KafkaProducerConfig {
 
     @Value("${kafka.producer.servers}")
     private String servers;
