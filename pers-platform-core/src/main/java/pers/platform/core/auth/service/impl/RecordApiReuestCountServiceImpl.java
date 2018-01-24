@@ -3,8 +3,11 @@ package pers.platform.core.auth.service.impl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.support.SendResult;
 import org.springframework.stereotype.Service;
+import org.springframework.util.concurrent.ListenableFuture;
 import pers.platform.core.auth.service.RecordApiReuestCountService;
+import pers.platform.core.auth.service.SendMessageToQueueService;
 import pers.platform.core.constant.CoreConstant;
 
 /**
@@ -17,10 +20,11 @@ public class RecordApiReuestCountServiceImpl implements RecordApiReuestCountServ
 
     //kafka
     @Autowired
-    private KafkaTemplate<String,String> kafkaTemplate;
+    private SendMessageToQueueService sendMessageToQueueService;
 
     @Override
     public void sendIncrementApiCountMessage(String ApiUserAuthId) {
-        kafkaTemplate.send(CoreConstant.QUEUE_CORE_TOPIC,CoreConstant.QUEUE_CORE_KEY_INCREMENT_API_COUNT,ApiUserAuthId);
+        sendMessageToQueueService.send(CoreConstant.QUEUE_CORE_TOPIC,CoreConstant.QUEUE_CORE_KEY_INCREMENT_API_COUNT,ApiUserAuthId);
+
     }
 }

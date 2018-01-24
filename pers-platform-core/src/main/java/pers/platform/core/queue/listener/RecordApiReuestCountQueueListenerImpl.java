@@ -1,4 +1,4 @@
-package pers.platform.core.queue.impl;
+package pers.platform.core.queue.listener.impl;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.slf4j.Logger;
@@ -8,7 +8,7 @@ import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 import pers.platform.core.auth.repository.ApiAccessCounterRepo;
 import pers.platform.core.constant.CoreConstant;
-import pers.platform.core.queue.RecordApiReuestCountQueueListener;
+import pers.platform.core.queue.listener.RecordApiReuestCountQueueListener;
 
 @Service
 public class RecordApiReuestCountQueueListenerImpl implements RecordApiReuestCountQueueListener {

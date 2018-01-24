@@ -6,8 +6,11 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
+import pers.platform.core.auth.service.RecordApiReuestCountService;
+import pers.platform.core.auth.service.SendMessageToQueueService;
 
 /**
  * rpclog接入
@@ -19,6 +22,9 @@ import org.springframework.stereotype.Component;
 public class RpcLogAspect {
 
     private static final Logger logger = LoggerFactory.getLogger(RpcLogAspect.class);
+
+    @Autowired
+    private SendMessageToQueueService sendMessageToQueueService;
 
     // 开始时间
     private long startTime = 0L;
@@ -51,6 +57,9 @@ public class RpcLogAspect {
             // 服务url
             String rpcUrl = RpcContext.getContext().getUrl().getParameter("application");
             logger.info("consumerSide={}, ip={}, url={}", consumerSide, ip, rpcUrl);
+            //记录日志, TODO rpc日志对象
+            Object object=new Object();
+            sendMessageToQueueService.send("core","log",object);
         }
         return result;
     }

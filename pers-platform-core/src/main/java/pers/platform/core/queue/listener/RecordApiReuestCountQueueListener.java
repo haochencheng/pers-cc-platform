@@ -1,4 +1,4 @@
-package pers.platform.core.queue;
+package pers.platform.core.queue.listener;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 
